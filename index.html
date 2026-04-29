@@ -486,278 +486,490 @@
 
         @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     
-
 /* =========================================================
-   05 USER - MATCHDAY NEON REFINADO
-   Claro = limpo esportivo | Escuro = neon moderado
+   TICKET ESPORTIVO USER - VISUAL OVERRIDE
    Mantém toda a lógica original. Só altera aparência.
    ========================================================= */
 
 :root {
-    --bg: #f5f8fc;
-    --card-bg: #ffffff;
-    --card-border: #d8e4f0;
-    --text: #0f172a;
-    --text-secondary: #64748b;
-    --green: #059669;
-    --red: #e11d48;
-    --primary: #0891b2;
-    --warning: #d97706;
-    --pause: #2563eb;
-    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
-    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
-    --radius: 20px;
-    --radius-sm: 14px;
+    --bg: #07111f;
+    --card-bg: rgba(15, 23, 42, 0.92);
+    --card-border: rgba(148, 163, 184, 0.22);
+    --text: #f8fafc;
+    --text-secondary: #94a3b8;
+    --green: #22c55e;
+    --red: #ef4444;
+    --primary: #38bdf8;
+    --warning: #f59e0b;
+    --pause: #60a5fa;
+    --shadow: 0 12px 30px rgba(0,0,0,0.24);
+    --shadow-lg: 0 18px 45px rgba(0,0,0,0.34);
+    --radius: 22px;
+    --radius-sm: 16px;
 }
 
 body {
     background:
-        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
-        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 32%),
+        linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%) !important;
     color: var(--text) !important;
 }
 
 body.dark {
-    --bg: #050816;
-    --card-bg: rgba(11, 16, 36, .94);
-    --card-border: rgba(34, 211, 238, .20);
-    --text: #f8fafc;
-    --text-secondary: #9aa8bd;
-    --green: #39ff88;
-    --red: #ff3b6b;
-    --primary: #22d3ee;
-    --warning: #facc15;
-    --pause: #818cf8;
-    --shadow: 0 14px 34px rgba(0,0,0,.32);
-    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
     background:
-        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
-        #050816 !important;
-    color: var(--text) !important;
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 32%),
+        linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%) !important;
 }
 
-.container { max-width: 660px; }
+.container {
+    max-width: 680px;
+}
+
+.app-header {
+    padding: 10px 0 18px;
+}
 
 .app-logo {
-    left: 14px;
-    background: rgba(8,145,178,.08) !important;
-    border: 1px solid rgba(8,145,178,.22) !important;
-    box-shadow: none !important;
-    border-radius: 16px !important;
+    left: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.25);
 }
-body.dark .app-logo {
-    background: rgba(34,211,238,.08) !important;
-    border-color: rgba(34,211,238,.30) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+
+.app-logo .material-icons-outlined {
+    color: var(--primary) !important;
 }
-.app-logo .material-icons-outlined { color: var(--primary) !important; }
 
 .app-title {
-    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #7dd3fc 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
 }
-body.dark .app-title {
-    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+
+.app-subtitle {
+    color: var(--text-secondary);
 }
-.app-subtitle { color: var(--text-secondary) !important; }
+
+/* Quadras como tickets esportivos */
+.quadras-wrapper {
+    gap: 10px;
+    margin-bottom: 16px;
+}
 
 .quadra-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,41,59,0.92)) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    border-left: 0 !important;
     border-radius: 20px !important;
-    padding: 15px !important;
+    padding: 14px 14px 14px 16px !important;
     box-shadow: var(--shadow) !important;
+    display: grid !important;
+    grid-template-columns: 44px minmax(0,1fr) auto !important;
+    align-items: center !important;
+    gap: 12px !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
-body.dark .quadra-card {
-    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
-    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
-}
+
 .quadra-card::before {
+    width: 7px !important;
     background: var(--green) !important;
-    width: 5px !important;
-    box-shadow: none !important;
+    border-radius: 0 12px 12px 0 !important;
 }
-body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
-.quadra-card.ocupada::before { background: var(--red) !important; }
-body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+
+.quadra-card.ocupada::before {
+    background: var(--red) !important;
+}
+
+.quadra-card::after {
+    content: "";
+    position: absolute;
+    right: -24px;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: #07111f;
+    border: 1px solid rgba(148,163,184,0.18);
+}
 
 .quadra-status {
-    background: rgba(5,150,105,.10) !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 16px !important;
+    background: rgba(34,197,94,0.13) !important;
     color: var(--green) !important;
-    border: 1px solid rgba(5,150,105,.18) !important;
-    border-radius: 14px !important;
+    z-index: 1;
 }
+
 .quadra-card.ocupada .quadra-status {
-    background: rgba(225,29,72,.10) !important;
+    background: rgba(239,68,68,0.15) !important;
     color: var(--red) !important;
-    border-color: rgba(225,29,72,.18) !important;
-}
-body.dark .quadra-status {
-    background: rgba(57,255,136,.10) !important;
-    border-color: rgba(57,255,136,.20) !important;
-}
-body.dark .quadra-card.ocupada .quadra-status {
-    background: rgba(255,59,107,.10) !important;
-    border-color: rgba(255,59,107,.22) !important;
 }
 
-.quadra-numero { color: var(--text-secondary) !important; }
-.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
-.quadra-tempo { color: var(--text-secondary) !important; }
+.quadra-numero {
+    color: var(--text-secondary) !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 1.4px !important;
+}
+
+.quadra-jogadores {
+    color: var(--text) !important;
+    font-size: 0.96rem !important;
+    font-weight: 750 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quadra-jogadores.livre {
+    color: #cbd5e1 !important;
+}
+
+.quadra-tempo {
+    color: var(--text-secondary) !important;
+    font-size: 0.72rem !important;
+}
+
 .quadra-timer {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
-    border-radius: 14px !important;
-    padding: 8px 10px !important;
-    color: #0e7490 !important;
+    color: #e0f2fe !important;
+    background: rgba(2,6,23,0.52);
+    border: 1px solid rgba(125,211,252,0.18);
+    border-radius: 16px;
+    padding: 8px 10px;
+    min-width: 82px !important;
     text-align: center !important;
-    box-shadow: none !important;
-}
-body.dark .quadra-timer {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.24) !important;
-    color: #67e8f9 !important;
-    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
-}
-.quadra-timer.warning {
-    color: var(--red) !important;
-    border-color: rgba(225,29,72,.28) !important;
-    background: rgba(225,29,72,.08) !important;
+    font-size: 1.45rem !important;
+    z-index: 1;
 }
 
-.fila-section,
-.form-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 20px !important;
+.quadra-timer.warning {
+    color: #fecaca !important;
+    border-color: rgba(239,68,68,0.35);
+    background: rgba(239,68,68,0.12);
+}
+
+/* Fila acompanhando ticket */
+.fila-section {
+    background: rgba(15,23,42,0.88) !important;
+    border: 1px solid rgba(148,163,184,0.22) !important;
+    border-radius: 22px !important;
+    padding: 16px !important;
     box-shadow: var(--shadow) !important;
 }
-body.dark .fila-section,
-body.dark .form-card {
-    background: rgba(11,16,36,.92) !important;
-}
-.fila-title,
-.form-title { color: var(--text) !important; }
-.fila-count {
-    background: #e0f7fe !important;
-    color: #0e7490 !important;
-    border: 1px solid #bae6fd !important;
-}
-body.dark .fila-count {
-    background: rgba(34,211,238,.12) !important;
-    color: #67e8f9 !important;
-    border-color: rgba(34,211,238,.26) !important;
-}
-.fila-item {
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-}
-body.dark .fila-item {
-    background: rgba(2,6,23,.46) !important;
-    border-color: rgba(148,163,184,.14) !important;
-}
-.fila-item.minha-inscricao {
-    background: rgba(245,158,11,.10) !important;
-    border-color: rgba(245,158,11,.30) !important;
-}
-.fila-posicao { color: var(--primary) !important; }
-.fila-nomes { color: var(--text) !important; }
-.fila-detalhes { color: var(--text-secondary) !important; }
-.fila-previsao {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
-    border-radius: 12px !important;
-    padding: 7px 9px !important;
-}
-body.dark .fila-previsao {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.18) !important;
-}
-.fila-previsao .quadra-tag { color: var(--primary) !important; }
-.fila-previsao .hora { color: var(--text) !important; }
 
-input,
-select {
-    background: #f8fafc !important;
-    border: 1px solid #dbe5f2 !important;
-    border-radius: 14px !important;
-    color: #0f172a !important;
-}
-input::placeholder { color: #94a3b8 !important; }
-body.dark input,
-body.dark select {
-    background: rgba(2,6,23,.55) !important;
-    border-color: rgba(34,211,238,.18) !important;
-    color: #fff !important;
-}
-body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
-input:focus,
-select:focus {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
-}
-body.dark input:focus,
-body.dark select:focus {
-    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+.fila-header {
+    margin-bottom: 12px !important;
 }
 
-.btn,
-.btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
-    border: 1px solid rgba(8,145,178,.20) !important;
-    border-radius: 14px !important;
-    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
-    color: #ffffff !important;
-}
-body.dark .btn,
-body.dark .btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
-    border-color: rgba(34,211,238,.22) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
-}
-.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
-.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
-
-.popup-card {
-    background: var(--card-bg) !important;
+.fila-title {
     color: var(--text) !important;
-    border: 1px solid var(--card-border) !important;
+    font-size: 0.82rem !important;
 }
-.regulamento-texto { color: var(--text) !important; }
-.regulamento-texto h3 { color: var(--primary) !important; }
-.checkbox-wrapper label { color: var(--text) !important; }
 
-.theme-fab {
-    background: var(--card-bg) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--card-border) !important;
+.fila-count {
+    background: rgba(56,189,248,0.16) !important;
+    color: #7dd3fc !important;
+    border: 1px solid rgba(56,189,248,0.28);
+}
+
+.fila-item {
+    background:
+        linear-gradient(135deg, rgba(30,41,59,0.86), rgba(15,23,42,0.94)) !important;
+    border: 1px solid rgba(148,163,184,0.18) !important;
+    border-left: 5px solid rgba(56,189,248,0.75) !important;
+    border-radius: 18px !important;
+    padding: 12px !important;
+    gap: 10px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.fila-item.minha-inscricao {
+    border-left-color: var(--warning) !important;
+    background:
+        linear-gradient(135deg, rgba(245,158,11,0.16), rgba(15,23,42,0.94)) !important;
+    border-color: rgba(245,158,11,0.28) !important;
+}
+
+.fila-posicao {
+    color: #7dd3fc !important;
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.22);
+    border-radius: 12px;
+    min-width: 42px !important;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem !important;
+}
+
+.fila-nomes {
+    color: var(--text) !important;
+    font-weight: 750 !important;
+}
+
+.fila-detalhes {
+    color: var(--text-secondary) !important;
+}
+
+.fila-previsao {
+    background: rgba(2,6,23,0.45);
+    border: 1px solid rgba(148,163,184,0.16);
+    border-radius: 14px;
+    padding: 7px 9px;
+}
+
+.fila-previsao .quadra-tag {
+    color: #7dd3fc !important;
+}
+
+.fila-previsao .hora {
+    color: var(--text) !important;
+}
+
+.btn-editar-fila,
+.btn-remover-fila {
+    border-radius: 12px !important;
+    padding: 8px 10px !important;
+}
+
+/* Formulário no mesmo sistema visual */
+.form-card {
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.92), rgba(30,41,59,0.88)) !important;
+    border: 1px solid rgba(148,163,184,0.22) !important;
+    border-radius: 24px !important;
+    padding: 18px !important;
     box-shadow: var(--shadow-lg) !important;
 }
 
+.form-title {
+    color: var(--text) !important;
+    font-size: 0.84rem !important;
+}
+
+.input-group {
+    gap: 10px !important;
+}
+
+input,
+select {
+    background: rgba(2,6,23,0.42) !important;
+    color: var(--text) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    border-radius: 16px !important;
+    padding: 13px 14px !important;
+}
+
+input::placeholder,
+select::placeholder {
+    color: rgba(203,213,225,0.68) !important;
+}
+
+input:focus,
+select:focus {
+    border-color: rgba(56,189,248,0.75) !important;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+
+.btn {
+    background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(125,211,252,0.26) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 22px rgba(2,132,199,0.24);
+}
+
+.btn-inscrever {
+    margin-top: 14px !important;
+}
+
+.btn-editar {
+    background: linear-gradient(135deg, #d97706, #f59e0b) !important;
+}
+
+.btn-sair-fila {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+}
+
+/* Popup regulamento preservado e harmonizado */
+.popup-overlay {
+    background: rgba(2,6,23,.72) !important;
+}
+
+.popup-card {
+    background: rgba(15,23,42,0.98) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    color: var(--text) !important;
+}
+
+.popup-header,
+.popup-footer {
+    border-color: rgba(148,163,184,0.18) !important;
+}
+
+.regulamento-texto {
+    color: #e5e7eb !important;
+}
+
+.regulamento-texto h3 {
+    color: #7dd3fc !important;
+}
+
+.checkbox-wrapper label {
+    color: var(--text) !important;
+}
+
+.btn-aceitar {
+    background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+}
+
+/* Floating theme */
+.theme-fab {
+    background: rgba(15,23,42,0.92) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    color: #7dd3fc !important;
+}
+
+/* Mobile refinements */
 @media (max-width: 430px) {
+    body { padding: 12px !important; }
+
+    .quadra-card {
+        grid-template-columns: 38px minmax(0,1fr) auto !important;
+        gap: 9px !important;
+        padding: 12px 12px 12px 14px !important;
+    }
+
+    .quadra-status {
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    .quadra-timer {
+        font-size: 1.18rem !important;
+        min-width: 68px !important;
+        padding: 7px 8px !important;
+    }
+
     .fila-item {
         align-items: flex-start !important;
-        flex-wrap: wrap !important;
+        flex-wrap: wrap;
     }
+
     .fila-previsao {
         margin-left: 0 !important;
     }
-    .quadra-card {
-        gap: 10px !important;
-        padding: 13px !important;
+
+    .input-group {
+        grid-template-columns: 1fr 1fr !important;
     }
-    .quadra-timer {
-        font-size: 1.15rem !important;
-        min-width: 68px !important;
-    }
+}
+
+
+
+/* ===== melhorias user: shimmer + status da inscrição ===== */
+.meu-status-card {
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.30);
+    border-radius: 18px;
+    padding: 13px 14px;
+    margin: -4px 0 14px;
+    text-align: center;
+    font-weight: 850;
+    color: var(--text);
+    box-shadow: var(--shadow);
+}
+.meu-status-card .status-main {
+    display: block;
+    font-size: .92rem;
+    line-height: 1.25;
+}
+.meu-status-card .status-sub {
+    display: block;
+    margin-top: 3px;
+    font-size: .72rem;
+    font-weight: 650;
+    color: var(--text-secondary);
+}
+.meu-status-card.status-agora {
+    background: rgba(34,197,94,0.16);
+    border-color: rgba(34,197,94,0.42);
+}
+.meu-status-card.status-proximo {
+    background: rgba(245,158,11,0.16);
+    border-color: rgba(245,158,11,0.42);
+}
+.meu-status-card.status-fila {
+    background: rgba(56,189,248,0.12);
+    border-color: rgba(56,189,248,0.30);
+}
+.fila-item.fila-top1 {
+    border-left-color: #22c55e !important;
+    box-shadow: 0 10px 24px rgba(34,197,94,.10) !important;
+}
+.fila-item.fila-top2 {
+    border-left-color: #f59e0b !important;
+    box-shadow: 0 10px 24px rgba(245,158,11,.10) !important;
+}
+.fila-item.minha-inscricao {
+    border-left-color: var(--warning) !important;
+    background: linear-gradient(135deg, rgba(245,158,11,0.24), rgba(15,23,42,0.94)) !important;
+    border-color: rgba(245,158,11,0.48) !important;
+}
+.fila-item.minha-inscricao.fila-top1 {
+    border-left-color: #22c55e !important;
+}
+.fila-item.minha-inscricao.fila-top2 {
+    border-left-color: #f59e0b !important;
+}
+.voce-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(245,158,11,.16);
+    border: 1px solid rgba(245,158,11,.28);
+    color: #fbbf24;
+    font-size: .62rem;
+    font-weight: 900;
+    vertical-align: middle;
+}
+.shimmer {
+    position: relative;
+    overflow: hidden;
+    background: rgba(148,163,184,0.16) !important;
+    border-color: rgba(148,163,184,0.18) !important;
+}
+.shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+    animation: shimmerMoveUser 1.15s infinite;
+}
+@keyframes shimmerMoveUser {
+    100% { left: 150%; }
+}
+.skeleton-quadra {
+    min-height: 82px;
+}
+.skeleton-fila {
+    min-height: 62px;
+}
+body.dark .shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
 }
 
 </style>
@@ -809,6 +1021,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         <div class="app-subtitle">Quadras de Tênis</div>
     </header>
 
+    <div id="meuStatus" class="meu-status-card" style="display:none;"></div>
+
     <div class="quadras-wrapper" id="q-render"></div>
 
     <div class="fila-section">
@@ -838,7 +1052,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     </div>
 </div>
 
-<footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
+<footer class="app-footer">Desenvolvido por <strong>Vinícius C. S.</strong></footer>
 <button class="theme-fab" id="themeToggle" onclick="toggleTema()"><span class="material-icons-outlined">dark_mode</span></button>
 
 <script>
@@ -963,12 +1177,15 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let quadras = [];
     let meuUid = null;
     let filaKeys = [];
+    let carregandoQuadras = true;
+    let carregandoFila = true;
     
     // Autenticação anônima
     signInAnonymously(auth)
         .then((userCredential) => {
             meuUid = userCredential.user.uid;
             console.log("✅ Usuário autenticado anonimamente! UID:", meuUid);
+            renderFila();
         })
         .catch((error) => console.error("❌ Erro autenticação:", error));
     
@@ -997,6 +1214,16 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function renderQuadras() {
         const c = document.getElementById('q-render');
         if (!c) return;
+
+        if (carregandoQuadras) {
+            c.innerHTML = `
+                <div class="quadra-card shimmer skeleton-quadra"></div>
+                <div class="quadra-card shimmer skeleton-quadra"></div>
+                <div class="quadra-card shimmer skeleton-quadra"></div>
+            `;
+            return;
+        }
+
         c.innerHTML = quadras.map(q => {
             return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
                         <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
@@ -1010,11 +1237,54 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         }).join('');
     }
     
+    function atualizarMeuStatus() {
+        const status = document.getElementById('meuStatus');
+        if (!status) return;
+
+        if (carregandoFila || carregandoQuadras || !meuUid) {
+            status.style.display = 'none';
+            return;
+        }
+
+        const pos = fila.findIndex(j => j.deviceId === meuUid);
+        if (pos === -1) {
+            status.style.display = 'none';
+            return;
+        }
+
+        status.className = 'meu-status-card';
+        status.style.display = 'block';
+
+        if (pos === 0) {
+            status.classList.add('status-agora');
+            status.innerHTML = '<span class="status-main">🎾 Sua vez! Dirija-se à quadra</span><span class="status-sub">Você está em #1 na fila.</span>';
+        } else if (pos === 1) {
+            status.classList.add('status-proximo');
+            status.innerHTML = '<span class="status-main">⏳ Prepare-se! Você é o próximo</span><span class="status-sub">Você está em #2 na fila.</span>';
+        } else {
+            status.classList.add('status-fila');
+            status.innerHTML = `<span class="status-main">📍 Você está na posição #${pos + 1}</span><span class="status-sub">Acompanhe a fila em tempo real.</span>`;
+        }
+    }
+
     function renderFila() {
-        document.getElementById('fila-count').innerText = fila.length;
+        const countEl = document.getElementById('fila-count');
+        if (countEl) countEl.innerText = (carregandoFila || carregandoQuadras) ? '...' : fila.length;
         const corpo = document.getElementById('corpoFila');
         if (!corpo) return;
+
+        if (carregandoFila || carregandoQuadras) {
+            atualizarMeuStatus();
+            corpo.innerHTML = `
+                <div class="fila-item shimmer skeleton-fila"></div>
+                <div class="fila-item shimmer skeleton-fila"></div>
+            `;
+            return;
+        }
+
         corpo.innerHTML = "";
+        atualizarMeuStatus();
+
         if (fila.length === 0) {
             corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>";
             return;
@@ -1025,16 +1295,17 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         
         fila.forEach((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
+            const destaquePosicao = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
             
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
-            let qE = ts[0];
-            let dp = new Date(agora + (qE.tempoSeg * 1000));
+            let qE = ts[0] || { id: '-', tempoSeg: 0 };
+            let dp = new Date(agora + ((qE.tempoSeg || 0) * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
             
-            corpo.innerHTML += `<div class="fila-item ${ehMinha ? 'minha-inscricao' : ''}">
+            corpo.innerHTML += `<div class="fila-item ${destaquePosicao} ${ehMinha ? 'minha-inscricao' : ''}">
                                     <span class="fila-posicao">#${idx+1}</span>
                                     <div class="fila-info">
-                                        <div class="fila-nomes">${j.nomes || 'N/A'} ${ehMinha ? '<span style="font-size:0.65rem;color:#f59e0b;font-weight:600;">(Você)</span>' : ''}</div>
+                                        <div class="fila-nomes">${j.nomes || 'N/A'} ${ehMinha ? '<span class="voce-badge">Você</span>' : ''}</div>
                                         <div class="fila-detalhes">
                                             <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
                                             <span>🎫 ${j.detalhes || 'Sem Q/L'}</span>
@@ -1186,6 +1457,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             fila = entries.map(([key, value]) => ({ ...value, id: value.id }));
             filaKeys = entries.map(([key]) => key);
         }
+        carregandoFila = false;
         renderFila();
     });
     
@@ -1199,6 +1471,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         }
         const d = snapshot.val();
         if (d) quadras = Array.isArray(d) ? d : Object.values(d).filter(i => i !== null);
+        carregandoQuadras = false;
         renderQuadras();
         renderFila();
     });
