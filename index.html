@@ -843,6 +843,48 @@ body.dark .fila-item.minha-inscricao {
     font-weight: 900;
 }
 
+
+/* ===== ajuste: status e inscrição do usuário ===== */
+.meu-status-card.status-proximo {
+    background: rgba(8,145,178,.10) !important;
+    border-color: rgba(8,145,178,.28) !important;
+}
+body.dark .meu-status-card.status-proximo {
+    background: rgba(34,211,238,.10) !important;
+    border-color: rgba(34,211,238,.28) !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-basis: 100%;
+    margin-left: 0 !important;
+    padding-top: 6px;
+    border-top: 1px solid rgba(148,163,184,.18);
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    flex: 1;
+    margin-left: 0 !important;
+    padding: 8px 0 !important;
+    border-radius: 12px !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    flex: 1 1 135px;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.2;
+}
+
 </style>
 </head>
 <body>
@@ -1122,13 +1164,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         status.style.display = 'block';
 
         if (minhaPosicao === 0) {
-            status.classList.add('status-agora');
-            status.innerHTML = `🎾 Sua vez!<span class="status-sub">Dirija-se à quadra indicada assim que for chamado.</span>`;
-        } else if (minhaPosicao === 1) {
             status.classList.add('status-proximo');
-            status.innerHTML = `⏳ Prepare-se: você é o próximo<span class="status-sub">Fique atento à fila e à quadra provável.</span>`;
+            status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde ser chamado quando uma quadra liberar.</span>`;
         } else {
-            status.innerHTML = `📍 Você está na posição #${minhaPosicao + 1}<span class="status-sub">Acompanhe a previsão da fila em tempo real.</span>`;
+            status.style.display = 'none';
+            status.innerHTML = '';
         }
     }
 
@@ -1184,7 +1224,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                                         <div class="hora">${formatarHora(dp)}</div>
                                     </div>
                                     ${ehMinha ? `
-                                    <div>
+                                    <div class="fila-acoes-minha">
                                         <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
                                         <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
                                     </div>
