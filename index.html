@@ -1072,6 +1072,53 @@ body.dark input.error {
     }
 }
 
+
+/* ===== ajuste final: nomes e Q/L completos na fila ===== */
+.fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.linha-dupla {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    line-height: 1.15 !important;
+}
+
+.nome-jogador {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.separador {
+    white-space: nowrap !important;
+    margin: 0 4px !important;
+    opacity: .7 !important;
+}
+
+.fila-item .fila-detalhes,
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 5px 9px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+}
+
+.fila-item .fila-detalhes span,
+.fila-item.minha-inscricao .fila-detalhes span {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+
 </style>
 </head>
 <body>
@@ -1291,6 +1338,35 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
     function formatarHora(d) { return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
     function formatarChegada(d) { return new Date(d).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
+
+    function formatarNomesFila(jogadores = [], fallback = '') {
+        const nomes = (jogadores || []).filter(Boolean);
+        const lista = nomes.length ? nomes : (fallback ? fallback.split('•').map(n => n.trim()).filter(Boolean) : []);
+        const linha = (arr) => arr.filter(Boolean).map((nome, i, todos) => `
+            <span class="nome-jogador">${nome}</span>${i < todos.length - 1 ? '<span class="separador"> • </span>' : ''}
+        `).join('');
+
+        if (lista.length <= 2) return linha(lista);
+
+        return `
+            <div class="linha-dupla">${linha([lista[0], lista[1]])}</div>
+            <div class="linha-dupla">${linha([lista[2], lista[3]])}</div>
+        `;
+    }
+
+    function formatarQLFila(jogo) {
+        const qls = (jogo.qls || []).filter(Boolean);
+        if (qls.length) return qls.join(' • ');
+
+        const detalhes = (jogo.detalhes || '').trim();
+        if (!detalhes) return 'Sem Q/L';
+
+        return detalhes
+            .split(',')
+            .map(q => q.trim())
+            .filter(Boolean)
+            .join(' • ') || 'Sem Q/L';
+    }
     
     function gerarChaveJogo(jogadores, qls) {
         const pares = [];
@@ -1391,6 +1467,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         fila.forEach((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
             const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
+            const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
+            const qlHTML = formatarQLFila(j);
             
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
@@ -1400,10 +1478,10 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
                                     <span class="fila-posicao">#${idx+1}</span>
                                     <div class="fila-info">
-                                        <div class="fila-nomes">${j.nomes || 'N/A'}</div>
+                                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
                                         <div class="fila-detalhes">
                                             <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-                                            <span>🎫 ${j.detalhes || 'Sem Q/L'}</span>
+                                            <span>🎫 ${qlHTML}</span>
                                         </div>
                                     </div>
                                     <div class="fila-lateral">
