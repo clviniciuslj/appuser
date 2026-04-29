@@ -885,6 +885,76 @@ body.dark .meu-status-card.status-proximo {
     line-height: 1.2;
 }
 
+
+/* ===== ajuste final fila user: ações abaixo da previsão ===== */
+.fila-lateral {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.fila-lateral .fila-previsao {
+    margin-left: 0 !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    margin-left: 0 !important;
+    width: 36px;
+    height: 30px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    gap: 8px !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        display: grid !important;
+        grid-template-columns: 52px minmax(0, 1fr) auto;
+        align-items: center !important;
+        column-gap: 10px !important;
+        row-gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-posicao {
+        min-width: 42px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        align-self: center;
+        margin-left: 0;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.68rem !important;
+        line-height: 1.2;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1219,16 +1289,18 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                                             <span>🎫 ${j.detalhes || 'Sem Q/L'}</span>
                                         </div>
                                     </div>
-                                    <div class="fila-previsao">
-                                        <div class="quadra-tag">Q${qE.id}</div>
-                                        <div class="hora">${formatarHora(dp)}</div>
+                                    <div class="fila-lateral">
+                                        <div class="fila-previsao">
+                                            <div class="quadra-tag">Q${qE.id}</div>
+                                            <div class="hora">${formatarHora(dp)}</div>
+                                        </div>
+                                        ${ehMinha ? `
+                                        <div class="fila-acoes-minha">
+                                            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
+                                            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
+                                        </div>
+                                        ` : ''}
                                     </div>
-                                    ${ehMinha ? `
-                                    <div class="fila-acoes-minha">
-                                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
-                                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
-                                    </div>
-                                    ` : ''}
                                 </div>`;
         });
     }
