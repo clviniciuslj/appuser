@@ -955,6 +955,123 @@ body.dark .meu-status-card.status-proximo {
     }
 }
 
+
+/* ===== ajuste final: minha inscrição compacta + erro Q/L no dark ===== */
+.voce-badge { display: none !important; }
+
+.fila-item.minha-inscricao {
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    row-gap: 4px !important;
+    padding: 10px 12px !important;
+    min-height: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0 !important;
+    flex: initial !important;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.12 !important;
+    margin-bottom: 2px !important;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.minha-inscricao .fila-lateral {
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao {
+    flex-shrink: 0 !important;
+    padding: 6px 8px !important;
+    min-width: 64px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .quadra-tag {
+    font-size: 0.68rem !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .hora {
+    font-size: 0.88rem !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    flex-basis: auto !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+    width: 32px !important;
+    height: 30px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 11px !important;
+    font-size: 0.72rem !important;
+}
+
+input.error,
+body.dark input.error {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,.18) !important;
+}
+
+body.dark input.error {
+    border-color: #ff3b6b !important;
+    box-shadow: 0 0 0 3px rgba(255,59,107,.22) !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        grid-template-columns: 42px minmax(0, 1fr) auto !important;
+        column-gap: 8px !important;
+        padding: 9px 10px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.66rem !important;
+        gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        gap: 5px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1283,7 +1400,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
                                     <span class="fila-posicao">#${idx+1}</span>
                                     <div class="fila-info">
-                                        <div class="fila-nomes">${j.nomes || 'N/A'} ${ehMinha ? '<span class="voce-badge">Você</span>' : ''}</div>
+                                        <div class="fila-nomes">${j.nomes || 'N/A'}</div>
                                         <div class="fila-detalhes">
                                             <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
                                             <span>🎫 ${j.detalhes || 'Sem Q/L'}</span>
