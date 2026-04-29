@@ -488,301 +488,283 @@
     
 
 /* =========================================================
-   04 USER - TENNIS CLUB PREMIUM
+   05 USER - MATCHDAY NEON REFINADO
+   Claro = limpo esportivo | Escuro = neon moderado
+   Mantém toda a lógica original. Só altera aparência.
    ========================================================= */
-:root{--bg:#10251c;--card-bg:#f7f3e8;--card-border:rgba(120,113,82,.25);--text:#1f2a20;--text-secondary:#6f755e;--green:#2f855a;--red:#b91c1c;--primary:#1f5f3b;--warning:#b7791f;--shadow:0 12px 30px rgba(21,35,25,.18);--shadow-lg:0 18px 42px rgba(21,35,25,.24);--radius:22px;--radius-sm:16px}
-body{background:linear-gradient(145deg,#10251c,#173c2a 55%,#0b1f17)!important;color:#f7f3e8!important}.container{max-width:660px}.app-logo{left:16px;background:#f7f3e8;border:1px solid rgba(255,255,255,.2);border-radius:999px}.app-logo .material-icons-outlined{color:#1f5f3b!important}.app-title{background:linear-gradient(135deg,#fff7ed,#d1fae5)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}.app-subtitle{color:#d9e7d6!important}
-.quadra-card{background:#f7f3e8!important;color:#1f2a20!important;border:1px solid rgba(120,113,82,.25)!important;border-radius:22px!important;padding:16px!important;box-shadow:var(--shadow)!important}.quadra-card::before{background:#2f855a!important;width:6px!important}.quadra-card.ocupada::before{background:#b91c1c!important}.quadra-status{background:#e3f3e8!important;color:#2f855a!important;border-radius:999px!important}.quadra-card.ocupada .quadra-status{background:#fee2e2!important;color:#b91c1c!important}.quadra-numero{color:#6f755e!important}.quadra-jogadores{color:#1f2a20!important;font-weight:800!important}.quadra-tempo{color:#6f755e!important}.quadra-timer{background:#10251c;color:#f7f3e8!important;border-radius:999px;padding:8px 12px;font-size:1.25rem!important;text-align:center!important}.quadra-timer.warning{background:#fee2e2;color:#b91c1c!important}
-.fila-section,.form-card{background:#f7f3e8!important;color:#1f2a20!important;border:1px solid rgba(120,113,82,.25)!important;border-radius:22px!important;box-shadow:var(--shadow)!important}.fila-title,.form-title{color:#1f2a20!important}.fila-count{background:#1f5f3b!important;color:#fff!important}.fila-item{background:#fffaf0!important;border:1px solid rgba(120,113,82,.18)!important;border-radius:18px!important}.fila-item.minha-inscricao{background:#fef3c7!important;border-color:#f59e0b!important}.fila-posicao{color:#1f5f3b!important}.fila-nomes{color:#1f2a20!important}.fila-detalhes{color:#6f755e!important}.fila-previsao{background:#f7f3e8;border:1px solid rgba(120,113,82,.18);border-radius:14px;padding:7px 9px}.fila-previsao .quadra-tag{color:#1f5f3b!important}.fila-previsao .hora{color:#1f2a20!important}
-input,select{background:#fffaf0!important;border:1px solid rgba(120,113,82,.25)!important;border-radius:16px!important;color:#1f2a20!important}.btn,.btn-aceitar{background:linear-gradient(135deg,#1f5f3b,#2f855a)!important;border-radius:999px!important;color:#fff!important}.popup-card{background:#f7f3e8!important;color:#1f2a20!important}.regulamento-texto{color:#334155!important}.regulamento-texto h3{color:#1f5f3b!important}.checkbox-wrapper label{color:#1f2a20!important}.theme-fab{background:#f7f3e8!important;color:#1f5f3b!important}
 
-
-
-/* =========================================================
-   TEMA VERDE REFINADO - CLARO / ESCURO REAL
-   Adicionado no final para sobrescrever o visual anterior
-   sem alterar Firebase, fila, PWA ou regras.
-   ========================================================= */
 :root {
-    --bg: #f3f7ef;
-    --page-bg-1: #f8fbf4;
-    --page-bg-2: #e8f3e4;
-    --page-bg-3: #dcebd7;
-    --card-bg: #fffdf4;
-    --card-soft: #f6f2e5;
-    --card-border: rgba(61, 91, 60, .20);
-    --text: #172316;
-    --text-secondary: #65725e;
-    --green: #207a4c;
-    --red: #b4232c;
-    --primary: #1f6f43;
-    --primary-2: #3b8f5e;
-    --warning: #b7791f;
-    --shadow: 0 10px 26px rgba(31, 95, 59, .12);
-    --shadow-lg: 0 18px 42px rgba(31, 95, 59, .18);
-    --radius: 22px;
-    --radius-sm: 16px;
-}
-
-body.dark {
-    --bg: #07140e;
-    --page-bg-1: #06110c;
-    --page-bg-2: #0d2419;
-    --page-bg-3: #123722;
-    --card-bg: rgba(14, 33, 23, .94);
-    --card-soft: rgba(21, 48, 34, .86);
-    --card-border: rgba(144, 196, 157, .18);
-    --text: #eef8ed;
-    --text-secondary: #a8bca7;
-    --green: #43d17d;
-    --red: #fb7185;
-    --primary: #66d493;
-    --primary-2: #22c55e;
-    --warning: #fbbf24;
-    --shadow: 0 14px 34px rgba(0, 0, 0, .38);
-    --shadow-lg: 0 22px 54px rgba(0, 0, 0, .50);
+    --bg: #f5f8fc;
+    --card-bg: #ffffff;
+    --card-border: #d8e4f0;
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --green: #059669;
+    --red: #e11d48;
+    --primary: #0891b2;
+    --warning: #d97706;
+    --pause: #2563eb;
+    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
+    --radius: 20px;
+    --radius-sm: 14px;
 }
 
 body {
     background:
-        radial-gradient(circle at top left, rgba(47, 133, 90, .16), transparent 32%),
-        linear-gradient(145deg, var(--page-bg-1) 0%, var(--page-bg-2) 52%, var(--page-bg-3) 100%) !important;
+        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
+        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
     color: var(--text) !important;
 }
 
 body.dark {
+    --bg: #050816;
+    --card-bg: rgba(11, 16, 36, .94);
+    --card-border: rgba(34, 211, 238, .20);
+    --text: #f8fafc;
+    --text-secondary: #9aa8bd;
+    --green: #39ff88;
+    --red: #ff3b6b;
+    --primary: #22d3ee;
+    --warning: #facc15;
+    --pause: #818cf8;
+    --shadow: 0 14px 34px rgba(0,0,0,.32);
+    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
     background:
-        radial-gradient(circle at top left, rgba(52, 211, 153, .16), transparent 34%),
-        linear-gradient(145deg, var(--page-bg-1) 0%, var(--page-bg-2) 54%, var(--page-bg-3) 100%) !important;
+        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
+        #050816 !important;
     color: var(--text) !important;
 }
 
-.app-logo {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    box-shadow: var(--shadow) !important;
-}
+.container { max-width: 660px; }
 
+.app-logo {
+    left: 14px;
+    background: rgba(8,145,178,.08) !important;
+    border: 1px solid rgba(8,145,178,.22) !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+}
+body.dark .app-logo {
+    background: rgba(34,211,238,.08) !important;
+    border-color: rgba(34,211,238,.30) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+}
 .app-logo .material-icons-outlined { color: var(--primary) !important; }
 
 .app-title {
-    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%) !important;
+    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
 }
-
-.app-subtitle,
-.app-footer { color: var(--text-secondary) !important; }
-
-.quadra-card,
-.fila-section,
-.form-card,
-.popup-card {
-    background: var(--card-bg) !important;
-    color: var(--text) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: var(--radius) !important;
-    box-shadow: var(--shadow) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+body.dark .app-title {
+    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
 }
+.app-subtitle { color: var(--text-secondary) !important; }
 
 .quadra-card {
-    display: grid !important;
-    grid-template-columns: 44px minmax(0, 1fr) auto !important;
-    gap: 14px !important;
-    align-items: center !important;
-    padding: 16px 18px !important;
-}
-
-.quadra-card::before {
-    background: var(--green) !important;
-    width: 6px !important;
-    border-radius: 0 12px 12px 0 !important;
-}
-
-.quadra-card.ocupada::before { background: var(--red) !important; }
-
-.quadra-status {
-    background: rgba(32, 122, 76, .12) !important;
-    color: var(--green) !important;
-    border-radius: 999px !important;
-}
-
-.quadra-card.ocupada .quadra-status {
-    background: rgba(180, 35, 44, .12) !important;
-    color: var(--red) !important;
-}
-
-body.dark .quadra-status { background: rgba(67, 209, 125, .14) !important; }
-body.dark .quadra-card.ocupada .quadra-status { background: rgba(251, 113, 133, .14) !important; }
-
-.quadra-numero,
-.quadra-tempo,
-.fila-detalhes,
-.vazio-state,
-.regulamento-texto { color: var(--text-secondary) !important; }
-
-.quadra-jogadores,
-.fila-title,
-.form-title,
-.fila-nomes,
-.popup-title,
-.checkbox-wrapper label { color: var(--text) !important; }
-
-.quadra-jogadores.livre { color: var(--text-secondary) !important; }
-
-.quadra-timer {
-    background: var(--card-soft) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 999px !important;
-    padding: 8px 12px !important;
-    font-size: 1.25rem !important;
-    min-width: 82px !important;
-    text-align: center !important;
-}
-
-.quadra-timer.warning {
-    background: rgba(180, 35, 44, .10) !important;
-    border-color: rgba(180, 35, 44, .28) !important;
-    color: var(--red) !important;
-}
-
-.fila-count {
-    background: var(--primary) !important;
-    color: #ffffff !important;
-    border: 1px solid rgba(255,255,255,.18) !important;
-}
-
-.fila-item {
-    background: var(--card-soft) !important;
-    border: 1px solid var(--card-border) !important;
-    border-left: 5px solid var(--primary) !important;
-    border-radius: 18px !important;
-    padding: 12px !important;
-    gap: 10px !important;
-}
-
-.fila-item.minha-inscricao {
-    background: rgba(245, 158, 11, .14) !important;
-    border-color: rgba(245, 158, 11, .32) !important;
-    border-left-color: var(--warning) !important;
-}
-
-.fila-posicao {
-    color: var(--primary) !important;
-    background: rgba(31, 111, 67, .10) !important;
-    border: 1px solid rgba(31, 111, 67, .18) !important;
-    border-radius: 12px !important;
-    min-width: 42px !important;
-    height: 34px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: .95rem !important;
-}
-
-body.dark .fila-posicao {
-    background: rgba(102, 212, 147, .12) !important;
-    border-color: rgba(102, 212, 147, .20) !important;
-}
-
-.fila-previsao {
     background: var(--card-bg) !important;
     border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    padding: 15px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .quadra-card {
+    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
+    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
+}
+.quadra-card::before {
+    background: var(--green) !important;
+    width: 5px !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
+.quadra-card.ocupada::before { background: var(--red) !important; }
+body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+
+.quadra-status {
+    background: rgba(5,150,105,.10) !important;
+    color: var(--green) !important;
+    border: 1px solid rgba(5,150,105,.18) !important;
     border-radius: 14px !important;
-    padding: 7px 9px !important;
-    min-width: 58px !important;
+}
+.quadra-card.ocupada .quadra-status {
+    background: rgba(225,29,72,.10) !important;
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.18) !important;
+}
+body.dark .quadra-status {
+    background: rgba(57,255,136,.10) !important;
+    border-color: rgba(57,255,136,.20) !important;
+}
+body.dark .quadra-card.ocupada .quadra-status {
+    background: rgba(255,59,107,.10) !important;
+    border-color: rgba(255,59,107,.22) !important;
 }
 
+.quadra-numero { color: var(--text-secondary) !important; }
+.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
+.quadra-tempo { color: var(--text-secondary) !important; }
+.quadra-timer {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 14px !important;
+    padding: 8px 10px !important;
+    color: #0e7490 !important;
+    text-align: center !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-timer {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.24) !important;
+    color: #67e8f9 !important;
+    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
+}
+.quadra-timer.warning {
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.28) !important;
+    background: rgba(225,29,72,.08) !important;
+}
+
+.fila-section,
+.form-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .fila-section,
+body.dark .form-card {
+    background: rgba(11,16,36,.92) !important;
+}
+.fila-title,
+.form-title { color: var(--text) !important; }
+.fila-count {
+    background: #e0f7fe !important;
+    color: #0e7490 !important;
+    border: 1px solid #bae6fd !important;
+}
+body.dark .fila-count {
+    background: rgba(34,211,238,.12) !important;
+    color: #67e8f9 !important;
+    border-color: rgba(34,211,238,.26) !important;
+}
+.fila-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+}
+body.dark .fila-item {
+    background: rgba(2,6,23,.46) !important;
+    border-color: rgba(148,163,184,.14) !important;
+}
+.fila-item.minha-inscricao {
+    background: rgba(245,158,11,.10) !important;
+    border-color: rgba(245,158,11,.30) !important;
+}
+.fila-posicao { color: var(--primary) !important; }
+.fila-nomes { color: var(--text) !important; }
+.fila-detalhes { color: var(--text-secondary) !important; }
+.fila-previsao {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 12px !important;
+    padding: 7px 9px !important;
+}
+body.dark .fila-previsao {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.18) !important;
+}
 .fila-previsao .quadra-tag { color: var(--primary) !important; }
 .fila-previsao .hora { color: var(--text) !important; }
 
 input,
 select {
-    background: var(--card-soft) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 16px !important;
-    color: var(--text) !important;
+    background: #f8fafc !important;
+    border: 1px solid #dbe5f2 !important;
+    border-radius: 14px !important;
+    color: #0f172a !important;
 }
-
-input::placeholder { color: var(--text-secondary) !important; }
-
+input::placeholder { color: #94a3b8 !important; }
+body.dark input,
+body.dark select {
+    background: rgba(2,6,23,.55) !important;
+    border-color: rgba(34,211,238,.18) !important;
+    color: #fff !important;
+}
+body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
 input:focus,
 select:focus {
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(47, 133, 90, .14) !important;
+    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
+}
+body.dark input:focus,
+body.dark select:focus {
+    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
 }
 
 .btn,
 .btn-aceitar {
-    background: linear-gradient(135deg, var(--primary), var(--primary-2)) !important;
+    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
+    border: 1px solid rgba(8,145,178,.20) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
     color: #ffffff !important;
-    border: 1px solid rgba(255,255,255,.14) !important;
-    border-radius: 999px !important;
-    box-shadow: 0 10px 22px rgba(31, 95, 59, .22) !important;
 }
-
-.btn-editar,
-.btn-editar-fila {
-    background: rgba(245, 158, 11, .16) !important;
-    color: var(--warning) !important;
+body.dark .btn,
+body.dark .btn-aceitar {
+    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
+    border-color: rgba(34,211,238,.22) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
 }
+.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
+.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
 
-.btn-sair-fila,
-.btn-remover-fila {
-    background: rgba(239, 68, 68, .14) !important;
-    color: var(--red) !important;
+.popup-card {
+    background: var(--card-bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--card-border) !important;
 }
-
-.popup-overlay { background: rgba(0,0,0,.58) !important; }
-.popup-header,
-.popup-footer { border-color: var(--card-border) !important; }
+.regulamento-texto { color: var(--text) !important; }
 .regulamento-texto h3 { color: var(--primary) !important; }
+.checkbox-wrapper label { color: var(--text) !important; }
 
 .theme-fab {
     background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
     color: var(--primary) !important;
+    border: 1px solid var(--card-border) !important;
     box-shadow: var(--shadow-lg) !important;
 }
 
 @media (max-width: 430px) {
-    .quadra-card {
-        grid-template-columns: 40px minmax(0, 1fr) auto !important;
-        gap: 10px !important;
-        padding: 14px !important;
-    }
-
-    .quadra-timer {
-        min-width: 72px !important;
-        font-size: 1.08rem !important;
-        padding: 7px 9px !important;
-    }
-
     .fila-item {
-        display: grid !important;
-        grid-template-columns: 42px minmax(0, 1fr) auto !important;
-        align-items: start !important;
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
     }
-
     .fila-previsao {
-        grid-column: 3;
-        grid-row: 1 / span 2;
+        margin-left: 0 !important;
     }
-
-    .fila-item > div:last-child {
-        grid-column: 2 / 4;
-        margin-top: 4px;
+    .quadra-card {
+        gap: 10px !important;
+        padding: 13px !important;
+    }
+    .quadra-timer {
+        font-size: 1.15rem !important;
+        min-width: 68px !important;
     }
 }
+
 </style>
 </head>
 <body>
 <script>
-const VERSAO_REGULAMENTO = 'v2';
+const VERSAO_REGULAMENTO = 'v3';
 if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     localStorage.removeItem('regulamentoAceito');
     localStorage.setItem('regulamentoVersao', VERSAO_REGULAMENTO);
