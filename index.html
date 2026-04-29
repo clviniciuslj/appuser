@@ -1355,18 +1355,24 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     }
 
     function formatarQLFila(jogo) {
-        const qls = (jogo.qls || []).filter(Boolean);
-        if (qls.length) return qls.join(' • ');
+    const qls = (jogo.qls || [])
+        .filter(Boolean)
+        .map(q => String(q).trim())
+        .filter(q => q !== '');
 
-        const detalhes = (jogo.detalhes || '').trim();
-        if (!detalhes) return 'Sem Q/L';
-
-        return detalhes
-            .split(',')
-            .map(q => q.trim())
-            .filter(Boolean)
-            .join(' • ') || 'Sem Q/L';
+    if (qls.length) {
+        return qls.join(', ');
     }
+
+    const detalhes = (jogo.detalhes || '').trim();
+    if (!detalhes) return 'Sem Q/L';
+
+    return detalhes
+        .split(',')
+        .map(q => q.trim())
+        .filter(q => q !== '')
+        .join(', ') || 'Sem Q/L';
+}
     
     function gerarChaveJogo(jogadores, qls) {
         const pares = [];
