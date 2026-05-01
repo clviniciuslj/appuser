@@ -486,644 +486,393 @@
 
         @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     
-
 /* =========================================================
-   05 USER - MATCHDAY NEON REFINADO
-   Claro = limpo esportivo | Escuro = neon moderado
+   TICKET ESPORTIVO USER - VISUAL OVERRIDE
    Mantém toda a lógica original. Só altera aparência.
    ========================================================= */
 
 :root {
-    --bg: #f5f8fc;
-    --card-bg: #ffffff;
-    --card-border: #d8e4f0;
-    --text: #0f172a;
-    --text-secondary: #64748b;
-    --green: #059669;
-    --red: #e11d48;
-    --primary: #0891b2;
-    --warning: #d97706;
-    --pause: #2563eb;
-    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
-    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
-    --radius: 20px;
-    --radius-sm: 14px;
+    --bg: #07111f;
+    --card-bg: rgba(15, 23, 42, 0.92);
+    --card-border: rgba(148, 163, 184, 0.22);
+    --text: #f8fafc;
+    --text-secondary: #94a3b8;
+    --green: #22c55e;
+    --red: #ef4444;
+    --primary: #38bdf8;
+    --warning: #f59e0b;
+    --pause: #60a5fa;
+    --shadow: 0 12px 30px rgba(0,0,0,0.24);
+    --shadow-lg: 0 18px 45px rgba(0,0,0,0.34);
+    --radius: 22px;
+    --radius-sm: 16px;
 }
 
 body {
     background:
-        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
-        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 32%),
+        linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%) !important;
     color: var(--text) !important;
 }
 
 body.dark {
-    --bg: #050816;
-    --card-bg: rgba(11, 16, 36, .94);
-    --card-border: rgba(34, 211, 238, .20);
-    --text: #f8fafc;
-    --text-secondary: #9aa8bd;
-    --green: #39ff88;
-    --red: #ff3b6b;
-    --primary: #22d3ee;
-    --warning: #facc15;
-    --pause: #818cf8;
-    --shadow: 0 14px 34px rgba(0,0,0,.32);
-    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
     background:
-        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
-        #050816 !important;
-    color: var(--text) !important;
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 32%),
+        linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%) !important;
 }
 
-.container { max-width: 660px; }
+.container {
+    max-width: 680px;
+}
+
+.app-header {
+    padding: 10px 0 18px;
+}
 
 .app-logo {
-    left: 14px;
-    background: rgba(8,145,178,.08) !important;
-    border: 1px solid rgba(8,145,178,.22) !important;
-    box-shadow: none !important;
-    border-radius: 16px !important;
+    left: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.25);
 }
-body.dark .app-logo {
-    background: rgba(34,211,238,.08) !important;
-    border-color: rgba(34,211,238,.30) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+
+.app-logo .material-icons-outlined {
+    color: var(--primary) !important;
 }
-.app-logo .material-icons-outlined { color: var(--primary) !important; }
 
 .app-title {
-    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #7dd3fc 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
 }
-body.dark .app-title {
-    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
+
+.app-subtitle {
+    color: var(--text-secondary);
 }
-.app-subtitle { color: var(--text-secondary) !important; }
+
+/* Quadras como tickets esportivos */
+.quadras-wrapper {
+    gap: 10px;
+    margin-bottom: 16px;
+}
 
 .quadra-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,41,59,0.92)) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    border-left: 0 !important;
     border-radius: 20px !important;
-    padding: 15px !important;
+    padding: 14px 14px 14px 16px !important;
     box-shadow: var(--shadow) !important;
+    display: grid !important;
+    grid-template-columns: 44px minmax(0,1fr) auto !important;
+    align-items: center !important;
+    gap: 12px !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
-body.dark .quadra-card {
-    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
-    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
-}
+
 .quadra-card::before {
+    width: 7px !important;
     background: var(--green) !important;
-    width: 5px !important;
-    box-shadow: none !important;
+    border-radius: 0 12px 12px 0 !important;
 }
-body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
-.quadra-card.ocupada::before { background: var(--red) !important; }
-body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+
+.quadra-card.ocupada::before {
+    background: var(--red) !important;
+}
+
+.quadra-card::after {
+    content: "";
+    position: absolute;
+    right: -24px;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: #07111f;
+    border: 1px solid rgba(148,163,184,0.18);
+}
 
 .quadra-status {
-    background: rgba(5,150,105,.10) !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 16px !important;
+    background: rgba(34,197,94,0.13) !important;
     color: var(--green) !important;
-    border: 1px solid rgba(5,150,105,.18) !important;
-    border-radius: 14px !important;
+    z-index: 1;
 }
+
 .quadra-card.ocupada .quadra-status {
-    background: rgba(225,29,72,.10) !important;
+    background: rgba(239,68,68,0.15) !important;
     color: var(--red) !important;
-    border-color: rgba(225,29,72,.18) !important;
-}
-body.dark .quadra-status {
-    background: rgba(57,255,136,.10) !important;
-    border-color: rgba(57,255,136,.20) !important;
-}
-body.dark .quadra-card.ocupada .quadra-status {
-    background: rgba(255,59,107,.10) !important;
-    border-color: rgba(255,59,107,.22) !important;
 }
 
-.quadra-numero { color: var(--text-secondary) !important; }
-.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
-.quadra-tempo { color: var(--text-secondary) !important; }
+.quadra-numero {
+    color: var(--text-secondary) !important;
+    font-size: 0.68rem !important;
+    letter-spacing: 1.4px !important;
+}
+
+.quadra-jogadores {
+    color: var(--text) !important;
+    font-size: 0.96rem !important;
+    font-weight: 750 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quadra-jogadores.livre {
+    color: #cbd5e1 !important;
+}
+
+.quadra-tempo {
+    color: var(--text-secondary) !important;
+    font-size: 0.72rem !important;
+}
+
 .quadra-timer {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
-    border-radius: 14px !important;
-    padding: 8px 10px !important;
-    color: #0e7490 !important;
+    color: #e0f2fe !important;
+    background: rgba(2,6,23,0.52);
+    border: 1px solid rgba(125,211,252,0.18);
+    border-radius: 16px;
+    padding: 8px 10px;
+    min-width: 82px !important;
     text-align: center !important;
-    box-shadow: none !important;
-}
-body.dark .quadra-timer {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.24) !important;
-    color: #67e8f9 !important;
-    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
-}
-.quadra-timer.warning {
-    color: var(--red) !important;
-    border-color: rgba(225,29,72,.28) !important;
-    background: rgba(225,29,72,.08) !important;
+    font-size: 1.45rem !important;
+    z-index: 1;
 }
 
-.fila-section,
-.form-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 20px !important;
+.quadra-timer.warning {
+    color: #fecaca !important;
+    border-color: rgba(239,68,68,0.35);
+    background: rgba(239,68,68,0.12);
+}
+
+/* Fila acompanhando ticket */
+.fila-section {
+    background: rgba(15,23,42,0.88) !important;
+    border: 1px solid rgba(148,163,184,0.22) !important;
+    border-radius: 22px !important;
+    padding: 16px !important;
     box-shadow: var(--shadow) !important;
 }
-body.dark .fila-section,
-body.dark .form-card {
-    background: rgba(11,16,36,.92) !important;
-}
-.fila-title,
-.form-title { color: var(--text) !important; }
-.fila-count {
-    background: #e0f7fe !important;
-    color: #0e7490 !important;
-    border: 1px solid #bae6fd !important;
-}
-body.dark .fila-count {
-    background: rgba(34,211,238,.12) !important;
-    color: #67e8f9 !important;
-    border-color: rgba(34,211,238,.26) !important;
-}
-.fila-item {
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-}
-body.dark .fila-item {
-    background: rgba(2,6,23,.46) !important;
-    border-color: rgba(148,163,184,.14) !important;
-}
-.fila-item.minha-inscricao {
-    background: rgba(245,158,11,.10) !important;
-    border-color: rgba(245,158,11,.30) !important;
-}
-.fila-posicao { color: var(--primary) !important; }
-.fila-nomes { color: var(--text) !important; }
-.fila-detalhes { color: var(--text-secondary) !important; }
-.fila-previsao {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
-    border-radius: 12px !important;
-    padding: 7px 9px !important;
-}
-body.dark .fila-previsao {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.18) !important;
-}
-.fila-previsao .quadra-tag { color: var(--primary) !important; }
-.fila-previsao .hora { color: var(--text) !important; }
 
-input,
-select {
-    background: #f8fafc !important;
-    border: 1px solid #dbe5f2 !important;
-    border-radius: 14px !important;
-    color: #0f172a !important;
-}
-input::placeholder { color: #94a3b8 !important; }
-body.dark input,
-body.dark select {
-    background: rgba(2,6,23,.55) !important;
-    border-color: rgba(34,211,238,.18) !important;
-    color: #fff !important;
-}
-body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
-input:focus,
-select:focus {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
-}
-body.dark input:focus,
-body.dark select:focus {
-    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+.fila-header {
+    margin-bottom: 12px !important;
 }
 
-.btn,
-.btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
-    border: 1px solid rgba(8,145,178,.20) !important;
-    border-radius: 14px !important;
-    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
-    color: #ffffff !important;
-}
-body.dark .btn,
-body.dark .btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
-    border-color: rgba(34,211,238,.22) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
-}
-.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
-.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
-
-.popup-card {
-    background: var(--card-bg) !important;
+.fila-title {
     color: var(--text) !important;
-    border: 1px solid var(--card-border) !important;
+    font-size: 0.82rem !important;
 }
-.regulamento-texto { color: var(--text) !important; }
-.regulamento-texto h3 { color: var(--primary) !important; }
-.checkbox-wrapper label { color: var(--text) !important; }
 
-.theme-fab {
-    background: var(--card-bg) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--card-border) !important;
+.fila-count {
+    background: rgba(56,189,248,0.16) !important;
+    color: #7dd3fc !important;
+    border: 1px solid rgba(56,189,248,0.28);
+}
+
+.fila-item {
+    background:
+        linear-gradient(135deg, rgba(30,41,59,0.86), rgba(15,23,42,0.94)) !important;
+    border: 1px solid rgba(148,163,184,0.18) !important;
+    border-left: 5px solid rgba(56,189,248,0.75) !important;
+    border-radius: 18px !important;
+    padding: 12px !important;
+    gap: 10px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.fila-item.minha-inscricao {
+    border-left-color: var(--warning) !important;
+    background:
+        linear-gradient(135deg, rgba(245,158,11,0.16), rgba(15,23,42,0.94)) !important;
+    border-color: rgba(245,158,11,0.28) !important;
+}
+
+.fila-posicao {
+    color: #7dd3fc !important;
+    background: rgba(56,189,248,0.12);
+    border: 1px solid rgba(56,189,248,0.22);
+    border-radius: 12px;
+    min-width: 42px !important;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem !important;
+}
+
+.fila-nomes {
+    color: var(--text) !important;
+    font-weight: 750 !important;
+}
+
+.fila-detalhes {
+    color: var(--text-secondary) !important;
+}
+
+.fila-previsao {
+    background: rgba(2,6,23,0.45);
+    border: 1px solid rgba(148,163,184,0.16);
+    border-radius: 14px;
+    padding: 7px 9px;
+}
+
+.fila-previsao .quadra-tag {
+    color: #7dd3fc !important;
+}
+
+.fila-previsao .hora {
+    color: var(--text) !important;
+}
+
+.btn-editar-fila,
+.btn-remover-fila {
+    border-radius: 12px !important;
+    padding: 8px 10px !important;
+}
+
+/* Formulário no mesmo sistema visual */
+.form-card {
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.92), rgba(30,41,59,0.88)) !important;
+    border: 1px solid rgba(148,163,184,0.22) !important;
+    border-radius: 24px !important;
+    padding: 18px !important;
     box-shadow: var(--shadow-lg) !important;
 }
 
+.form-title {
+    color: var(--text) !important;
+    font-size: 0.84rem !important;
+}
+
+.input-group {
+    gap: 10px !important;
+}
+
+input,
+select {
+    background: rgba(2,6,23,0.42) !important;
+    color: var(--text) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    border-radius: 16px !important;
+    padding: 13px 14px !important;
+}
+
+input::placeholder,
+select::placeholder {
+    color: rgba(203,213,225,0.68) !important;
+}
+
+input:focus,
+select:focus {
+    border-color: rgba(56,189,248,0.75) !important;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+
+.btn {
+    background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(125,211,252,0.26) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 22px rgba(2,132,199,0.24);
+}
+
+.btn-inscrever {
+    margin-top: 14px !important;
+}
+
+.btn-editar {
+    background: linear-gradient(135deg, #d97706, #f59e0b) !important;
+}
+
+.btn-sair-fila {
+    background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+}
+
+/* Popup regulamento preservado e harmonizado */
+.popup-overlay {
+    background: rgba(2,6,23,.72) !important;
+}
+
+.popup-card {
+    background: rgba(15,23,42,0.98) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    color: var(--text) !important;
+}
+
+.popup-header,
+.popup-footer {
+    border-color: rgba(148,163,184,0.18) !important;
+}
+
+.regulamento-texto {
+    color: #e5e7eb !important;
+}
+
+.regulamento-texto h3 {
+    color: #7dd3fc !important;
+}
+
+.checkbox-wrapper label {
+    color: var(--text) !important;
+}
+
+.btn-aceitar {
+    background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+}
+
+/* Floating theme */
+.theme-fab {
+    background: rgba(15,23,42,0.92) !important;
+    border: 1px solid rgba(148,163,184,0.24) !important;
+    color: #7dd3fc !important;
+}
+
+/* Mobile refinements */
 @media (max-width: 430px) {
+    body { padding: 12px !important; }
+
+    .quadra-card {
+        grid-template-columns: 38px minmax(0,1fr) auto !important;
+        gap: 9px !important;
+        padding: 12px 12px 12px 14px !important;
+    }
+
+    .quadra-status {
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    .quadra-timer {
+        font-size: 1.18rem !important;
+        min-width: 68px !important;
+        padding: 7px 8px !important;
+    }
+
     .fila-item {
         align-items: flex-start !important;
-        flex-wrap: wrap !important;
+        flex-wrap: wrap;
     }
+
     .fila-previsao {
         margin-left: 0 !important;
     }
-    .quadra-card {
-        gap: 10px !important;
-        padding: 13px !important;
-    }
-    .quadra-timer {
-        font-size: 1.15rem !important;
-        min-width: 68px !important;
+
+    .input-group {
+        grid-template-columns: 1fr 1fr !important;
     }
 }
 
-
-/* ===== USER: shimmer + status de posição ===== */
-.shimmer {
-    position: relative !important;
-    overflow: hidden !important;
-    background: rgba(148,163,184,0.16) !important;
-    border-color: rgba(148,163,184,0.18) !important;
-}
-.shimmer::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-    animation: shimmerMoveUser 1.15s infinite;
-}
-body.dark .shimmer::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-}
-@keyframes shimmerMoveUser {
-    100% { transform: translateX(100%); }
-}
-
-.meu-status-card {
-    display: none;
-    margin: 0 0 12px;
-    padding: 13px 14px;
-    border-radius: 16px;
-    background: rgba(8,145,178,.10);
-    border: 1px solid rgba(8,145,178,.26);
-    box-shadow: var(--shadow);
-    text-align: center;
-    font-weight: 850;
-    color: var(--text);
-    line-height: 1.25;
-}
-.meu-status-card .status-sub {
-    display: block;
-    margin-top: 3px;
-    font-size: .72rem;
-    font-weight: 650;
-    color: var(--text-secondary);
-}
-.meu-status-card.status-agora {
-    background: rgba(5,150,105,.12) !important;
-    border-color: rgba(5,150,105,.36) !important;
-}
-.meu-status-card.status-proximo {
-    background: rgba(245,158,11,.13) !important;
-    border-color: rgba(245,158,11,.38) !important;
-}
-body.dark .meu-status-card {
-    background: rgba(34,211,238,.10);
-    border-color: rgba(34,211,238,.26);
-}
-
-.fila-item.fila-top1 {
-    border-left: 5px solid var(--green) !important;
-    box-shadow: 0 10px 24px rgba(5,150,105,.10) !important;
-}
-.fila-item.fila-top2 {
-    border-left: 5px solid var(--warning) !important;
-}
-.fila-item.minha-inscricao {
-    background: rgba(245,158,11,.14) !important;
-    border-color: rgba(245,158,11,.45) !important;
-    box-shadow: 0 10px 24px rgba(245,158,11,.10) !important;
-}
-body.dark .fila-item.minha-inscricao {
-    background: rgba(245,158,11,.14) !important;
-}
-.voce-badge {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 5px;
-    padding: 2px 6px;
-    border-radius: 999px;
-    background: rgba(245,158,11,.16);
-    color: var(--warning);
-    font-size: .62rem;
-    font-weight: 900;
-}
-
-
-/* ===== ajuste: status e inscrição do usuário ===== */
-.meu-status-card.status-proximo {
-    background: rgba(8,145,178,.10) !important;
-    border-color: rgba(8,145,178,.28) !important;
-}
-body.dark .meu-status-card.status-proximo {
-    background: rgba(34,211,238,.10) !important;
-    border-color: rgba(34,211,238,.28) !important;
-}
-
-.fila-acoes-minha {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    flex-basis: 100%;
-    margin-left: 0 !important;
-    padding-top: 6px;
-    border-top: 1px solid rgba(148,163,184,.18);
-}
-
-.fila-acoes-minha .btn-editar-fila,
-.fila-acoes-minha .btn-remover-fila {
-    flex: 1;
-    margin-left: 0 !important;
-    padding: 8px 0 !important;
-    border-radius: 12px !important;
-}
-
-.fila-item.minha-inscricao {
-    align-items: flex-start !important;
-    flex-wrap: wrap !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    flex: 1 1 135px;
-}
-
-.fila-item.minha-inscricao .fila-nomes {
-    line-height: 1.2;
-}
-
-
-/* ===== ajuste final fila user: ações abaixo da previsão ===== */
-.fila-lateral {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    flex-shrink: 0;
-}
-
-.fila-lateral .fila-previsao {
-    margin-left: 0 !important;
-}
-
-.fila-acoes-minha {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-}
-
-.fila-acoes-minha .btn-editar-fila,
-.fila-acoes-minha .btn-remover-fila {
-    margin-left: 0 !important;
-    width: 36px;
-    height: 30px;
-    padding: 0 !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.fila-item.minha-inscricao {
-    align-items: center !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    min-width: 0;
-}
-
-.fila-item.minha-inscricao .fila-detalhes {
-    gap: 8px !important;
-}
-
-@media (max-width: 430px) {
-    .fila-item.minha-inscricao {
-        display: grid !important;
-        grid-template-columns: 52px minmax(0, 1fr) auto;
-        align-items: center !important;
-        column-gap: 10px !important;
-        row-gap: 6px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-posicao {
-        min-width: 42px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-lateral {
-        align-self: center;
-        margin-left: 0;
-    }
-
-    .fila-item.minha-inscricao .fila-detalhes {
-        font-size: 0.68rem !important;
-        line-height: 1.2;
-    }
-}
-
-
-/* ===== ajuste final: minha inscrição compacta + erro Q/L no dark ===== */
-.voce-badge { display: none !important; }
-
-.fila-item.minha-inscricao {
-    display: grid !important;
-    grid-template-columns: 52px minmax(0, 1fr) auto !important;
-    align-items: center !important;
-    column-gap: 10px !important;
-    row-gap: 4px !important;
-    padding: 10px 12px !important;
-    min-height: 0 !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    min-width: 0 !important;
-    flex: initial !important;
-}
-
-.fila-item.minha-inscricao .fila-nomes {
-    line-height: 1.12 !important;
-    margin-bottom: 2px !important;
-}
-
-.fila-item.minha-inscricao .fila-detalhes {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    gap: 8px !important;
-    font-size: 0.72rem !important;
-    line-height: 1.1 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.fila-item.minha-inscricao .fila-lateral {
-    margin-left: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 7px !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao {
-    flex-shrink: 0 !important;
-    padding: 6px 8px !important;
-    min-width: 64px !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao .quadra-tag {
-    font-size: 0.68rem !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao .hora {
-    font-size: 0.88rem !important;
-}
-
-.fila-item.minha-inscricao .fila-acoes-minha {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    width: auto !important;
-    flex-basis: auto !important;
-    padding-top: 0 !important;
-    border-top: 0 !important;
-}
-
-.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
-.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
-    width: 32px !important;
-    height: 30px !important;
-    min-width: 32px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 11px !important;
-    font-size: 0.72rem !important;
-}
-
-input.error,
-body.dark input.error {
-    border-color: var(--red) !important;
-    box-shadow: 0 0 0 3px rgba(225,29,72,.18) !important;
-}
-
-body.dark input.error {
-    border-color: #ff3b6b !important;
-    box-shadow: 0 0 0 3px rgba(255,59,107,.22) !important;
-}
-
-@media (max-width: 430px) {
-    .fila-item.minha-inscricao {
-        grid-template-columns: 42px minmax(0, 1fr) auto !important;
-        column-gap: 8px !important;
-        padding: 9px 10px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-detalhes {
-        font-size: 0.66rem !important;
-        gap: 6px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-lateral {
-        gap: 5px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
-    .fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-    }
-}
-
-
-/* ===== ajuste final: nomes e Q/L completos na fila ===== */
-.fila-nomes {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1px !important;
-}
-
-.linha-dupla {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    line-height: 1.15 !important;
-}
-
-.nome-jogador {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-}
-
-.separador {
-    white-space: nowrap !important;
-    margin: 0 4px !important;
-    opacity: .7 !important;
-}
-
-.fila-item .fila-detalhes,
-.fila-item.minha-inscricao .fila-detalhes {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 5px 9px !important;
-    white-space: normal !important;
-    overflow: visible !important;
-    text-overflow: initial !important;
-}
-
-.fila-item .fila-detalhes span,
-.fila-item.minha-inscricao .fila-detalhes span {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-}
-
-.fila-item.minha-inscricao {
-    align-items: center !important;
-}
-.secao-geral {
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    margin: 14px 0 10px;
-}
 </style>
 </head>
 <body>
@@ -1139,11 +888,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     <div class="popup-card">
         <div class="popup-header"><div class="popup-title"><span class="material-icons-outlined">description</span> REGULAMENTO DE USO DAS QUADRAS DE TÊNIS</div></div>
         <div class="popup-content">
-           <div class="regulamento-texto">
-
-    <h3 class="secao-geral">DISPOSIÇÕES GERAIS</h3>
-
-    <h3>1. DISTRIBUIÇÃO DAS QUADRAS</h3> 
+            <div class="regulamento-texto">
+                <h3>1. DISTRIBUIÇÃO DAS QUADRAS</h3>
                 <ul><li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas;</li><li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li></ul>
                 <h3>2. TEMPO DE JOGO</h3>
                 <ul><li><strong>Jogos de simples:</strong> 45 minutos;</li><li><strong>Jogos de duplas:</strong> 1 hora;</li><li>O tempo de aquecimento está incluído na duração total.</li><li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li><li>O controle do tempo será realizado em planilha diária específica.</li></ul>
@@ -1176,8 +922,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         <div class="app-subtitle">Quadras de Tênis</div>
     </header>
 
-    <div id="meuStatus" class="meu-status-card"></div>
-
     <div class="quadras-wrapper" id="q-render"></div>
 
     <div class="fila-section">
@@ -1207,7 +951,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     </div>
 </div>
 
-<footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
+<footer class="app-footer">Desenvolvido por <strong>Vinícius C. S.</strong></footer>
 <button class="theme-fab" id="themeToggle" onclick="toggleTema()"><span class="material-icons-outlined">dark_mode</span></button>
 
 <script>
@@ -1332,8 +1076,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let quadras = [];
     let meuUid = null;
     let filaKeys = [];
-    let carregandoQuadras = true;
-    let carregandoFila = true;
     
     // Autenticação anônima
     signInAnonymously(auth)
@@ -1346,41 +1088,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
     function formatarHora(d) { return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
     function formatarChegada(d) { return new Date(d).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
-
-    function formatarNomesFila(jogadores = [], fallback = '') {
-        const nomes = (jogadores || []).filter(Boolean);
-        const lista = nomes.length ? nomes : (fallback ? fallback.split('•').map(n => n.trim()).filter(Boolean) : []);
-        const linha = (arr) => arr.filter(Boolean).map((nome, i, todos) => `
-            <span class="nome-jogador">${nome}</span>${i < todos.length - 1 ? '<span class="separador"> • </span>' : ''}
-        `).join('');
-
-        if (lista.length <= 2) return linha(lista);
-
-        return `
-            <div class="linha-dupla">${linha([lista[0], lista[1]])}</div>
-            <div class="linha-dupla">${linha([lista[2], lista[3]])}</div>
-        `;
-    }
-
-    function formatarQLFila(jogo) {
-    const qls = (jogo.qls || [])
-        .filter(Boolean)
-        .map(q => String(q).trim())
-        .filter(q => q !== '');
-
-    if (qls.length) {
-        return qls.join(', ');
-    }
-
-    const detalhes = (jogo.detalhes || '').trim();
-    if (!detalhes) return 'Sem Q/L';
-
-    return detalhes
-        .split(',')
-        .map(q => q.trim())
-        .filter(q => q !== '')
-        .join(', ') || 'Sem Q/L';
-}
     
     function gerarChaveJogo(jogadores, qls) {
         const pares = [];
@@ -1403,16 +1110,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function renderQuadras() {
         const c = document.getElementById('q-render');
         if (!c) return;
-
-        if (carregandoQuadras) {
-            c.innerHTML = `
-                <div class="quadra-card shimmer" style="height:86px"></div>
-                <div class="quadra-card shimmer" style="height:86px"></div>
-                <div class="quadra-card shimmer" style="height:86px"></div>
-            `;
-            return;
-        }
-
         c.innerHTML = quadras.map(q => {
             return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
                         <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
@@ -1426,50 +1123,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         }).join('');
     }
     
-    function atualizarMeuStatus(minhaPosicao, meuItem) {
-        const status = document.getElementById('meuStatus');
-        if (!status) return;
-
-        status.classList.remove('status-agora', 'status-proximo');
-
-        if (minhaPosicao === -1 || !meuItem) {
-            status.style.display = 'none';
-            status.innerHTML = '';
-            return;
-        }
-
-        status.style.display = 'block';
-
-        if (minhaPosicao === 0) {
-            status.classList.add('status-proximo');
-            status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde ser chamado quando uma quadra liberar.</span>`;
-        } else {
-            status.style.display = 'none';
-            status.innerHTML = '';
-        }
-    }
-
     function renderFila() {
-        const countEl = document.getElementById('fila-count');
+        document.getElementById('fila-count').innerText = fila.length;
         const corpo = document.getElementById('corpoFila');
-        if (!countEl || !corpo) return;
-
-        countEl.innerText = fila.length;
+        if (!corpo) return;
         corpo.innerHTML = "";
-
-        if (carregandoFila || carregandoQuadras) {
-            atualizarMeuStatus(-1, null);
-            corpo.innerHTML = `
-                <div class="fila-item shimmer" style="height:58px"></div>
-                <div class="fila-item shimmer" style="height:58px"></div>
-                <div class="fila-item shimmer" style="height:58px"></div>
-            `;
-            return;
-        }
-
-        const minhaPosicao = fila.findIndex(j => meuUid && j.deviceId === meuUid);
-        atualizarMeuStatus(minhaPosicao, minhaPosicao >= 0 ? fila[minhaPosicao] : null);
-
         if (fila.length === 0) {
             corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>";
             return;
@@ -1480,36 +1138,31 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         
         fila.forEach((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
-            const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
-            const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
-            const qlHTML = formatarQLFila(j);
             
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
-            let qE = ts[0] || { id: '-', tempoSeg: 0 };
-            let dp = new Date(agora + ((qE.tempoSeg || 0) * 1000));
+            let qE = ts[0];
+            let dp = new Date(agora + (qE.tempoSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
             
-            corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
+            corpo.innerHTML += `<div class="fila-item ${ehMinha ? 'minha-inscricao' : ''}">
                                     <span class="fila-posicao">#${idx+1}</span>
                                     <div class="fila-info">
-                                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+                                        <div class="fila-nomes">${j.nomes || 'N/A'} ${ehMinha ? '<span style="font-size:0.65rem;color:#f59e0b;font-weight:600;">(Você)</span>' : ''}</div>
                                         <div class="fila-detalhes">
                                             <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-                                            <span>🎫 ${qlHTML}</span>
+                                            <span>🎫 ${j.detalhes || 'Sem Q/L'}</span>
                                         </div>
                                     </div>
-                                    <div class="fila-lateral">
-                                        <div class="fila-previsao">
-                                            <div class="quadra-tag">Q${qE.id}</div>
-                                            <div class="hora">${formatarHora(dp)}</div>
-                                        </div>
-                                        ${ehMinha ? `
-                                        <div class="fila-acoes-minha">
-                                            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
-                                            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
-                                        </div>
-                                        ` : ''}
+                                    <div class="fila-previsao">
+                                        <div class="quadra-tag">Q${qE.id}</div>
+                                        <div class="hora">${formatarHora(dp)}</div>
                                     </div>
+                                    ${ehMinha ? `
+                                    <div>
+                                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
+                                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
+                                    </div>
+                                    ` : ''}
                                 </div>`;
         });
     }
@@ -1637,7 +1290,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     
     // Sincroniza fila com Firebase
     onValue(ref(db, 'fila'), (snapshot) => {
-        carregandoFila = false;
         const d = snapshot.val();
         if (!d) {
             fila = [];
@@ -1651,7 +1303,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     });
     
     onValue(ref(db, 'quadras'), (snapshot) => {
-        carregandoQuadras = false;
         if (!snapshot.exists()) {
             set(ref(db, 'quadras'), [
                 { id: 1, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
