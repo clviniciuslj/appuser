@@ -1768,6 +1768,250 @@ body.dark .fila-item.minha-inscricao {
         font-size: .61rem !important;
     }
 }
+
+
+/* =========================================================
+   FILA USER IGUAL À DISPOSIÇÃO DO ADMIN
+   - Card vertical
+   - Badge no topo
+   - Nomes no meio
+   - Previsão/chegada/Q-L embaixo dos nomes
+   - Simples em 1 linha, duplas em 2 linhas
+   ========================================================= */
+.fila-section {
+    padding: 13px !important;
+}
+
+.fila-header {
+    margin-bottom: 12px !important;
+}
+
+.fila-item,
+.fila-item.minha-inscricao,
+body.dark .fila-item,
+body.dark .fila-item.minha-inscricao {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    padding: 10px 12px !important;
+    margin-bottom: 8px !important;
+    border-radius: 14px !important;
+    min-height: 0 !important;
+}
+
+.fila-topo-card {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+}
+
+.fila-topo-card .fila-posicao,
+.fila-item.minha-inscricao .fila-topo-card .fila-posicao {
+    width: auto !important;
+    min-width: 0 !important;
+    font-size: 1rem !important;
+    line-height: 1.1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    color: var(--primary) !important;
+}
+
+.tipo-jogo-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3px 8px !important;
+    border-radius: 999px !important;
+    font-size: .62rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: .25px !important;
+    white-space: nowrap !important;
+}
+
+.tipo-jogo-badge.simples {
+    background: rgba(47,143,91,.12) !important;
+    color: #2f8f5b !important;
+}
+
+.tipo-jogo-badge.dupla {
+    background: rgba(124,58,237,.10) !important;
+    color: #6d28d9 !important;
+}
+
+body.dark .tipo-jogo-badge.simples {
+    background: #181818 !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+body.dark .tipo-jogo-badge.dupla {
+    background: #181818 !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #2a2a2a !important;
+}
+
+.fila-item .fila-nomes,
+.fila-item.minha-inscricao .fila-nomes {
+    color: var(--text) !important;
+    font-size: .92rem !important;
+    font-weight: 850 !important;
+    line-height: 1.18 !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+
+.fila-item.tipo-simples .fila-nomes {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.tipo-simples .nome-jogador,
+.fila-item.tipo-simples .separador {
+    display: inline !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+}
+
+.fila-item.tipo-dupla .fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.fila-item.tipo-dupla .linha-dupla {
+    display: block !important;
+    min-width: 0 !important;
+    line-height: 1.18 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.tipo-dupla .nome-jogador,
+.fila-item.tipo-dupla .separador {
+    display: inline !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+}
+
+.fila-item .separador {
+    margin: 0 4px !important;
+    opacity: .7 !important;
+}
+
+.fila-meta-row.linha-unica {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.fila-meta-row.linha-unica .fila-previsao,
+.fila-item.minha-inscricao .fila-meta-row.linha-unica .fila-previsao {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 5px 8px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 3px 6px !important;
+    text-align: left !important;
+    line-height: 1.15 !important;
+}
+
+.fila-meta-row.linha-unica .quadra-tag,
+.fila-meta-row.linha-unica .hora,
+.fila-meta-row.linha-unica .tempo-relativo,
+.fila-meta-row.linha-unica .fila-chegada,
+.fila-meta-row.linha-unica .fila-ql,
+.fila-meta-row.linha-unica .meta-separador {
+    display: inline !important;
+    font-size: .68rem !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+}
+
+.fila-meta-row.linha-unica .quadra-tag,
+.fila-meta-row.linha-unica .hora {
+    font-weight: 900 !important;
+}
+
+.fila-meta-row.linha-unica .tempo-relativo {
+    margin-top: 0 !important;
+    font-weight: 800 !important;
+    color: var(--text-secondary) !important;
+}
+
+.fila-meta-row.linha-unica .fila-ql {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    color: var(--text-secondary) !important;
+}
+
+.fila-meta-row.linha-unica .fila-chegada,
+.fila-meta-row.linha-unica .meta-separador {
+    color: var(--text-secondary) !important;
+}
+
+.fila-actions-user {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+    margin-top: 2px !important;
+}
+
+.fila-actions-user .btn-editar-fila,
+.fila-actions-user .btn-remover-fila {
+    width: 100% !important;
+    min-height: 28px !important;
+    padding: 4px 0 !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    font-size: .66rem !important;
+}
+
+body.dark .fila-previsao {
+    background: #090909 !important;
+    border-color: #2a2a2a !important;
+}
+
+@media (max-width: 430px) {
+    .fila-section {
+        padding: 12px !important;
+    }
+
+    .fila-item,
+    .fila-item.minha-inscricao,
+    body.dark .fila-item,
+    body.dark .fila-item.minha-inscricao {
+        padding: 9px 10px !important;
+        gap: 5px !important;
+    }
+
+    .fila-item .fila-nomes,
+    .fila-item.minha-inscricao .fila-nomes {
+        font-size: .88rem !important;
+        line-height: 1.16 !important;
+    }
+
+    .fila-meta-row.linha-unica .quadra-tag,
+    .fila-meta-row.linha-unica .hora,
+    .fila-meta-row.linha-unica .tempo-relativo,
+    .fila-meta-row.linha-unica .fila-chegada,
+    .fila-meta-row.linha-unica .fila-ql,
+    .fila-meta-row.linha-unica .meta-separador {
+        font-size: .64rem !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -2151,28 +2395,34 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             let dp = new Date(agora + (esperaSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
             
+            const tipoTexto = tipoLinhaClass === 'tipo-dupla' ? 'Duplas' : 'Simples';
+            const chegada = j.chegada ? formatarChegada(j.chegada) : '--:--';
+            const previsaoHtml = `<span class="quadra-tag">Q${qE.id}</span><span class="hora">${formatarHora(dp)}</span><span class="meta-separador">·</span><span class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</span>`;
+
             corpo.innerHTML += `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}">
-                                    <span class="fila-posicao">#${idx+1}</span>
-                                    <div class="fila-info">
-                                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
-                                        <div class="fila-detalhes">
-                                            <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-                                            <span>🎫 ${qlHTML}</span>
-                                        </div>
+                                    <div class="fila-topo-card">
+                                        <span class="fila-posicao">#${idx+1}</span>
+                                        <span class="tipo-jogo-badge ${tipoLinhaClass === 'tipo-dupla' ? 'dupla' : 'simples'}">${tipoTexto}</span>
                                     </div>
-                                    <div class="fila-lateral">
+
+                                    <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+
+                                    <div class="fila-meta-row linha-unica">
                                         <div class="fila-previsao">
-                                            <div class="quadra-tag">Q${qE.id}</div>
-                                            <div class="hora">${formatarHora(dp)}</div>
-                                            <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
+                                            ${previsaoHtml}
+                                            <span class="meta-separador">·</span>
+                                            <span class="fila-chegada">🕐 ${chegada}</span>
+                                            <span class="meta-separador">·</span>
+                                            <span class="fila-ql">🎫 ${qlHTML}</span>
                                         </div>
-                                        ${ehMinha ? `
-                                        <div class="fila-acoes-minha">
-                                            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
-                                            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
-                                        </div>
-                                        ` : ''}
                                     </div>
+
+                                    ${ehMinha ? `
+                                    <div class="fila-actions-user">
+                                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})" title="Editar" aria-label="Editar">✏️ Editar</button>
+                                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})" title="Remover" aria-label="Remover">✕ Remover</button>
+                                    </div>
+                                    ` : ''}
                                 </div>`;
         });
     }
