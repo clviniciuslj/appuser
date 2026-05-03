@@ -1,51 +1,881 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20 Layouts Demo</title>
-<style>
-body { font-family: Arial; padding:20px; transition: all .3s;}
-.box { padding:20px; border-radius:12px; margin-top:20px;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Condomínio Laranjeiras - Quadras</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Laranjeiras PRO">
+    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================================
+           RESET E VARIÁVEIS BASE - TODOS OS LAYOUTS COMPARTILHAM
+        ========================================================= */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            min-height: 100vh;
+            margin: 0; 
+            padding: 16px; 
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .container { max-width: 640px; margin: 0 auto; transition: all 0.3s; }
 
-body.tema-1 { background: hsl(18,70%,90%); }
-body.tema-2 { background: hsl(36,70%,90%); }
-body.tema-3 { background: hsl(54,70%,90%); }
-body.tema-4 { background: hsl(72,70%,90%); }
-body.tema-5 { background: hsl(90,70%,90%); }
-body.tema-6 { background: hsl(108,70%,90%); }
-body.tema-7 { background: hsl(126,70%,90%); }
-body.tema-8 { background: hsl(144,70%,90%); }
-body.tema-9 { background: hsl(162,70%,90%); }
-body.tema-10 { background: hsl(180,70%,90%); }
-body.tema-11 { background: hsl(198,70%,90%); }
-body.tema-12 { background: hsl(216,70%,90%); }
-body.tema-13 { background: hsl(234,70%,90%); }
-body.tema-14 { background: hsl(252,70%,90%); }
-body.tema-15 { background: hsl(270,70%,90%); }
-body.tema-16 { background: hsl(288,70%,90%); }
-body.tema-17 { background: hsl(306,70%,90%); }
-body.tema-18 { background: hsl(324,70%,90%); }
-body.tema-19 { background: hsl(342,70%,90%); }
-body.tema-20 { background: hsl(360,70%,90%); }
+        /* Estilos comuns que NÃO mudam entre layouts */
+        .quadra-timer.warning { animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+        
+        .btn-editar-fila, .btn-remover-fila {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 4px;
+            border: none;
+        }
+        .btn-editar-fila { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .btn-remover-fila { background: rgba(239,68,68,0.15); color: #ef4444; }
 
-</style>
+        .btn:active { transform: scale(0.98); }
+        .theme-fab:active { transform: scale(0.95); }
+
+        .vazio-state { text-align: center; padding: 24px; font-size: 0.85rem; }
+        
+        .alerta-edicao {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+        .popup-card{background:white;border-radius:24px;max-width:480px;width:100%;max-height:80vh;box-shadow:0 16px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden}
+        .popup-header{padding:18px 20px 12px;border-bottom:1px solid rgba(0,0,0,.06);text-align:center}
+        .popup-title{font-size:1.2rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+        .popup-content{padding:16px 20px;overflow-y:auto;flex:1;text-align:left}
+        .regulamento-texto{font-size:.78rem;line-height:1.5}
+        .regulamento-texto h3{font-size:.82rem;font-weight:700;margin:10px 0 4px;text-align:left}
+        .regulamento-texto ul{margin:4px 0;padding-left:16px;text-align:left}.regulamento-texto li{margin:2px 0}
+        .popup-footer{padding:12px 20px 16px;border-top:1px solid rgba(0,0,0,.06);text-align:center}
+        .checkbox-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+        .checkbox-wrapper input[type="checkbox"]{width:20px;height:20px;cursor:pointer;margin:0}
+        .checkbox-wrapper label{font-size:.85rem;cursor:pointer}
+        .btn-aceitar{width:100%;padding:14px;color:#fff;border:none;border-radius:40px;font-size:.9rem;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
+        .btn-aceitar.active{opacity:1}.btn-aceitar:disabled{cursor:not-allowed}
+
+        @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+        /* Shimmer comum */
+        .shimmer {
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        .shimmer::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+            animation: shimmerMove 1.15s infinite;
+        }
+        @keyframes shimmerMove { 100% { transform: translateX(100%); } }
+
+        .meu-status-card { display: none; margin: 0 0 12px; padding: 13px 14px; border-radius: 16px; text-align: center; font-weight: 850; line-height: 1.25; }
+        .meu-status-card .status-sub { display: block; margin-top: 3px; font-size: .72rem; font-weight: 650; }
+
+        .fila-acoes-minha { display: flex; gap: 8px; }
+        .fila-lateral { margin-left: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; flex-shrink: 0; }
+
+        .fila-nomes { display: flex !important; flex-direction: column !important; gap: 1px !important; }
+        .linha-dupla { display: flex !important; flex-wrap: wrap !important; align-items: center !important; line-height: 1.15 !important; }
+        .nome-jogador { white-space: normal !important; overflow-wrap: anywhere !important; }
+        .separador { white-space: nowrap !important; margin: 0 4px !important; opacity: .7 !important; }
+
+        /* TEMA CLARO/ESCURO PADRÃO PARA TODOS LAYOUTS */
+        :root {
+            --bg: #f0f2f5;
+            --card-bg: rgba(255,255,255,0.85);
+            --card-border: rgba(255,255,255,0.6);
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --green: #10b981;
+            --red: #ef4444;
+            --primary: #0f172a;
+            --warning: #f59e0b;
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --radius-sm: 14px;
+        }
+
+        body.dark {
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --card-border: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --primary: #3b82f6;
+            --shadow: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+        }
+    </style>
+
+    <style>
+        /* =========================================================
+           LAYOUT 11 - MODO AGENDA (cronograma/horários)
+        ========================================================= */
+        body.layout-11 {
+            background: var(--bg);
+            color: var(--text);
+        }
+        body.layout-11 .container { max-width: 700px; }
+        body.layout-11 .app-header { text-align: center; padding: 12px 0 20px; position: relative; }
+        body.layout-11 .app-logo { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); }
+        body.layout-11 .app-title { font-size: 1.5rem; font-weight: 800; }
+        body.layout-11 .quadras-wrapper { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        body.layout-11 .quadra-card { 
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm);
+            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+            position: relative; overflow: hidden;
+        }
+        body.layout-11 .quadra-card::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: var(--green); border-radius: 0 4px 4px 0;
+        }
+        body.layout-11 .quadra-card.ocupada::before { background: var(--red); }
+        body.layout-11 .quadra-status { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        body.layout-11 .quadra-info { flex: 1; }
+        body.layout-11 .quadra-numero { font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); }
+        body.layout-11 .quadra-jogadores { font-weight: 600; font-size: 0.85rem; }
+        body.layout-11 .quadra-tempo { font-size: 0.7rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+        body.layout-11 .quadra-timer { font-family: monospace; font-size: 1.2rem; font-weight: 700; min-width: 60px; text-align: right; }
+        body.layout-11 .fila-section, body.layout-11 .form-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; border: 1px solid var(--card-border); }
+        body.layout-11 .fila-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; margin-bottom: 8px; background: rgba(0,0,0,0.02); }
+        body.layout-11 .fila-previsao { background: rgba(0,0,0,0.04); padding: 4px 8px; border-radius: 8px; text-align: center; }
+        body.layout-11 input, body.layout-11 select { padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text); }
+        body.layout-11 .btn { border-radius: 30px; padding: 14px; background: var(--primary); color: white; font-weight: 700; border: none; cursor: pointer; }
+
+        /* =========================================================
+           LAYOUT 12 - DASHBOARD VERTICAL (cards empilhados expandidos)
+        ========================================================= */
+        body.layout-12 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        body.layout-12 .container { max-width: 600px; }
+        body.layout-12 .app-header { text-align: center; padding: 20px 0; background: rgba(0,0,0,0.2); border-radius: 24px; margin-bottom: 16px; }
+        body.layout-12 .app-title { font-size: 1.8rem; font-weight: 800; }
+        body.layout-12 .quadra-card {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+            border-radius: 24px; padding: 20px; margin-bottom: 12px;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        body.layout-12 .quadra-header { display: flex; justify-content: space-between; align-items: center; }
+        body.layout-12 .quadra-numero { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; }
+        body.layout-12 .quadra-status { width: 48px; height: 48px; border-radius: 24px; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
+        body.layout-12 .quadra-jogadores { font-size: 1rem; font-weight: 600; margin: 8px 0; }
+        body.layout-12 .quadra-timer { font-size: 2rem; font-weight: 800; font-family: monospace; text-align: center; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 16px; }
+        body.layout-12 .fila-section, body.layout-12 .form-card { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; margin-bottom: 16px; }
+        body.layout-12 .fila-item { background: rgba(0,0,0,0.2); border-radius: 16px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        body.layout-12 .btn { background: white; color: #667eea; border-radius: 40px; padding: 16px; font-weight: 800; }
+
+        /* =========================================================
+           LAYOUT 13 - TERMINAL MODE (monospace, estilo hacker)
+        ========================================================= */
+        body.layout-13 {
+            background: #0a0a0a;
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        body.layout-13 .container { max-width: 800px; }
+        body.layout-13 .app-header { border-bottom: 2px solid #00ff41; padding: 16px 0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        body.layout-13 .app-title { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        body.layout-13 .app-subtitle { font-size: 0.7rem; opacity: 0.7; }
+        body.layout-13 .quadra-card {
+            background: #111111; border: 1px solid #00ff41; border-radius: 0;
+            padding: 12px; margin-bottom: 8px;
+            display: grid; grid-template-columns: auto 1fr auto;
+            gap: 12px; align-items: center;
+        }
+        body.layout-13 .quadra-status { display: none; }
+        body.layout-13 .quadra-numero { font-size: 0.7rem; opacity: 0.7; }
+        body.layout-13 .quadra-jogadores { font-size: 0.8rem; text-transform: uppercase; }
+        body.layout-13 .quadra-timer { font-size: 1.1rem; font-family: monospace; }
+        body.layout-13 .fila-section, body.layout-13 .form-card { background: #111111; border: 1px solid #00ff41; border-radius: 0; padding: 16px; margin-bottom: 16px; }
+        body.layout-13 .fila-item { border-bottom: 1px solid #00ff4133; padding: 8px 0; display: flex; gap: 12px; }
+        body.layout-13 input, body.layout-13 select { background: #000; border: 1px solid #00ff41; color: #00ff41; font-family: monospace; border-radius: 0; }
+        body.layout-13 .btn { background: #00ff41; color: #000; border-radius: 0; font-weight: 800; text-transform: uppercase; }
+
+        /* =========================================================
+           LAYOUT 14 - MINIMALISTA FOCO (só timer e status)
+        ========================================================= */
+        body.layout-14 {
+            background: #f5f5f5;
+            color: #222;
+        }
+        body.layout-14 .container { max-width: 500px; }
+        body.layout-14 .app-header { display: none; }
+        body.layout-14 .quadra-card {
+            background: white; border-radius: 0; border-bottom: 2px solid #ddd;
+            padding: 16px; display: flex; justify-content: space-between; align-items: center;
+        }
+        body.layout-14 .quadra-info .quadra-numero { font-size: 1.2rem; font-weight: 700; }
+        body.layout-14 .quadra-info .quadra-jogadores { display: none; }
+        body.layout-14 .quadra-info .quadra-tempo { display: none; }
+        body.layout-14 .quadra-status { display: none; }
+        body.layout-14 .quadra-timer { font-size: 1.8rem; font-weight: 800; font-family: monospace; }
+        body.layout-14 .fila-section, body.layout-14 .form-card { background: white; padding: 16px; margin-bottom: 12px; border-radius: 0; }
+        body.layout-14 .fila-item { border-bottom: 1px solid #eee; padding: 12px 0; display: flex; gap: 12px; }
+        body.layout-14 .fila-previsao { display: none; }
+        body.layout-14 .btn { background: #222; color: white; border-radius: 0; }
+
+        /* =========================================================
+           LAYOUT 15 - KANBAN BOARD (quadras como colunas)
+        ========================================================= */
+        body.layout-15 {
+            background: #1e293b;
+            color: #f1f5f9;
+        }
+        body.layout-15 .container { max-width: 1200px; }
+        body.layout-15 .app-header { text-align: center; padding: 20px; }
+        body.layout-15 .quadras-wrapper { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; margin-bottom: 20px; }
+        body.layout-15 .quadra-card {
+            min-width: 280px; background: #334155; border-radius: 12px; padding: 16px;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        body.layout-15 .quadra-header { display: flex; justify-content: space-between; align-items: center; }
+        body.layout-15 .quadra-numero { font-size: 1.1rem; font-weight: 800; }
+        body.layout-15 .quadra-status { width: 36px; height: 36px; border-radius: 18px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
+        body.layout-15 .quadra-timer { font-size: 1.5rem; font-family: monospace; text-align: center; padding: 12px; background: #1e293b; border-radius: 8px; }
+        body.layout-15 .fila-section, body.layout-15 .form-card { background: #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+        body.layout-15 .fila-item { background: #1e293b; border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; gap: 12px; }
+        body.layout-15 .btn { background: #f59e0b; color: #1e293b; border-radius: 8px; font-weight: 800; }
+
+        /* =========================================================
+           LAYOUT 16 - SCOREBOARD (placar eletrônico)
+        ========================================================= */
+        body.layout-16 {
+            background: #000;
+            color: #ff6600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        body.layout-16 .container { max-width: 700px; }
+        body.layout-16 .app-header { text-align: center; padding: 20px; border-bottom: 3px solid #ff6600; margin-bottom: 20px; }
+        body.layout-16 .app-title { font-size: 2rem; letter-spacing: 4px; }
+        body.layout-16 .quadra-card {
+            background: #111; border: 2px solid #ff6600; border-radius: 8px; margin-bottom: 12px;
+            display: grid; grid-template-columns: auto 1fr auto; gap: 16px; padding: 16px;
+        }
+        body.layout-16 .quadra-numero { font-size: 1.2rem; font-weight: 800; }
+        body.layout-16 .quadra-jogadores { font-size: 0.9rem; text-transform: uppercase; }
+        body.layout-16 .quadra-timer { font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
+        body.layout-16 .fila-section, body.layout-16 .form-card { background: #111; border: 1px solid #ff6600; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        body.layout-16 .fila-item { border-bottom: 1px solid #ff660033; padding: 10px 0; display: flex; gap: 12px; }
+        body.layout-16 .btn { background: #ff6600; color: #000; border-radius: 4px; font-weight: 800; }
+
+        /* =========================================================
+           LAYOUT 17 - WIDGET MODE (cards pequenos estilo iOS)
+        ========================================================= */
+        body.layout-17 {
+            background: #e8edf2;
+            color: #1c1c1e;
+        }
+        body.layout-17 .container { max-width: 650px; }
+        body.layout-17 .app-header { text-align: center; padding: 16px; background: white; border-radius: 24px; margin-bottom: 16px; }
+        body.layout-17 .quadras-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        body.layout-17 .quadra-card {
+            background: white; border-radius: 20px; padding: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        body.layout-17 .quadra-status { width: 32px; height: 32px; border-radius: 10px; background: #f2f2f2; display: flex; align-items: center; justify-content: center; }
+        body.layout-17 .quadra-numero { font-size: 0.65rem; font-weight: 600; color: #8e8e93; }
+        body.layout-17 .quadra-jogadores { font-size: 0.8rem; font-weight: 600; }
+        body.layout-17 .quadra-timer { font-size: 1.1rem; font-weight: 700; text-align: right; }
+        body.layout-17 .fila-section, body.layout-17 .form-card { background: white; border-radius: 24px; padding: 16px; margin-bottom: 16px; }
+        body.layout-17 .fila-item { background: #f9f9fb; border-radius: 14px; padding: 12px; margin-bottom: 8px; display: flex; gap: 10px; }
+        body.layout-17 .btn { background: #007aff; color: white; border-radius: 14px; padding: 14px; font-weight: 600; }
+
+        /* =========================================================
+           LAYOUT 18 - TIMELINE VERTICAL (linha do tempo única)
+        ========================================================= */
+        body.layout-18 {
+            background: linear-gradient(180deg, #f0f2f5 0%, #e2e8f0 100%);
+            color: #1e293b;
+        }
+        body.layout-18 .container { max-width: 550px; }
+        body.layout-18 .app-header { text-align: center; padding: 16px; background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        body.layout-18 .timeline-item { display: flex; gap: 16px; margin-bottom: 16px; position: relative; }
+        body.layout-18 .timeline-marker { width: 48px; display: flex; flex-direction: column; align-items: center; }
+        body.layout-18 .timeline-line { width: 2px; flex: 1; background: linear-gradient(180deg, var(--primary) 0%, #cbd5e1 100%); margin-top: 40px; }
+        body.layout-18 .quadra-card, body.layout-18 .fila-section { flex: 1; background: white; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 0; }
+        body.layout-18 .form-card { background: white; border-radius: 16px; padding: 20px; margin-top: 16px; }
+        body.layout-18 .fila-section { background: white; }
+        body.layout-18 .fila-item { border-bottom: 1px solid #e2e8f0; padding: 10px 0; display: flex; gap: 12px; }
+        body.layout-18 .btn { background: var(--primary); color: white; border-radius: 30px; }
+
+        /* =========================================================
+           LAYOUT 19 - KIOSK/TOTEM (fontes grandes, modo quiosque)
+        ========================================================= */
+        body.layout-19 {
+            background: #0f172a;
+            color: white;
+            font-size: 18px;
+        }
+        body.layout-19 .container { max-width: 700px; }
+        body.layout-19 .app-header { text-align: center; padding: 24px; background: #1e293b; border-radius: 32px; margin-bottom: 24px; }
+        body.layout-19 .app-title { font-size: 2.2rem; }
+        body.layout-19 .quadra-card {
+            background: #1e293b; border-radius: 32px; padding: 24px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        body.layout-19 .quadra-numero { font-size: 1.1rem; }
+        body.layout-19 .quadra-jogadores { font-size: 1.1rem; font-weight: 600; }
+        body.layout-19 .quadra-timer { font-size: 2rem; font-family: monospace; font-weight: 800; background: #000; padding: 12px 20px; border-radius: 40px; }
+        body.layout-19 .fila-section, body.layout-19 .form-card { background: #1e293b; border-radius: 32px; padding: 24px; margin-bottom: 20px; }
+        body.layout-19 .fila-item { background: #334155; border-radius: 24px; padding: 16px; margin-bottom: 12px; display: flex; gap: 16px; font-size: 1rem; }
+        body.layout-19 .fila-posicao { font-size: 1.3rem; font-weight: 800; }
+        body.layout-19 input, body.layout-19 select { padding: 18px; font-size: 1rem; border-radius: 20px; }
+        body.layout-19 .btn { padding: 18px; font-size: 1.1rem; border-radius: 40px; background: #3b82f6; }
+
+        /* =========================================================
+           LAYOUT 20 - GLASSMORPHISM (vidro fosco moderno)
+        ========================================================= */
+        body.layout-20 {
+            background: radial-gradient(circle at 20% 30%, #1a1a2e, #16213e);
+            color: #fff;
+        }
+        body.layout-20 .container { max-width: 600px; }
+        body.layout-20 .app-header { text-align: center; padding: 24px; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 32px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.2); }
+        body.layout-20 .app-title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body.layout-20 .quadra-card {
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-radius: 28px; padding: 18px; margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 16px;
+        }
+        body.layout-20 .quadra-timer { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 10px 16px; font-family: monospace; font-size: 1.2rem; }
+        body.layout-20 .fila-section, body.layout-20 .form-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-radius: 28px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.15); }
+        body.layout-20 .fila-item { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 14px; margin-bottom: 10px; display: flex; gap: 12px; }
+        body.layout-20 .btn { background: linear-gradient(135deg, #8b5cf6, #6366f1); border-radius: 40px; padding: 16px; font-weight: 700; border: none; color: white; }
+        body.layout-20 input, body.layout-20 select { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 14px; color: white; }
+        body.layout-20 input::placeholder { color: rgba(255,255,255,0.5); }
+    </style>
 </head>
-<body class="tema-1">
+<body class="layout-11">
+<script>
+const VERSAO_REGULAMENTO = 'v3';
+if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
+    localStorage.removeItem('regulamentoAceito');
+    localStorage.setItem('regulamentoVersao', VERSAO_REGULAMENTO);
+}
+</script>
 
-<h2>Layouts (1â€“20)</h2>
-<button onclick="trocar()">ðŸŽ¨ Mudar Visual</button>
-
-<div class="box">
-ConteÃºdo de exemplo (substituir pelo seu app)
+<!-- POP-UP REGULAMENTO (mesmo HTML original) -->
+<div class="popup-overlay" id="popupRegulamento">
+    <div class="popup-card">
+        <div class="popup-header"><div class="popup-title"><span class="material-icons-outlined">description</span> REGULAMENTO DE USO DAS QUADRAS DE TÊNIS</div></div>
+        <div class="popup-content">
+           <div class="regulamento-texto">
+               <h3 class="secao-geral">DISPOSIÇÕES GERAIS</h3>
+               <h3>1. DISTRIBUIÇÃO DAS QUADRAS</h3> 
+               <ul><li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas;</li><li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li></ul>
+               <h3>2. TEMPO DE JOGO</h3>
+               <ul><li><strong>Jogos de simples:</strong> 45 minutos;</li><li><strong>Jogos de duplas:</strong> 1 hora;</li><li>O tempo de aquecimento está incluído na duração total.</li><li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li><li>O controle do tempo será realizado em planilha diária específica.</li></ul>
+               <h3>3. AULAS</h3>
+               <ul><li><strong>Local permitido:</strong> exclusivamente Quadra 4;</li><li><strong>Horário permitido:</strong> das 07h às 21h;</li><li>É permitida a presença de um assistente por professor, a critério deste;</li><li><strong>Limite diário por professor:</strong> até 7 horas de aula.</li></ul>
+               <h3>4. AGENDAMENTO DE AULAS</h3>
+               <ul><li>Não é permitido o agendamento do mesmo horário em dias consecutivos para os mesmos alunos.</li></ul>
+               <h3>5. PERÍODOS DE EXCEÇÃO</h3>
+               <ul><li>Ficam suspensas as aulas nos seguintes períodos:</li><li>De 26/12 a 03/01;</li><li>Da sexta-feira véspera de Carnaval até a Quarta-feira de Cinzas.</li></ul>
+               <h3>6. FISCALIZAÇÃO E ORGANIZAÇÃO</h3>
+               <ul><li>Durante períodos de maior movimento, um colaborador designado pelo condomínio será responsável pela organização da ocupação das quadras.</li></ul>
+               <h3>7. REGRAS COMPLEMENTARES</h3>
+               <ul><li>É vedado o agendamento de aulas nas Quadras 1, 2 e 3;</li><li>É obrigatório o uso de vestimenta e calçados adequados à prática do tênis.</li></ul>
+               <p style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);text-align:center;font-weight:500;font-size:.7rem;"><strong>DISPOSIÇÃO FINAL:</strong> Este regulamento foi aprovado pelo Conselho de Administração do Condomínio Laranjeiras em 13/06/2025 e entra em vigor a partir de 14/06/2025.</p>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <div class="checkbox-wrapper"><input type="checkbox" id="naoMostrarNovamente" onchange="toggleBotaoAceitar()"><label for="naoMostrarNovamente">Li e concordo com o regulamento</label></div>
+            <button class="btn-aceitar" id="btnAceitar" onclick="aceitarRegulamento()" disabled>Aceitar e Continuar</button>
+        </div>
+    </div>
 </div>
 
+<div class="container">
+    <header class="app-header">
+        <div class="app-logo">
+            <span class="material-icons-outlined">sports_tennis</span>
+        </div>
+        <div class="app-title">Laranjeiras</div>
+        <div class="app-subtitle">Quadras de Tênis</div>
+    </header>
+
+    <div id="meuStatus" class="meu-status-card"></div>
+
+    <div class="quadras-wrapper" id="q-render"></div>
+
+    <div class="fila-section">
+        <div class="fila-header">
+            <div class="fila-title"><span class="material-icons-outlined" style="font-size:18px">queue</span> Fila de Espera</div>
+            <span class="fila-count" id="fila-count">0</span>
+        </div>
+        <div id="corpoFila"></div>
+    </div>
+
+    <div class="form-card" id="formCard">
+        <div class="form-title" id="formTitle"><span class="material-icons-outlined" style="font-size:18px">edit_note</span> Inscrever-se na Fila</div>
+        <div id="alertaEdicao" class="alerta-edicao" style="display:none;">⚠️ Você está <strong>editando</strong> sua inscrição atual.</div>
+        <div class="input-group">
+            <select id="tipoJogo" class="full-width" onchange="toggleCampos()"><option value="45">🎾 Simples (45 min)</option><option value="60">👥 Duplas (1h)</option></select>
+            <input type="text" id="j1_nome" placeholder="Jogador 1 *" data-required="true">
+            <input type="text" id="j1_ql" maxlength="5" placeholder="Q/L * (ex: 01/01)" data-required="true" inputmode="numeric" oninput="mascaraQL(this)">
+            <input type="text" id="j2_nome" placeholder="Jogador 2 *" data-required="true">
+            <input type="text" id="j2_ql" maxlength="5" placeholder="Q/L * (ex: 01/01)" data-required="true" inputmode="numeric" oninput="mascaraQL(this)">
+            <input type="text" id="j3_nome" placeholder="Jogador 3 *" data-required="true" style="display:none">
+            <input type="text" id="j3_ql" maxlength="5" placeholder="Q/L *" data-required="true" inputmode="numeric" oninput="mascaraQL(this)" style="display:none">
+            <input type="text" id="j4_nome" placeholder="Jogador 4 (opcional)" data-required="false" style="display:none" oninput="toggleQL4Required()">
+            <input type="text" id="j4_ql" maxlength="5" placeholder="Q/L (opcional)" data-required="false" inputmode="numeric" oninput="mascaraQL(this)" style="display:none">
+        </div>
+        <button id="btnSubmit" class="btn btn-inscrever" onclick="inscreverNaFila()">➕ Entrar na Fila</button>
+        <button id="btnCancelarEdicao" class="btn btn-sair-fila" style="display:none;" onclick="cancelarEdicao()">↩ Cancelar Edição</button>
+    </div>
+</div>
+
+<footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
+<button class="theme-fab visual-switcher" id="themeToggle" onclick="mudarLayout()" aria-label="Mudar layout"><span class="material-icons-outlined">view_quilt</span><small id="layoutLabel">11/20</small></button>
+
 <script>
-let t = 1;
-function trocar(){
-  t = t >= 20 ? 1 : t+1;
-  document.body.className = "tema-" + t;
+    let editandoId = null;
+    
+    function toggleBotaoAceitar() {
+        const cb = document.getElementById('naoMostrarNovamente');
+        const btn = document.getElementById('btnAceitar');
+        if (btn) {
+            btn.disabled = !cb.checked;
+            btn.classList.toggle('active', cb.checked);
+        }
+    }
+    
+    function aceitarRegulamento() {
+        if (!document.getElementById('naoMostrarNovamente').checked) return;
+        localStorage.setItem('regulamentoAceito', 'true');
+        document.getElementById('popupRegulamento').style.display = 'none';
+    }
+    
+    (function() {
+        if (localStorage.getItem('regulamentoAceito') !== 'true') {
+            const popup = document.getElementById('popupRegulamento');
+            if (popup) popup.style.display = 'flex';
+            const btn = document.getElementById('btnAceitar');
+            if (btn) btn.disabled = true;
+        }
+    })();
+    
+    function cancelarEdicao() {
+        editandoId = null;
+        document.getElementById('formTitle').innerHTML = '<span class="material-icons-outlined" style="font-size:18px">edit_note</span> Inscrever-se na Fila';
+        document.getElementById('btnSubmit').textContent = '➕ Entrar na Fila';
+        document.getElementById('btnSubmit').classList.remove('btn-editar');
+        document.getElementById('btnCancelarEdicao').style.display = 'none';
+        document.getElementById('alertaEdicao').style.display = 'none';
+        document.querySelectorAll('.input-group input').forEach(i => i.value = "");
+        document.getElementById('tipoJogo').value = '45';
+        if (typeof toggleCampos === 'function') toggleCampos();
+    }
+    
+    window.mascaraQL = function(input) {
+        let cursorPos = input.selectionStart;
+        let valorAntigo = input.value;
+        let numeros = valorAntigo.replace(/\D/g, '');
+        if (numeros.length > 4) numeros = numeros.slice(0, 4);
+        let formatado = '';
+        if (numeros.length === 0) {
+            formatado = '';
+        } else if (numeros.length <= 2) {
+            formatado = numeros;
+        } else {
+            formatado = numeros.slice(0, 2) + '/' + numeros.slice(2, 4);
+        }
+        if (valorAntigo !== formatado) {
+            input.value = formatado;
+            let novoCursor = cursorPos;
+            if (cursorPos === valorAntigo.length) {
+                novoCursor = formatado.length;
+            } else {
+                let diff = formatado.length - valorAntigo.length;
+                novoCursor = cursorPos + diff;
+                if (novoCursor < 0) novoCursor = 0;
+                if (novoCursor > formatado.length) novoCursor = formatado.length;
+            }
+            input.setSelectionRange(novoCursor, novoCursor);
+        }
+    };
+    
+    window.toggleCampos = function() {
+        const d = document.getElementById('tipoJogo').value === "60";
+        ['j3_nome','j3_ql','j4_nome','j4_ql'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.display = d ? 'block' : 'none';
+                if (id.includes('j3')) el.dataset.required = d ? 'true' : 'false';
+                if (id === 'j4_nome') el.dataset.required = 'false';
+                if (id === 'j4_ql') {
+                    el.dataset.required = 'false';
+                    el.placeholder = 'Q/L (opcional)';
+                }
+            }
+        });
+    };
+    
+    window.toggleQL4Required = function() {
+        const n = document.getElementById('j4_nome');
+        const q = document.getElementById('j4_ql');
+        if (n && q) {
+            q.dataset.required = n.value.trim() !== '' ? 'true' : 'false';
+            q.placeholder = n.value.trim() !== '' ? 'Q/L * (ex: 01/01)' : 'Q/L (opcional)';
+        }
+    };
+    
+    // SISTEMA DE LAYOUTS (11 a 20)
+    const LAYOUTS = ['layout-11', 'layout-12', 'layout-13', 'layout-14', 'layout-15', 'layout-16', 'layout-17', 'layout-18', 'layout-19', 'layout-20'];
+    let layoutAtual = parseInt(localStorage.getItem('layoutAtual') || '0', 10);
+    if (isNaN(layoutAtual) || layoutAtual < 0 || layoutAtual >= LAYOUTS.length) layoutAtual = 0;
+
+    window.aplicarLayout = function() {
+        document.body.classList.remove(...LAYOUTS);
+        document.body.classList.add(LAYOUTS[layoutAtual]);
+        localStorage.setItem('layoutAtual', String(layoutAtual));
+        const label = document.getElementById('layoutLabel');
+        if (label) label.textContent = `${layoutAtual + 11}/20`;
+    };
+
+    window.mudarLayout = function() {
+        layoutAtual = (layoutAtual + 1) % LAYOUTS.length;
+        window.aplicarLayout();
+    };
+    
+    window.aplicarLayout();
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    
+    const firebaseConfig = { apiKey: "AIzaSyDum7FyxneVNe3JQkmxuTbxCMpJSJscwvM", authDomain: "controle-laranjeiras.firebaseapp.com", databaseURL: "https://controle-laranjeiras-default-rtdb.firebaseio.com", projectId: "controle-laranjeiras", storageBucket: "controle-laranjeiras.firebasestorage.app", messagingSenderId: "884128857219", appId: "1:884128857219:web:638a0a6836aa2563b9afb6" };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+    
+    let fila = [];
+    let quadras = [];
+    let meuUid = null;
+    let filaKeys = [];
+    let carregandoQuadras = true;
+    let carregandoFila = true;
+    let tempoMinimoShimmer = true;
+
+    setTimeout(() => {
+        tempoMinimoShimmer = false;
+        renderQuadras();
+        renderFila();
+    }, 500);
+    
+    signInAnonymously(auth)
+        .then((userCredential) => { meuUid = userCredential.user.uid; })
+        .catch((error) => console.error("Erro autenticação:", error));
+    
+    function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
+    function formatarHora(d) { return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
+    function formatarChegada(d) { return new Date(d).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
+    function formatarTempoRelativo(segundos) {
+        const minutos = Math.max(0, Math.ceil((segundos || 0) / 60));
+        if (minutos <= 0) return 'agora';
+        if (minutos < 60) return `≈ ${minutos} min`;
+        const horas = Math.floor(minutos / 60);
+        const resto = minutos % 60;
+        return resto ? `≈ ${horas}h ${resto}min` : `≈ ${horas}h`;
+    }
+
+    function formatarNomesFila(jogadores = [], fallback = '') {
+        const nomes = (jogadores || []).filter(Boolean);
+        const lista = nomes.length ? nomes : (fallback ? fallback.split('•').map(n => n.trim()).filter(Boolean) : []);
+        const linha = (arr) => arr.filter(Boolean).map((nome, i, todos) => `
+            <span class="nome-jogador">${nome}</span>${i < todos.length - 1 ? '<span class="separador"> • </span>' : ''}
+        `).join('');
+        if (lista.length <= 2) return linha(lista);
+        return `<div class="linha-dupla">${linha([lista[0], lista[1]])}</div><div class="linha-dupla">${linha([lista[2], lista[3]])}</div>`;
+    }
+
+    function formatarQLFila(jogo) {
+        const qls = (jogo.qls || []).filter(Boolean).map(q => String(q).trim()).filter(q => q !== '');
+        if (qls.length) return qls.join(', ');
+        const detalhes = (jogo.detalhes || '').trim();
+        if (!detalhes) return 'Sem Q/L';
+        return detalhes.split(',').map(q => q.trim()).filter(q => q !== '').join(', ') || 'Sem Q/L';
+    }
+    
+    function gerarChaveJogo(jogadores, qls) {
+        const pares = [];
+        for (let i = 0; i < jogadores.length; i++) {
+            if (jogadores[i] && qls[i]) {
+                pares.push(`${jogadores[i].toLowerCase().trim()}|${qls[i].toLowerCase().trim()}`);
+            }
+        }
+        return pares.sort().join('||');
+    }
+    
+    function mostrarToast(mensagem, cor = '#f59e0b') {
+        const t = document.createElement('div');
+        t.innerHTML = mensagem;
+        t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${cor};color:#fff;padding:14px 20px;border-radius:24px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:toastFadeIn 0.3s ease-out;font-size:.9rem;text-align:center;max-width:90%;`;
+        document.body.appendChild(t);
+        setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 4000);
+    }
+    
+    function renderQuadras() {
+        const c = document.getElementById('q-render');
+        if (!c) return;
+        if (carregandoQuadras || tempoMinimoShimmer) {
+            c.innerHTML = `<div class="quadra-card shimmer" style="height:86px"></div><div class="quadra-card shimmer" style="height:86px"></div><div class="quadra-card shimmer" style="height:86px"></div>`;
+            return;
+        }
+        c.innerHTML = quadras.map(q => `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
+            <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
+            <div class="quadra-info">
+                <div class="quadra-numero">Quadra ${q.id}</div>
+                <div class="quadra-jogadores ${!q.ocupada ? 'livre' : ''}">${q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível'}</div>
+                <div class="quadra-tempo"><span class="material-icons-outlined" style="font-size:14px">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
+            </div>
+            <div class="quadra-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
+        </div>`).join('');
+    }
+    
+    function atualizarMeuStatus(minhaPosicao, meuItem) {
+        const status = document.getElementById('meuStatus');
+        if (!status) return;
+        status.classList.remove('status-agora', 'status-proximo');
+        if (minhaPosicao === -1 || !meuItem) { status.style.display = 'none'; status.innerHTML = ''; return; }
+        status.style.display = 'block';
+        if (minhaPosicao === 0) {
+            status.classList.add('status-proximo');
+            status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde ser chamado quando uma quadra liberar.</span>`;
+        } else { status.style.display = 'none'; status.innerHTML = ''; }
+    }
+
+    function renderFila() {
+        const countEl = document.getElementById('fila-count');
+        const corpo = document.getElementById('corpoFila');
+        if (!countEl || !corpo) return;
+        countEl.innerText = fila.length;
+        corpo.innerHTML = "";
+        if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) {
+            atualizarMeuStatus(-1, null);
+            corpo.innerHTML = `<div class="fila-item shimmer" style="height:58px"></div><div class="fila-item shimmer" style="height:58px"></div>`;
+            return;
+        }
+        const minhaPosicao = fila.findIndex(j => meuUid && j.deviceId === meuUid);
+        atualizarMeuStatus(minhaPosicao, minhaPosicao >= 0 ? fila[minhaPosicao] : null);
+        if (fila.length === 0) { corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>"; return; }
+        let ts = quadras.map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
+        let agora = Date.now();
+        fila.forEach((j, idx) => {
+            const ehMinha = meuUid && j.deviceId === meuUid;
+            const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
+            const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
+            const qlHTML = formatarQLFila(j);
+            ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
+            let qE = ts[0] || { id: '-', tempoSeg: 0 };
+            const esperaSeg = qE.tempoSeg || 0;
+            let dp = new Date(agora + (esperaSeg * 1000));
+            qE.tempoSeg += (j.duracao || 45) * 60;
+            corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
+                <span class="fila-posicao">#${idx+1}</span>
+                <div class="fila-info">
+                    <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+                    <div class="fila-detalhes">
+                        <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
+                        <span>🎫 ${qlHTML}</span>
+                    </div>
+                </div>
+                <div class="fila-lateral">
+                    <div class="fila-previsao">
+                        <div class="quadra-tag">Q${qE.id}</div>
+                        <div class="hora">${formatarHora(dp)}</div>
+                        <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
+                    </div>
+                    ${ehMinha ? `<div class="fila-acoes-minha">
+                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
+                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
+                    </div>` : ''}
+                </div>
+            </div>`;
+        });
+    }
+    
+    window.editarMeuItem = function(id) {
+        const item = fila.find(j => j.id === id);
+        if (!item) return;
+        editandoId = id;
+        document.getElementById('j1_nome').value = item.jogadores?.[0] || '';
+        document.getElementById('j1_ql').value = item.qls?.[0] || '';
+        document.getElementById('j2_nome').value = item.jogadores?.[1] || '';
+        document.getElementById('j2_ql').value = item.qls?.[1] || '';
+        document.getElementById('j3_nome').value = item.jogadores?.[2] || '';
+        document.getElementById('j3_ql').value = item.qls?.[2] || '';
+        document.getElementById('j4_nome').value = item.jogadores?.[3] || '';
+        document.getElementById('j4_ql').value = item.qls?.[3] || '';
+        document.getElementById('tipoJogo').value = item.duracao;
+        window.toggleCampos();
+        document.getElementById('formTitle').innerHTML = '<span class="material-icons-outlined" style="font-size:18px">edit</span> Editando Inscrição';
+        document.getElementById('btnSubmit').textContent = '💾 Salvar Alterações';
+        document.getElementById('btnSubmit').classList.add('btn-editar');
+        document.getElementById('btnCancelarEdicao').style.display = 'block';
+        document.getElementById('alertaEdicao').style.display = 'block';
+        document.getElementById('formCard').scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    window.removerMinhaInscricao = function(id) {
+        if (!confirm("Remover sua inscrição da fila?")) return;
+        const index = fila.findIndex(item => item.id === id);
+        if (index !== -1 && filaKeys[index]) {
+            remove(ref(db, `fila/${filaKeys[index]}`)).then(() => {
+                mostrarToast('✅ Inscrição removida!', '#10b981');
+                if (editandoId === id) cancelarEdicao();
+            });
+        }
+    };
+    
+    window.inscreverNaFila = function() {
+        if (!meuUid) { mostrarToast("⚠️ Aguarde autenticação...", '#f59e0b'); return; }
+        const tipoJogo = document.getElementById('tipoJogo').value;
+        const isDupla = tipoJogo === "60";
+        window.toggleQL4Required();
+        document.querySelectorAll('input,select').forEach(el => el.classList.remove('error'));
+        let temErro = false;
+        const nomes = [], qls = [];
+        for (let i = 1; i <= 4; i++) {
+            const ni = document.getElementById(`j${i}_nome`);
+            const qi = document.getElementById(`j${i}_ql`);
+            if (ni && ni.offsetParent !== null) {
+                if (ni.dataset.required === 'true' && !ni.value.trim()) { ni.classList.add('error'); temErro = true; }
+                if (ni.value.trim()) nomes.push(ni.value.trim());
+            }
+            if (qi && qi.offsetParent !== null) {
+                if (qi.dataset.required === 'true' && !qi.value.trim()) { qi.classList.add('error'); temErro = true; }
+                if (qi.value.trim()) qls.push(qi.value.trim());
+            }
+        }
+        if (temErro) { const pe = document.querySelector('.error'); if (pe) pe.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        const minimo = isDupla ? 3 : 2;
+        if (nomes.length < minimo) { mostrarToast(`⚠️ Mínimo de ${minimo} jogadores para ${isDupla ? "Duplas" : "Simples"}!`, '#ef4444'); return; }
+        if (editandoId) {
+            const idx = fila.findIndex(item => item.id === editandoId);
+            if (idx !== -1 && filaKeys[idx]) {
+                remove(ref(db, `fila/${filaKeys[idx]}`)).then(() => {
+                    editandoId = null;
+                    cancelarEdicao();
+                    criarNovaInscricao(nomes, qls, tipoJogo, isDupla);
+                });
+                return;
+            }
+        }
+        criarNovaInscricao(nomes, qls, tipoJogo, isDupla);
+    };
+    
+    function criarNovaInscricao(nomes, qls, tipoJogo, isDupla) {
+        Promise.all([
+            new Promise(resolve => onValue(ref(db, 'quadras'), snapshot => resolve(snapshot.val()), { onlyOnce: true })),
+            new Promise(resolve => onValue(ref(db, 'fila'), snapshot => resolve(snapshot.val()), { onlyOnce: true }))
+        ]).then(([quadrasData, filaData]) => {
+            const quadrasAtual = quadrasData ? (Array.isArray(quadrasData) ? quadrasData : Object.values(quadrasData).filter(i => i !== null)) : [];
+            const filaAtual = filaData ? (Array.isArray(filaData) ? filaData : Object.values(filaData).filter(i => i !== null)) : [];
+            const novaChave = gerarChaveJogo(nomes, qls);
+            const estaJogando = quadrasAtual.some(q => {
+                if (!q.ocupada || !q.rodando || !q.jogo) return false;
+                const chaveJogo = gerarChaveJogo(q.jogo.jogadores || [], q.jogo.qls || []);
+                return chaveJogo === novaChave;
+            });
+            const estaNaFila = filaAtual.some(item => {
+                const chaveItem = gerarChaveJogo(item.jogadores || [], item.qls || []);
+                return chaveItem === novaChave;
+            });
+            if (estaJogando) {
+                mostrarToast(`⚠️ Jogadores já estão em quadra. Aguarde o término.`, '#ef4444');
+                return;
+            }
+            if (estaNaFila) {
+                mostrarToast(`⚠️ Esta dupla/equipe já está na fila.`, '#f59e0b');
+                return;
+            }
+            const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid };
+            push(ref(db, 'fila'), novoJogo).then(() => {
+                mostrarToast('✅ Inscrição confirmada!', '#10b981');
+                cancelarEdicao();
+            });
+        });
+    }
+    
+    onValue(ref(db, 'fila'), (snapshot) => {
+        carregandoFila = false;
+        const d = snapshot.val();
+        if (!d) { fila = []; filaKeys = []; }
+        else { const entries = Object.entries(d); fila = entries.map(([key, value]) => ({ ...value, id: value.id })); filaKeys = entries.map(([key]) => key); }
+        renderFila();
+    });
+    
+    onValue(ref(db, 'quadras'), (snapshot) => {
+        carregandoQuadras = false;
+        if (!snapshot.exists()) {
+            set(ref(db, 'quadras'), [
+                { id: 1, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
+                { id: 2, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
+                { id: 3, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 }
+            ]);
+        }
+        const d = snapshot.val();
+        if (d) quadras = Array.isArray(d) ? d : Object.values(d).filter(i => i !== null);
+        renderQuadras();
+        renderFila();
+    });
+    
+    setInterval(() => {
+        let m = false;
+        const agora = Date.now();
+        quadras.forEach(q => {
+            if (q && q.ocupada && q.rodando && !q.pausada && q.horaTerminoAbsoluta) {
+                let r = Math.max(0, Math.ceil((q.horaTerminoAbsoluta - agora) / 1000));
+                if (q.tempoRestante !== r) { q.tempoRestante = r; m = true; }
+            }
+        });
+        if (m) { renderQuadras(); renderFila(); }
+    }, 1000);
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js?v=1.3");
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (!sessionStorage.getItem("swAtualizado")) {
+            sessionStorage.setItem("swAtualizado", "sim");
+            window.location.reload();
+        }
+    });
 }
 </script>
 
