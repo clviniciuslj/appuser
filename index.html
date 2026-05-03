@@ -1136,642 +1136,413 @@ body.dark input.error {
 
 
 /* =========================================================
-   CLUBHOUSE V2 — REDESIGN REAL
-   Mantém Firebase, IDs, funções e ações.
-   Muda linguagem visual e estrutura renderizada das quadras/fila.
+   5 MODELOS COMPLETOS — LINHA DO TEMPO / PAINEL / TOTEM / LISTA / KANBAN
+   Mantém IDs, Firebase, inputs, botões e ações.
    ========================================================= */
 
-body.clubhouse-v2 {
-    --bg: #f4eee2;
-    --surface: #fffaf1;
-    --surface-2: #f7eddc;
-    --ink: #272018;
-    --muted: #796c5c;
-    --line: #e2d3bd;
-    --brand: #6f4f28;
-    --brand-dark: #2b2417;
-    --ok: #2f7d54;
-    --danger: #b42318;
-    --warn: #b7791f;
-    --shadow-soft: 0 18px 48px rgba(78, 57, 31, .11);
-    --shadow-card: 0 10px 28px rgba(78, 57, 31, .09);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background:
-        radial-gradient(circle at top left, rgba(111,79,40,.13), transparent 32%),
-        radial-gradient(circle at 85% 18%, rgba(47,125,84,.10), transparent 26%),
-        linear-gradient(135deg, #fbf7ef 0%, #efe3d0 100%) !important;
-    color: var(--ink) !important;
-    padding: 14px !important;
-}
-
-body.clubhouse-v2.compact-club { padding: 10px !important; }
-
-body.clubhouse-v2 .container {
-    max-width: 760px !important;
-    margin: 0 auto !important;
-}
-
-body.clubhouse-v2 .app-header {
-    min-height: auto !important;
-    padding: 20px 18px !important;
-    margin-bottom: 14px !important;
-    background:
-        linear-gradient(135deg, rgba(255,250,241,.96), rgba(247,237,220,.88)) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 34px !important;
-    box-shadow: var(--shadow-soft) !important;
-    text-align: left !important;
-    display: grid !important;
-    grid-template-columns: 58px 1fr;
-    gap: 14px;
-    align-items: center;
-}
-
-body.clubhouse-v2 .app-logo {
-    position: static !important;
-    transform: none !important;
-    width: 58px !important;
-    height: 58px !important;
-    border-radius: 22px !important;
-    background: var(--brand-dark) !important;
-    border: 0 !important;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), 0 14px 30px rgba(43,36,23,.20) !important;
-}
-
-body.clubhouse-v2 .app-logo .material-icons-outlined {
-    color: #fffaf1 !important;
-    font-size: 31px !important;
-}
-
-body.clubhouse-v2 .app-title {
-    text-align: left !important;
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: 2.08rem !important;
-    line-height: .95 !important;
-    font-weight: 500 !important;
-    letter-spacing: -1px !important;
-    color: var(--ink) !important;
-    background: none !important;
-    -webkit-text-fill-color: var(--ink) !important;
-}
-
-body.clubhouse-v2 .app-subtitle {
-    text-align: left !important;
-    color: var(--brand) !important;
-    margin-top: 6px !important;
-    letter-spacing: 2.2px !important;
-    font-size: .66rem !important;
-    font-weight: 900 !important;
-}
-
-body.clubhouse-v2 #meuStatus {
-    border-radius: 24px !important;
-    background: #fffaf1 !important;
-    border: 1px solid var(--line) !important;
-    color: var(--ink) !important;
-    box-shadow: var(--shadow-card) !important;
-}
-
-/* ===== Quadras: abandona aparência de card-source ===== */
-body.clubhouse-v2 .quadras-wrapper {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 12px !important;
-    margin-bottom: 14px !important;
-}
-
-body.clubhouse-v2 .club-court {
-    position: relative;
-    min-height: 172px;
-    padding: 16px;
-    overflow: hidden;
-    border-radius: 30px;
-    background:
-        linear-gradient(135deg, #fffaf1, #f8efdf);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-card);
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 12px;
-}
-
-body.clubhouse-v2 .club-court::before {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(111,79,40,.13);
-    border-radius: 23px;
-    pointer-events: none;
-}
-
-body.clubhouse-v2 .club-court.is-busy {
-    background:
-        linear-gradient(135deg, #fff8f5, #f8e2dc);
-    border-color: rgba(180,35,24,.22);
-}
-
-body.clubhouse-v2 .club-court.is-free {
-    border-color: rgba(47,125,84,.22);
-}
-
-body.clubhouse-v2 .court-top {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1;
-}
-
-body.clubhouse-v2 .court-label {
+.modelo-badge {
+    position: fixed;
+    bottom: 82px;
+    left: 18px;
+    z-index: 1001;
+    max-width: 220px;
+    padding: 8px 11px;
+    border-radius: 999px;
+    background: rgba(15,23,42,.92);
+    color: #fff;
     font-size: .64rem;
     font-weight: 900;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: var(--muted);
+    letter-spacing: .35px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.20);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-body.clubhouse-v2 .court-state {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    height: 28px;
-    padding: 0 9px;
-    border-radius: 999px;
-    font-size: .66rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: .4px;
-    background: rgba(47,125,84,.10);
-    color: var(--ok);
+body[class*="modo-modelo-"] {
+    --m-bg: #f6f7f9;
+    --m-surface: #ffffff;
+    --m-surface-2: #f1f5f9;
+    --m-line: #d8e1ea;
+    --m-text: #111827;
+    --m-muted: #64748b;
+    --m-primary: #0f172a;
+    --m-green: #16865a;
+    --m-red: #d92d20;
+    --m-warn: #d97706;
+    --m-shadow: 0 14px 35px rgba(15,23,42,.08);
+    background: var(--m-bg) !important;
+    color: var(--m-text) !important;
 }
 
-body.clubhouse-v2 .club-court.is-busy .court-state {
-    background: rgba(180,35,24,.10);
-    color: var(--danger);
+body[class*="modo-modelo-"] .app-title {
+    background: none !important;
+    -webkit-text-fill-color: var(--m-text) !important;
+    color: var(--m-text) !important;
 }
 
-body.clubhouse-v2 .court-main {
-    position: relative;
-    z-index: 1;
-    align-self: center;
+body[class*="modo-modelo-"] .theme-fab {
+    width: 56px !important;
+    height: 56px !important;
+    left: 18px !important;
+    bottom: 18px !important;
+    border-radius: 999px !important;
+    background: var(--m-primary) !important;
+    color: #fff !important;
+    border: 0 !important;
+    box-shadow: 0 16px 34px rgba(15,23,42,.22) !important;
 }
 
-body.clubhouse-v2 .court-players {
-    color: var(--ink);
-    font-size: 1.02rem;
-    line-height: 1.18;
-    font-weight: 850;
-    overflow-wrap: anywhere;
-}
+body[class*="modo-modelo-"] .theme-fab .material-icons-outlined { color: #fff !important; }
 
-body.clubhouse-v2 .club-court.is-free .court-players {
-    color: var(--muted);
-    font-weight: 750;
-}
-
-body.clubhouse-v2 .court-sub {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--muted);
-    font-size: .72rem;
-    font-weight: 650;
-}
-
-body.clubhouse-v2 .court-bottom {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-body.clubhouse-v2 .court-timer {
-    min-width: 96px;
-    padding: 9px 12px;
-    border-radius: 999px;
-    background: var(--brand-dark);
-    color: #fffaf1;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 1.28rem;
-    font-weight: 850;
-    letter-spacing: .3px;
-    text-align: center;
-    box-shadow: 0 12px 24px rgba(43,36,23,.16);
-}
-
-body.clubhouse-v2 .court-timer.warning {
-    background: var(--danger);
-    color: #fff;
-    animation: pulse 1s infinite;
-}
-
-body.clubhouse-v2 .court-mark {
-    width: 46px;
-    height: 46px;
-    border-radius: 17px;
-    display: grid;
-    place-items: center;
-    background: var(--surface-2);
-    color: var(--brand);
-}
-
-body.clubhouse-v2 .club-court.is-busy .court-mark {
-    background: rgba(180,35,24,.10);
-    color: var(--danger);
-}
-
-/* esconder visual antigo caso algo vaze */
-body.clubhouse-v2 .quadra-card:not(.club-court) { display: none !important; }
-
-/* ===== Fila: vira uma lista premium, não fila source ===== */
-body.clubhouse-v2 .fila-section {
-    background: var(--surface) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 34px !important;
-    padding: 20px !important;
-    box-shadow: var(--shadow-soft) !important;
+body[class*="modo-modelo-"] .app-header {
+    background: var(--m-surface) !important;
+    border: 1px solid var(--m-line) !important;
+    border-radius: 24px !important;
+    box-shadow: var(--m-shadow) !important;
     margin-bottom: 14px !important;
 }
 
-body.clubhouse-v2 .fila-header {
-    margin-bottom: 14px !important;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
+body[class*="modo-modelo-"] .app-logo {
+    left: 18px !important;
+    background: var(--m-surface-2) !important;
+    border: 1px solid var(--m-line) !important;
+    border-radius: 16px !important;
 }
 
-body.clubhouse-v2 .fila-title {
-    color: var(--brand) !important;
-    font-size: .74rem !important;
-    letter-spacing: 1.7px !important;
-    font-weight: 950 !important;
+body[class*="modo-modelo-"] .app-logo .material-icons-outlined { color: var(--m-primary) !important; }
+
+body[class*="modo-modelo-"] .fila-section,
+body[class*="modo-modelo-"] .form-card,
+body[class*="modo-modelo-"] .popup-card {
+    background: var(--m-surface) !important;
+    border: 1px solid var(--m-line) !important;
+    box-shadow: var(--m-shadow) !important;
+    backdrop-filter: none !important;
 }
 
-body.clubhouse-v2 .fila-count {
-    background: var(--brand-dark) !important;
-    color: #fffaf1 !important;
-    border-radius: 999px !important;
-    padding: 5px 12px !important;
+body[class*="modo-modelo-"] input,
+body[class*="modo-modelo-"] select {
+    background: #fff !important;
+    border: 1px solid var(--m-line) !important;
+    color: var(--m-text) !important;
 }
 
-body.clubhouse-v2 .club-queue-item {
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr) auto;
-    gap: 12px;
-    align-items: center;
-    padding: 13px;
-    border-radius: 24px;
-    background: #fbf4e8;
-    border: 1px solid #eadcc8;
-    margin-bottom: 9px;
+body[class*="modo-modelo-"] .btn,
+body[class*="modo-modelo-"] .btn-aceitar {
+    background: var(--m-primary) !important;
+    color: #fff !important;
+    box-shadow: none !important;
 }
 
-body.clubhouse-v2 .club-queue-item.is-top {
-    background: #eef8f0;
-    border-color: rgba(47,125,84,.26);
+body[class*="modo-modelo-"] .btn-editar { background: var(--m-warn) !important; }
+body[class*="modo-modelo-"] .btn-sair-fila { background: var(--m-red) !important; }
+
+/* ===== Modelo 1: Linha do Tempo ===== */
+body.modo-modelo-1 {
+    --m-bg: #f8fafc;
+    --m-primary: #1e3a8a;
+    --m-green: #15803d;
+    --m-red: #b91c1c;
 }
-
-body.clubhouse-v2 .club-queue-item.is-second {
-    background: #fff7e7;
-    border-color: rgba(183,121,31,.24);
+.timeline-board {
+    background: var(--m-surface);
+    border: 1px solid var(--m-line);
+    border-radius: 26px;
+    box-shadow: var(--m-shadow);
+    padding: 16px;
+    margin-bottom: 14px;
 }
-
-body.clubhouse-v2 .club-queue-item.is-mine {
-    outline: 2px solid rgba(183,121,31,.28);
+.timeline-title {
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--m-line);
+    font-weight:900;color:var(--m-primary);letter-spacing:.5px;text-transform:uppercase;font-size:.78rem;
 }
-
-body.clubhouse-v2 .queue-rank {
-    width: 42px;
-    height: 42px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    background: var(--surface);
-    color: var(--brand);
-    border: 1px solid var(--line);
-    font-weight: 950;
-    font-size: .86rem;
+.timeline-row {
+    display:grid;
+    grid-template-columns: 62px minmax(0,1fr) 82px;
+    gap:10px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid #edf2f7;
 }
-
-body.clubhouse-v2 .club-queue-item.is-top .queue-rank {
-    background: var(--ok);
-    color: #fff;
-    border-color: var(--ok);
+.timeline-row:last-child { border-bottom:0; }
+.timeline-court {
+    width:54px;height:54px;border-radius:16px;
+    display:grid;place-items:center;
+    background:#eff6ff;color:var(--m-primary);
+    font-weight:950;font-size:.78rem;
 }
-
-body.clubhouse-v2 .queue-main {
-    min-width: 0;
+.timeline-block {
+    min-height:54px;
+    border-radius:18px;
+    background:#f1f5f9;
+    border:1px solid #d8e1ea;
+    padding:10px 12px;
+    position:relative;
 }
-
-body.clubhouse-v2 .queue-names {
-    color: var(--ink);
-    font-size: .9rem;
-    line-height: 1.15;
-    font-weight: 850;
+.timeline-block.busy {
+    background:#fff1f1;
+    border-color:#fecaca;
 }
-
-body.clubhouse-v2 .queue-meta {
-    margin-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    color: var(--muted);
-    font-size: .68rem;
-    font-weight: 650;
+.timeline-block.free {
+    background:#effaf3;
+    border-color:#bbf7d0;
 }
-
-body.clubhouse-v2 .queue-side {
-    display: grid;
-    grid-template-columns: auto;
-    gap: 6px;
-    justify-items: end;
+.timeline-player { font-weight:900;color:var(--m-text);line-height:1.15;font-size:.88rem;overflow-wrap:anywhere; }
+.timeline-sub { margin-top:4px;color:var(--m-muted);font-size:.68rem;font-weight:650; }
+.timeline-time {
+    background:var(--m-primary);color:#fff;border-radius:14px;
+    padding:8px;text-align:center;font-family:"JetBrains Mono",monospace;font-weight:900;font-size:.95rem;
 }
+.timeline-time.warning { background: var(--m-red); animation:pulse 1s infinite; }
 
-body.clubhouse-v2 .queue-estimate {
-    min-width: 74px;
-    padding: 7px 9px;
-    border-radius: 16px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    text-align: center;
+body.modo-modelo-1 .fila-section,
+body.modo-modelo-1 .form-card { border-radius:26px !important; }
+
+/* ===== Modelo 2: Painel de Decisão ===== */
+body.modo-modelo-2 {
+    --m-bg: #eef2f6;
+    --m-primary: #0f172a;
+    --m-green: #166534;
+    --m-red: #b42318;
 }
-
-body.clubhouse-v2 .queue-estimate .q {
-    font-size: .65rem;
-    font-weight: 950;
-    color: var(--brand);
+.decision-board {
+    display:grid;
+    grid-template-columns: 1.35fr .85fr;
+    gap:12px;
+    margin-bottom:14px;
 }
-
-body.clubhouse-v2 .queue-estimate .h {
-    margin-top: 1px;
-    font-size: .86rem;
-    font-weight: 850;
-    color: var(--ink);
+.decision-now, .decision-next, .decision-courts {
+    background:var(--m-surface);
+    border:1px solid var(--m-line);
+    border-radius:24px;
+    box-shadow:var(--m-shadow);
+    padding:16px;
 }
-
-body.clubhouse-v2 .queue-estimate .rel {
-    margin-top: 1px;
-    font-size: .62rem;
-    font-weight: 800;
-    color: var(--muted);
+.decision-now { min-height:190px; }
+.decision-label {
+    font-size:.68rem;font-weight:950;letter-spacing:1.5px;text-transform:uppercase;color:var(--m-muted);
+    margin-bottom:10px;
 }
-
-body.clubhouse-v2 .queue-actions {
-    display: flex;
-    gap: 6px;
+.decision-big {
+    font-size:1.35rem;font-weight:950;line-height:1.15;color:var(--m-text);overflow-wrap:anywhere;
 }
-
-body.clubhouse-v2 .queue-actions button {
-    width: 31px;
-    height: 29px;
-    border: 0;
-    border-radius: 11px;
-    display: grid;
-    place-items: center;
-    font-size: .72rem;
+.decision-meta { margin-top:10px;color:var(--m-muted);font-size:.78rem;font-weight:650; }
+.decision-timer {
+    margin-top:16px;display:inline-flex;align-items:center;justify-content:center;
+    min-width:124px;padding:10px 14px;border-radius:999px;
+    background:var(--m-primary);color:#fff;font-family:"JetBrains Mono",monospace;font-weight:950;font-size:1.35rem;
 }
-
-/* esconder classes antigas da fila quando vierem misturadas */
-body.clubhouse-v2 .fila-item:not(.club-queue-item) { display: none !important; }
-
-/* ===== Formulário: vira bloco de inscrição mais autoral ===== */
-body.clubhouse-v2 .form-card {
-    background: var(--surface) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 34px !important;
-    padding: 20px !important;
-    box-shadow: var(--shadow-soft) !important;
+.decision-timer.warning{background:var(--m-red);animation:pulse 1s infinite}
+.decision-next {
+    background:linear-gradient(135deg,#ffffff,#f8fafc);
 }
-
-body.clubhouse-v2 .form-title {
-    color: var(--brand) !important;
-    font-size: .74rem !important;
-    letter-spacing: 1.7px !important;
-    font-weight: 950 !important;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
+.decision-next-name { font-size:1.05rem;font-weight:950;line-height:1.18;overflow-wrap:anywhere; }
+.decision-next-info { margin-top:8px;color:var(--m-muted);font-size:.72rem;font-weight:700; }
+.decision-courts { grid-column:1 / -1; padding:12px; }
+.decision-court-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px; }
+.decision-mini {
+    border:1px solid var(--m-line);border-radius:16px;padding:10px;background:#f8fafc;
 }
+.decision-mini.free{background:#f0fdf4;border-color:#bbf7d0}
+.decision-mini.busy{background:#fff7ed;border-color:#fed7aa}
+.decision-mini-q{font-size:.65rem;color:var(--m-muted);font-weight:900;text-transform:uppercase;letter-spacing:1px}
+.decision-mini-name{margin-top:5px;font-size:.76rem;font-weight:850;color:var(--m-text);line-height:1.12;overflow-wrap:anywhere}
+body.modo-modelo-2 .fila-section { border-radius:24px !important; }
+body.modo-modelo-2 .form-card { border-radius:24px !important; }
 
-body.clubhouse-v2 .input-group {
-    margin-top: 14px;
-    gap: 10px !important;
+/* ===== Modelo 3: Totem ===== */
+body.modo-modelo-3 {
+    --m-bg: #111827;
+    --m-surface: #0b1018;
+    --m-surface-2: #161f2e;
+    --m-line: #2b3546;
+    --m-text: #f8fafc;
+    --m-muted: #aeb7c6;
+    --m-primary: #f2c94c;
+    --m-green: #27ae60;
+    --m-red: #eb5757;
 }
-
-body.clubhouse-v2 input,
-body.clubhouse-v2 select {
-    background: #fbf4e8 !important;
-    border: 1px solid #e3d3bd !important;
-    border-radius: 18px !important;
-    color: var(--ink) !important;
-    font-weight: 650 !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+body.modo-modelo-3 .app-header { background:#0b1018 !important; }
+.totem-board {
+    background:#0b1018;
+    border:1px solid #2b3546;
+    border-radius:26px;
+    box-shadow:var(--m-shadow);
+    padding:18px;
+    margin-bottom:14px;
 }
-
-body.clubhouse-v2 input:focus,
-body.clubhouse-v2 select:focus {
-    border-color: var(--brand) !important;
-    box-shadow: 0 0 0 3px rgba(111,79,40,.12) !important;
+.totem-call {
+    background:#f2c94c;
+    color:#0b1018;
+    border-radius:24px;
+    padding:18px;
+    text-align:center;
+    margin-bottom:12px;
 }
-
-body.clubhouse-v2 .btn,
-body.clubhouse-v2 .btn-aceitar {
-    background: var(--brand-dark) !important;
-    color: #fffaf1 !important;
-    border: 0 !important;
-    border-radius: 999px !important;
-    box-shadow: 0 13px 28px rgba(43,36,23,.16) !important;
+.totem-kicker { font-size:.75rem;font-weight:950;letter-spacing:2px;text-transform:uppercase; }
+.totem-main { margin-top:6px;font-size:1.55rem;line-height:1.12;font-weight:950;overflow-wrap:anywhere; }
+.totem-sub { margin-top:8px;font-size:.82rem;font-weight:850; }
+.totem-courts {
+    display:grid;grid-template-columns:1fr;gap:8px;
 }
-
-body.clubhouse-v2 .btn-editar {
-    background: var(--warn) !important;
+.totem-row {
+    display:grid;grid-template-columns:54px minmax(0,1fr) 82px;gap:10px;align-items:center;
+    background:#161f2e;border:1px solid #2b3546;border-radius:14px;padding:10px;
 }
+.totem-q { color:#f2c94c;font-weight:950; }
+.totem-name { color:#fff;font-weight:850;overflow-wrap:anywhere;font-size:.84rem; }
+.totem-time { background:#0b1018;color:#f2c94c;border-radius:10px;padding:7px;text-align:center;font-family:"JetBrains Mono";font-weight:900; }
+body.modo-modelo-3 .fila-section,
+body.modo-modelo-3 .form-card { border-radius:18px !important; background:#0b1018 !important; }
+body.modo-modelo-3 .fila-item { background:#161f2e !important; border-color:#2b3546 !important; color:#fff !important; }
+body.modo-modelo-3 input,
+body.modo-modelo-3 select { background:#161f2e !important; color:#fff !important; border-color:#2b3546 !important; }
+body.modo-modelo-3 .btn { background:#f2c94c !important; color:#0b1018 !important; }
 
-body.clubhouse-v2 .btn-sair-fila {
-    background: var(--danger) !important;
+/* ===== Modelo 4: Lista Operacional ===== */
+body.modo-modelo-4 {
+    --m-bg: #ffffff;
+    --m-surface: transparent;
+    --m-surface-2: #f8fafc;
+    --m-line: #111827;
+    --m-text: #111827;
+    --m-muted: #6b7280;
+    --m-primary: #111827;
 }
-
-body.clubhouse-v2 .alerta-edicao {
-    border-radius: 20px !important;
-    background: #fff7e7 !important;
-    border-color: rgba(183,121,31,.24) !important;
-    color: var(--warn) !important;
+body.modo-modelo-4 .app-header {
+    text-align:left !important;
+    border:0 !important;
+    border-bottom:2px solid #111827 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
 }
-
-/* Popup também na linguagem nova */
-body.clubhouse-v2 .popup-card {
-    background: var(--surface) !important;
-    border: 1px solid var(--line) !important;
-    border-radius: 30px !important;
-    color: var(--ink) !important;
+body.modo-modelo-4 .app-logo { display:none !important; }
+body.modo-modelo-4 .app-title, body.modo-modelo-4 .app-subtitle { text-align:left !important; }
+.listop-board {
+    border-top:1px solid #111827;
+    margin-bottom:16px;
 }
-
-body.clubhouse-v2 .popup-title,
-body.clubhouse-v2 .regulamento-texto,
-body.clubhouse-v2 .checkbox-wrapper label {
-    color: var(--ink) !important;
+.listop-row {
+    display:grid;
+    grid-template-columns:70px minmax(0,1fr) 86px 72px;
+    gap:10px;
+    align-items:center;
+    padding:13px 0;
+    border-bottom:1px solid #d1d5db;
 }
-
-body.clubhouse-v2 .regulamento-texto h3 {
-    color: var(--brand) !important;
+.listop-q { font-weight:950;color:#111827; }
+.listop-name { font-weight:850;color:#111827;line-height:1.12;overflow-wrap:anywhere; }
+.listop-state { color:#6b7280;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px; }
+.listop-time { font-family:"JetBrains Mono";font-weight:950;color:#111827;text-align:right; }
+.listop-time.warning{color:#b91c1c;animation:pulse 1s infinite}
+body.modo-modelo-4 .fila-section,
+body.modo-modelo-4 .form-card {
+    border-radius:0 !important;
+    border:1px solid #111827 !important;
+    box-shadow:none !important;
+    background:transparent !important;
 }
-
-/* Botão */
-body.clubhouse-v2 .theme-fab {
-    background: var(--brand-dark) !important;
-    color: #fffaf1 !important;
-    border: 0 !important;
-    box-shadow: 0 14px 32px rgba(43,36,23,.22) !important;
+body.modo-modelo-4 .fila-item {
+    background:transparent !important;
+    border:0 !important;
+    border-top:1px solid #d1d5db !important;
+    border-radius:0 !important;
 }
+body.modo-modelo-4 .fila-count,
+body.modo-modelo-4 .btn,
+body.modo-modelo-4 .btn-aceitar { border-radius:0 !important; background:#111827 !important; color:#fff !important; }
+body.modo-modelo-4 input, body.modo-modelo-4 select { border-radius:0 !important; }
 
-body.clubhouse-v2 .theme-fab .material-icons-outlined {
-    color: #fffaf1 !important;
+/* ===== Modelo 5: Kanban ===== */
+body.modo-modelo-5 {
+    --m-bg: #f3f4f6;
+    --m-primary: #334155;
+    --m-green: #15803d;
+    --m-red: #b91c1c;
 }
-
-/* Compacto alternável */
-body.clubhouse-v2.compact-club .app-header {
-    padding: 14px 16px !important;
-    border-radius: 26px !important;
+.kanban-board {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    margin-bottom:14px;
 }
-
-body.clubhouse-v2.compact-club .quadras-wrapper {
-    gap: 8px !important;
+.kanban-col {
+    min-height:180px;
+    background:var(--m-surface);
+    border:1px solid var(--m-line);
+    border-radius:22px;
+    box-shadow:var(--m-shadow);
+    padding:12px;
 }
-
-body.clubhouse-v2.compact-club .club-court {
-    min-height: 132px;
-    padding: 12px;
-    border-radius: 24px;
+.kanban-title {
+    display:flex;align-items:center;justify-content:space-between;
+    color:var(--m-primary);font-size:.68rem;font-weight:950;letter-spacing:1.4px;text-transform:uppercase;
+    margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--m-line);
 }
-
-body.clubhouse-v2.compact-club .court-timer {
-    font-size: 1.05rem;
-    min-width: 76px;
+.kanban-card {
+    background:#f8fafc;
+    border:1px solid #d8e1ea;
+    border-radius:16px;
+    padding:10px;
+    margin-bottom:8px;
 }
+.kanban-card.free{background:#f0fdf4;border-color:#bbf7d0}
+.kanban-card.busy{background:#fff7ed;border-color:#fed7aa}
+.kanban-name{font-size:.78rem;font-weight:850;line-height:1.12;overflow-wrap:anywhere}
+.kanban-meta{margin-top:6px;color:var(--m-muted);font-size:.65rem;font-weight:700}
+.kanban-time{margin-top:7px;display:inline-block;background:var(--m-primary);color:#fff;border-radius:999px;padding:5px 8px;font-family:"JetBrains Mono";font-size:.76rem;font-weight:900}
+.kanban-empty{color:var(--m-muted);font-size:.75rem;padding:8px}
+body.modo-modelo-5 .fila-section { display:none !important; }
+body.modo-modelo-5 .form-card { border-radius:24px !important; }
 
-body.clubhouse-v2.compact-club .fila-section,
-body.clubhouse-v2.compact-club .form-card {
-    padding: 15px !important;
-    border-radius: 26px !important;
+/* Model queue item used inside kanban */
+.model-fila-card {
+    background:#fff;
+    border:1px solid #d8e1ea;
+    border-radius:16px;
+    padding:10px;
+    margin-bottom:8px;
 }
+.model-fila-rank { color:var(--m-primary);font-weight:950;font-size:.75rem; }
+.model-fila-name { margin-top:4px;font-weight:850;font-size:.78rem;line-height:1.12;overflow-wrap:anywhere; }
+.model-fila-meta { margin-top:5px;color:var(--m-muted);font-size:.64rem;font-weight:700; }
+.model-actions {display:flex;gap:6px;margin-top:7px}
+.model-actions button{border:0;border-radius:8px;width:30px;height:27px}
 
-body.clubhouse-v2.compact-club .club-queue-item {
-    padding: 9px 10px;
-    border-radius: 18px;
-}
-
-/* Shimmer na nova estrutura */
-body.clubhouse-v2 .shimmer {
+/* Shimmer */
+body[class*="modo-modelo-"] .shimmer {
     position: relative !important;
     overflow: hidden !important;
-    background: rgba(126,108,86,.16) !important;
-    border-color: rgba(126,108,86,.18) !important;
+    background: rgba(148,163,184,.22) !important;
+    border-color: rgba(148,163,184,.28) !important;
+}
+body[class*="modo-modelo-"] .shimmer::after {
+    content:"" !important;position:absolute!important;inset:0!important;transform:translateX(-100%)!important;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent)!important;
+    animation:shimmerMoveUser 1.15s infinite!important;
 }
 
-body.clubhouse-v2 .shimmer::after {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    transform: translateX(-100%) !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent) !important;
-    animation: shimmerMoveUser 1.15s infinite !important;
-}
-
-/* Responsivo */
-@media (max-width: 430px) {
-    body.clubhouse-v2 {
-        padding: 10px !important;
-    }
-
-    body.clubhouse-v2 .app-header {
-        grid-template-columns: 48px 1fr;
-        gap: 11px;
-        padding: 15px !important;
-        border-radius: 26px !important;
-    }
-
-    body.clubhouse-v2 .app-logo {
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 18px !important;
-    }
-
-    body.clubhouse-v2 .app-title {
-        font-size: 1.65rem !important;
-    }
-
-    body.clubhouse-v2 .quadras-wrapper {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
-    }
-
-    body.clubhouse-v2 .club-court {
-        min-height: 132px;
-        padding: 11px;
-        border-radius: 24px;
-    }
-
-    body.clubhouse-v2 .court-label {
-        font-size: .58rem;
-    }
-
-    body.clubhouse-v2 .court-state {
-        height: 24px;
-        padding: 0 7px;
-        font-size: .55rem;
-    }
-
-    body.clubhouse-v2 .court-players {
-        font-size: .78rem;
-        line-height: 1.12;
-    }
-
-    body.clubhouse-v2 .court-sub {
-        display: none;
-    }
-
-    body.clubhouse-v2 .court-mark {
-        display: none;
-    }
-
-    body.clubhouse-v2 .court-timer {
-        width: 100%;
-        min-width: 0;
-        font-size: .98rem;
-        padding: 7px;
-    }
-
-    body.clubhouse-v2 .club-queue-item {
-        grid-template-columns: 38px minmax(0,1fr) auto;
-        gap: 8px;
-        padding: 10px;
-    }
-
-    body.clubhouse-v2 .queue-rank {
-        width: 36px;
-        height: 36px;
-        border-radius: 14px;
-        font-size: .76rem;
-    }
-
-    body.clubhouse-v2 .queue-names {
-        font-size: .78rem;
-    }
-
-    body.clubhouse-v2 .queue-meta {
-        font-size: .6rem;
-    }
-
-    body.clubhouse-v2 .queue-estimate {
-        min-width: 62px;
-        padding: 6px;
-    }
+@media (max-width:430px) {
+    .decision-board { grid-template-columns:1fr !important; }
+    .decision-courts { grid-column:auto !important; }
+    .decision-court-grid { grid-template-columns:1fr 1fr !important; }
+    .kanban-board { grid-template-columns:1fr !important; }
+    .listop-row { grid-template-columns:54px minmax(0,1fr) 66px; }
+    .listop-state { display:none; }
+    .timeline-row { grid-template-columns:52px minmax(0,1fr) 72px; }
+    .timeline-court { width:46px;height:46px; }
+    .timeline-time { font-size:.82rem; }
+    .totem-main { font-size:1.25rem; }
+    .totem-row { grid-template-columns:44px minmax(0,1fr) 70px; }
+    .modelo-badge { left:12px; bottom:76px; max-width:180px; }
 }
 
 </style>
 </head>
-<body class="clubhouse-v2">
+<body class="modo-modelo-1">
 <script>
 const VERSAO_REGULAMENTO = 'v3';
 if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
@@ -1853,7 +1624,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 </div>
 
 <footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
-<button class="theme-fab" id="themeToggle" onclick="toggleTema()" title="Alternar modo"><span class="material-icons-outlined">view_comfy</span></button>
+<button class="theme-fab" id="themeToggle" onclick="toggleTema()" title="Mudar modelo"><span class="material-icons-outlined">dashboard_customize</span></button><div id="modeloBadge" class="modelo-badge">1/5 Linha do Tempo</div>
 
 <script>
     let editandoId = null;
@@ -1948,19 +1719,40 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     };
     
     window.toggleTema = function() {
-        document.body.classList.toggle('compact-club');
-        localStorage.setItem('clubhouseCompacto', document.body.classList.contains('compact-club') ? '1' : '0');
-        const icon = document.querySelector('#themeToggle .material-icons-outlined');
-        if (icon) icon.textContent = document.body.classList.contains('compact-club') ? 'view_agenda' : 'view_comfy';
+        const atual = parseInt(localStorage.getItem('modeloLaranjeiras') || '0', 10);
+        const proximo = (atual + 1) % MODELOS_LARANJEIRAS.length;
+        aplicarModeloLaranjeiras(proximo);
+        if (typeof renderQuadras === 'function') renderQuadras();
+        if (typeof renderFila === 'function') renderFila();
     };
     
+    const MODELOS_LARANJEIRAS = [
+        { classe: 'modo-modelo-1', nome: '1/5 Linha do Tempo' },
+        { classe: 'modo-modelo-2', nome: '2/5 Painel de Decisão' },
+        { classe: 'modo-modelo-3', nome: '3/5 Totem de Chamada' },
+        { classe: 'modo-modelo-4', nome: '4/5 Lista Operacional' },
+        { classe: 'modo-modelo-5', nome: '5/5 Kanban' }
+    ];
+
+    function getModeloAtualLaranjeiras() {
+        return parseInt(localStorage.getItem('modeloLaranjeiras') || '0', 10);
+    }
+
+    function aplicarModeloLaranjeiras(indice) {
+        document.body.classList.remove('dark');
+        MODELOS_LARANJEIRAS.forEach(m => document.body.classList.remove(m.classe));
+        const modelo = MODELOS_LARANJEIRAS[indice] || MODELOS_LARANJEIRAS[0];
+        document.body.classList.add(modelo.classe);
+        localStorage.setItem('modeloLaranjeiras', String(indice));
+        const badge = document.getElementById('modeloBadge');
+        if (badge) badge.textContent = modelo.nome;
+        const icon = document.querySelector('#themeToggle .material-icons-outlined');
+        if (icon) icon.textContent = 'dashboard_customize';
+    }
+
     (function() {
-        document.body.classList.add('clubhouse-v2');
-        if (localStorage.getItem('clubhouseCompacto') === '1') {
-            document.body.classList.add('compact-club');
-            const icon = document.querySelector('#themeToggle .material-icons-outlined');
-            if (icon) icon.textContent = 'view_agenda';
-        }
+        const salvo = getModeloAtualLaranjeiras();
+        aplicarModeloLaranjeiras(Number.isFinite(salvo) ? salvo : 0);
     })();
 </script>
 
@@ -2065,33 +1857,134 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         const c = document.getElementById('q-render');
         if (!c) return;
 
+        const modelo = (typeof getModeloAtualLaranjeiras === 'function') ? getModeloAtualLaranjeiras() : 0;
+
         if (carregandoQuadras || tempoMinimoShimmer) {
-            c.innerHTML = `
-                <div class="club-court shimmer" style="height:132px"></div>
-                <div class="club-court shimmer" style="height:132px"></div>
-                <div class="club-court shimmer" style="height:132px"></div>
-            `;
+            c.innerHTML = modelo === 4
+                ? `<div class="kanban-board"><div class="kanban-col shimmer" style="height:180px"></div><div class="kanban-col shimmer" style="height:180px"></div><div class="kanban-col shimmer" style="height:180px"></div></div>`
+                : `<div class="timeline-board shimmer" style="height:220px"></div>`;
             return;
         }
 
-        c.innerHTML = quadras.map(q => {
-            return `<article class="club-court ${q.ocupada ? 'is-busy' : 'is-free'}">
-                        <div class="court-top">
-                            <div class="court-label">Quadra ${q.id}</div>
-                            <div class="court-state">${q.ocupada ? 'Em jogo' : 'Livre'}</div>
+        const statusText = (q) => q.ocupada ? (q.rodando ? 'Em jogo' : 'Aguardando') : 'Livre';
+        const nomes = (q) => q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível';
+        const sub = (q) => q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar';
+        const timer = (q) => q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00';
+        const warn = (q) => q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : '';
+
+        if (modelo === 0) {
+            c.innerHTML = `<section class="timeline-board">
+                <div class="timeline-title"><span>Linha do tempo das quadras</span><span>Agora</span></div>
+                ${quadras.map(q => `
+                    <div class="timeline-row">
+                        <div class="timeline-court">Q${q.id}</div>
+                        <div class="timeline-block ${q.ocupada ? 'busy' : 'free'}">
+                            <div class="timeline-player">${nomes(q)}</div>
+                            <div class="timeline-sub">${sub(q)}</div>
                         </div>
-                        <div class="court-main">
-                            <div class="court-players">${q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível'}</div>
-                            <div class="court-sub"><span class="material-icons-outlined" style="font-size:14px">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
+                        <div class="timeline-time ${warn(q)}">${timer(q)}</div>
+                    </div>
+                `).join('')}
+            </section>`;
+            return;
+        }
+
+        if (modelo === 1) {
+            const emJogo = quadras.find(q => q.ocupada) || quadras[0] || {};
+            const livre = quadras.find(q => !q.ocupada);
+            c.innerHTML = `<section class="decision-board">
+                <div class="decision-now">
+                    <div class="decision-label">Agora</div>
+                    <div class="decision-big">Q${emJogo.id || '-'} · ${nomes(emJogo)}</div>
+                    <div class="decision-meta">${sub(emJogo)}</div>
+                    <div class="decision-timer ${warn(emJogo)}">${timer(emJogo)}</div>
+                </div>
+                <div class="decision-next">
+                    <div class="decision-label">Melhor ação</div>
+                    <div class="decision-next-name">${livre ? `Quadra ${livre.id} livre` : 'Aguardar próxima liberação'}</div>
+                    <div class="decision-next-info">${livre ? 'Pode receber o próximo da fila.' : 'Todas as quadras estão em uso.'}</div>
+                </div>
+                <div class="decision-courts">
+                    <div class="decision-court-grid">
+                        ${quadras.map(q => `
+                            <div class="decision-mini ${q.ocupada ? 'busy' : 'free'}">
+                                <div class="decision-mini-q">Quadra ${q.id}</div>
+                                <div class="decision-mini-name">${nomes(q)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </section>`;
+            return;
+        }
+
+        if (modelo === 2) {
+            const livre = quadras.find(q => !q.ocupada);
+            c.innerHTML = `<section class="totem-board">
+                <div class="totem-call">
+                    <div class="totem-kicker">${livre ? `Quadra ${livre.id} disponível` : 'Aguardando liberação'}</div>
+                    <div class="totem-main">${livre ? 'Próximo da fila pode ser chamado' : 'Todas as quadras ocupadas'}</div>
+                    <div class="totem-sub">${livre ? 'Verifique a primeira posição da fila abaixo' : 'Acompanhe o menor tempo restante'}</div>
+                </div>
+                <div class="totem-courts">
+                    ${quadras.map(q => `
+                        <div class="totem-row">
+                            <div class="totem-q">Q${q.id}</div>
+                            <div class="totem-name">${nomes(q)}</div>
+                            <div class="totem-time ${warn(q)}">${timer(q)}</div>
                         </div>
-                        <div class="court-bottom">
-                            <div class="court-mark"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
-                            <div class="court-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
+                    `).join('')}
+                </div>
+            </section>`;
+            return;
+        }
+
+        if (modelo === 3) {
+            c.innerHTML = `<section class="listop-board">
+                ${quadras.map(q => `
+                    <div class="listop-row">
+                        <div class="listop-q">Q${q.id}</div>
+                        <div class="listop-name">${nomes(q)}</div>
+                        <div class="listop-state">${statusText(q)}</div>
+                        <div class="listop-time ${warn(q)}">${timer(q)}</div>
+                    </div>
+                `).join('')}
+            </section>`;
+            return;
+        }
+
+        if (modelo === 4) {
+            const livres = quadras.filter(q => !q.ocupada);
+            const ocupadas = quadras.filter(q => q.ocupada);
+            c.innerHTML = `<section class="kanban-board">
+                <div class="kanban-col">
+                    <div class="kanban-title"><span>Livre</span><span>${livres.length}</span></div>
+                    ${livres.length ? livres.map(q => `
+                        <div class="kanban-card free">
+                            <div class="kanban-name">Quadra ${q.id}</div>
+                            <div class="kanban-meta">Disponível para jogar</div>
                         </div>
-                    </article>`;
-        }).join('');
+                    `).join('') : `<div class="kanban-empty">Nenhuma quadra livre</div>`}
+                </div>
+                <div class="kanban-col">
+                    <div class="kanban-title"><span>Em jogo</span><span>${ocupadas.length}</span></div>
+                    ${ocupadas.length ? ocupadas.map(q => `
+                        <div class="kanban-card busy">
+                            <div class="kanban-name">Q${q.id} · ${nomes(q)}</div>
+                            <div class="kanban-meta">${sub(q)}</div>
+                            <div class="kanban-time ${warn(q)}">${timer(q)}</div>
+                        </div>
+                    `).join('') : `<div class="kanban-empty">Nenhum jogo ativo</div>`}
+                </div>
+                <div class="kanban-col" id="kanbanFilaCol">
+                    <div class="kanban-title"><span>Fila</span><span>${fila.length}</span></div>
+                    <div id="kanbanFilaInterna"></div>
+                </div>
+            </section>`;
+            return;
+        }
     }
-    
+
     function atualizarMeuStatus(minhaPosicao, meuItem) {
         const status = document.getElementById('meuStatus');
         if (!status) return;
@@ -2120,15 +2013,16 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         const corpo = document.getElementById('corpoFila');
         if (!countEl || !corpo) return;
 
+        const modelo = (typeof getModeloAtualLaranjeiras === 'function') ? getModeloAtualLaranjeiras() : 0;
         countEl.innerText = fila.length;
         corpo.innerHTML = "";
 
         if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) {
             atualizarMeuStatus(-1, null);
             corpo.innerHTML = `
-                <div class="club-queue-item shimmer" style="height:64px"></div>
-                <div class="club-queue-item shimmer" style="height:64px"></div>
-                <div class="club-queue-item shimmer" style="height:64px"></div>
+                <div class="fila-item shimmer" style="height:58px"></div>
+                <div class="fila-item shimmer" style="height:58px"></div>
+                <div class="fila-item shimmer" style="height:58px"></div>
             `;
             return;
         }
@@ -2138,50 +2032,70 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
         if (fila.length === 0) {
             corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>";
+            const kanbanInterna = document.getElementById('kanbanFilaInterna');
+            if (kanbanInterna) kanbanInterna.innerHTML = `<div class="kanban-empty">Fila vazia</div>`;
             return;
         }
-        
+
         let ts = quadras.map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
         let agora = Date.now();
-        
-        fila.forEach((j, idx) => {
+
+        const renderItems = fila.map((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
             const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
             const qlHTML = formatarQLFila(j);
-            
+
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
             const esperaSeg = qE.tempoSeg || 0;
             let dp = new Date(agora + (esperaSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
-            
-            corpo.innerHTML += `<article class="club-queue-item ${idx === 0 ? 'is-top' : idx === 1 ? 'is-second' : ''} ${ehMinha ? 'is-mine' : ''}">
-                                    <div class="queue-rank">#${idx+1}</div>
-                                    <div class="queue-main">
-                                        <div class="queue-names">${nomesHTML || 'N/A'}</div>
-                                        <div class="queue-meta">
-                                            <span>Chegada ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-                                            <span>Q/L ${qlHTML}</span>
+
+            if (modelo === 4) {
+                return `<div class="model-fila-card">
+                    <div class="model-fila-rank">#${idx+1} · Q${qE.id} · ${formatarHora(dp)}</div>
+                    <div class="model-fila-name">${nomesHTML || 'N/A'}</div>
+                    <div class="model-fila-meta">Q/L ${qlHTML} · ${formatarTempoRelativo(esperaSeg)}</div>
+                    ${ehMinha ? `<div class="model-actions"><button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button><button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button></div>` : ''}
+                </div>`;
+            }
+
+            return `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
+                                    <span class="fila-posicao">#${idx+1}</span>
+                                    <div class="fila-info">
+                                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+                                        <div class="fila-detalhes">
+                                            <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
+                                            <span>🎫 ${qlHTML}</span>
                                         </div>
                                     </div>
-                                    <div class="queue-side">
-                                        <div class="queue-estimate">
-                                            <div class="q">Q${qE.id}</div>
-                                            <div class="h">${formatarHora(dp)}</div>
-                                            <div class="rel">${formatarTempoRelativo(esperaSeg)}</div>
+                                    <div class="fila-lateral">
+                                        <div class="fila-previsao">
+                                            <div class="quadra-tag">Q${qE.id}</div>
+                                            <div class="hora">${formatarHora(dp)}</div>
+                                            <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
                                         </div>
                                         ${ehMinha ? `
-                                        <div class="queue-actions">
+                                        <div class="fila-acoes-minha">
                                             <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
                                             <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
                                         </div>
                                         ` : ''}
                                     </div>
-                                </article>`;
-        });
+                                </div>`;
+        }).join('');
+
+        if (modelo === 4) {
+            corpo.innerHTML = "<div class='vazio-state'>A fila está no quadro Kanban acima.</div>";
+            const kanbanInterna = document.getElementById('kanbanFilaInterna');
+            if (kanbanInterna) kanbanInterna.innerHTML = renderItems;
+            return;
+        }
+
+        corpo.innerHTML = renderItems;
     }
-    
+
     window.editarMeuItem = function(id) {
         const item = fila.find(j => j.id === id);
         if (!item) return;
