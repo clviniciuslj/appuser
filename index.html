@@ -3,369 +3,260 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Laranjeiras • Fila das Quadras</title>
+  <title>Laranjeiras • Controle das Quadras</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="theme-color" content="#2f6b58" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Laranjeiras" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b1220;
-      --bg-soft: #111b2f;
-      --panel: rgba(14, 24, 42, 0.9);
-      --panel-2: rgba(18, 31, 54, 0.92);
-      --line: rgba(148, 163, 184, 0.14);
-      --line-strong: rgba(148, 163, 184, 0.26);
-      --text: #e5eefc;
-      --muted: #95a6c7;
-      --muted-2: #71819d;
-      --primary: #60a5fa;
-      --primary-2: #22d3ee;
-      --success: #22c55e;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --surface: rgba(255,255,255,0.04);
-      --surface-2: rgba(255,255,255,0.07);
-      --shadow: 0 24px 64px rgba(2, 8, 23, 0.35);
-      --radius-xl: 28px;
+      --bg: #f4efe5;
+      --bg-2: #efe7d8;
+      --panel: rgba(255, 250, 242, 0.88);
+      --panel-solid: #fff9ef;
+      --line: rgba(94, 71, 42, 0.16);
+      --line-strong: rgba(94, 71, 42, 0.26);
+      --text: #2a241f;
+      --muted: #776554;
+      --green: #2f6b58;
+      --green-2: #3f7d69;
+      --clay: #8a5a34;
+      --gold: #b98945;
+      --red: #b8483f;
+      --shadow: 0 16px 40px rgba(83, 60, 32, 0.12);
+      --radius-xl: 30px;
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 12px;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    body.light {
-      --bg: #eef4ff;
-      --bg-soft: #dfe9fb;
-      --panel: rgba(255, 255, 255, 0.86);
-      --panel-2: rgba(255, 255, 255, 0.94);
-      --line: rgba(37, 99, 235, 0.10);
-      --line-strong: rgba(37, 99, 235, 0.18);
-      --text: #0f172a;
-      --muted: #52627e;
-      --muted-2: #6b7a93;
-      --primary: #2563eb;
-      --primary-2: #0891b2;
-      --success: #16a34a;
-      --warning: #d97706;
-      --danger: #dc2626;
-      --surface: rgba(15, 23, 42, 0.03);
-      --surface-2: rgba(15, 23, 42, 0.06);
-      --shadow: 0 20px 55px rgba(37, 99, 235, 0.10);
-    }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+    * { box-sizing: border-box; }
     html, body { min-height: 100%; }
 
     body {
       margin: 0;
-      font-family: 'Inter', system-ui, sans-serif;
       color: var(--text);
+      font-family: var(--sans);
       background:
-        radial-gradient(circle at top left, rgba(34, 211, 238, 0.14), transparent 28%),
-        radial-gradient(circle at top right, rgba(96, 165, 250, 0.14), transparent 24%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
-      transition: background .25s ease, color .25s ease;
+        linear-gradient(90deg, transparent 0 4%, rgba(47,107,88,.08) 4% 4.35%, transparent 4.35% 95.65%, rgba(47,107,88,.08) 95.65% 96%, transparent 96% 100%),
+        linear-gradient(180deg, rgba(255,255,255,.35), transparent 35%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      position: relative;
     }
 
-    .page {
-      width: min(1180px, calc(100% - 28px));
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      inset: 18px 18px auto 18px;
+      height: calc(100% - 36px);
+      border: 2px solid rgba(47,107,88,.10);
+      border-radius: 34px;
+    }
+
+    body::after {
+      width: 180px;
+      height: 180px;
+      right: -40px;
+      top: -40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(185,137,69,.18), transparent 70%);
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      width: min(1220px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 20px 0 34px;
+      padding: 18px 0 26px;
     }
 
-    .hero {
+    .masthead {
       display: grid;
       grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .hero-card,
-    .fila-section,
-    .form-card,
-    .quadra-card,
-    .popup-card,
-    .theme-fab {
+    .brand-panel,
+    .stats-panel,
+    .board,
+    .entry-board,
+    .queue-board,
+    .message {
       background: var(--panel);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--line);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
     }
 
-    .hero-card {
+    .brand-panel {
       border-radius: var(--radius-xl);
-      padding: 24px;
+      padding: 24px 24px 22px;
       position: relative;
       overflow: hidden;
       min-height: 168px;
     }
 
-    .hero-card::before {
+    .brand-panel::before {
       content: "";
       position: absolute;
-      inset: auto -60px -60px auto;
-      width: 180px;
-      height: 180px;
+      right: -28px;
+      top: -28px;
+      width: 160px;
+      height: 160px;
+      border: 2px solid rgba(47,107,88,.12);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(34,211,238,.18), transparent 65%);
-      pointer-events: none;
     }
 
-    .hero-top {
+    .brand-top {
       display: flex;
       justify-content: space-between;
+      gap: 16px;
       align-items: flex-start;
-      gap: 12px;
     }
 
-    .brand {
+    .brand-sign {
       display: flex;
       gap: 16px;
       align-items: center;
     }
 
-    .brand-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(96,165,250,.20), rgba(34,211,238,.10));
-      border: 1px solid rgba(96,165,250,.24);
+    .brand-mark {
+      width: 78px;
+      height: 78px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(47,107,88,.14), rgba(47,107,88,.04));
+      border: 1px solid rgba(47,107,88,.22);
       display: grid;
       place-items: center;
-      color: var(--primary-2);
-      flex-shrink: 0;
+      font-size: 2rem;
+      color: var(--green);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.45);
     }
 
-    .brand-icon .material-icons-outlined { font-size: 36px; }
-
-    .brand h1 {
+    .brand-copy h1 {
       margin: 0;
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3vw, 3rem);
-      line-height: .95;
-      letter-spacing: -.02em;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: .92;
+      letter-spacing: -.03em;
     }
 
-    .brand p {
+    .brand-copy p {
       margin: 8px 0 0;
       color: var(--muted);
-      font-size: 1rem;
       font-weight: 600;
+      font-size: .98rem;
     }
 
-    .hero-pills {
+    .install-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(47,107,88,.08);
+      border: 1px solid rgba(47,107,88,.18);
+      color: var(--green);
+      font-weight: 800;
+      font-size: .83rem;
+      white-space: nowrap;
+    }
+
+    .brand-ribbon {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 18px;
     }
 
-    .pill {
-      border-radius: 999px;
+    .ribbon-chip {
       padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(138,90,52,.06);
+      border: 1px solid rgba(138,90,52,.12);
+      color: var(--text);
       font-size: .84rem;
       font-weight: 700;
-      color: var(--text);
-      background: var(--surface);
-      border: 1px solid var(--line);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .pill strong { color: var(--primary-2); }
+    .ribbon-chip strong { color: var(--clay); }
 
-    .hero-side {
-      display: grid;
-      gap: 14px;
-    }
-
-    .mini-card {
+    .stats-panel {
       border-radius: var(--radius-xl);
-      padding: 20px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 77px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
 
-    .mini-label {
+    .stat-box {
+      background: var(--panel-solid);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      min-height: 72px;
+    }
+
+    .stat-label {
       color: var(--muted);
-      font-size: .75rem;
-      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .12em;
-      margin-bottom: 6px;
+      font-size: .72rem;
+      font-weight: 800;
     }
 
-    .mini-value {
-      font-size: 1.7rem;
+    .stat-value {
+      margin-top: 6px;
+      font-size: 1.65rem;
       font-weight: 900;
-      letter-spacing: -.03em;
+      line-height: 1;
     }
 
-    .mini-value span {
-      color: var(--primary-2);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-left: 8px;
-    }
-
-    .meu-status-card {
+    .status-banner {
       display: none;
       margin-bottom: 16px;
       border-radius: var(--radius-lg);
       padding: 16px 18px;
-      background: linear-gradient(180deg, rgba(96,165,250,.12), rgba(34,211,238,.08));
-      border: 1px solid rgba(96,165,250,.20);
+      background: linear-gradient(90deg, rgba(185,137,69,.12), rgba(138,90,52,.06));
+      border: 1px solid rgba(185,137,69,.22);
       box-shadow: var(--shadow);
-      font-weight: 800;
+      font-weight: 900;
     }
 
-    .meu-status-card .status-sub {
+    .status-banner .status-sub {
       display: block;
       margin-top: 4px;
+      font-weight: 600;
       font-size: .82rem;
-      font-weight: 600;
       color: var(--muted);
     }
 
-    .meu-status-card.status-proximo {
-      background: linear-gradient(180deg, rgba(245,158,11,.14), rgba(245,158,11,.07));
-      border-color: rgba(245,158,11,.26);
-    }
-
-    .quadras-wrapper {
+    .layout {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: .94fr 1.06fr;
       gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .quadra-card {
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      gap: 14px;
-      min-height: 132px;
-    }
-
-    .quadra-card::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 5px;
-      border-radius: 0 8px 8px 0;
-      background: var(--success);
-      opacity: .95;
-    }
-
-    .quadra-card.ocupada::before { background: var(--danger); }
-
-    .quadra-status {
-      width: 52px;
-      height: 52px;
-      flex-shrink: 0;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      background: rgba(34,197,94,.12);
-      color: var(--success);
-      border: 1px solid rgba(34,197,94,.20);
-    }
-
-    .quadra-card.ocupada .quadra-status {
-      background: rgba(239,68,68,.12);
-      color: var(--danger);
-      border-color: rgba(239,68,68,.18);
-    }
-
-    .quadra-status .material-icons-outlined { font-size: 28px; }
-
-    .quadra-info {
-      min-width: 0;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .quadra-numero {
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .quadra-jogadores {
-      font-size: 1.18rem;
-      font-weight: 900;
-      line-height: 1.12;
-      letter-spacing: -.03em;
-      max-width: 100%;
-      overflow-wrap: anywhere;
-    }
-
-    .quadra-jogadores.livre { color: var(--text); }
-
-    .quadra-tempo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--muted);
-      font-size: .84rem;
-      font-weight: 600;
-    }
-
-    .quadra-timer {
-      align-self: flex-start;
-      min-width: 92px;
-      padding: 12px 10px;
-      border-radius: 16px;
-      border: 1px solid var(--line-strong);
-      background: rgba(255,255,255,.04);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      text-align: center;
-      font-weight: 800;
-      letter-spacing: .08em;
-    }
-
-    .quadra-timer.warning {
-      color: var(--danger);
-      background: rgba(239,68,68,.08);
-      border-color: rgba(239,68,68,.24);
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
       align-items: start;
     }
 
-    .fila-section,
-    .form-card {
+    .left-stack,
+    .right-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .board {
       border-radius: var(--radius-xl);
-      padding: 22px;
+      padding: 18px;
+      overflow: hidden;
     }
 
     .section-head {
@@ -373,1273 +264,1124 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
     }
 
     .section-title {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 1.05rem;
-      font-weight: 900;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.45rem;
       letter-spacing: -.02em;
     }
 
-    .section-title .material-icons-outlined {
-      font-size: 22px;
-      color: var(--primary-2);
-    }
-
-    .fila-count {
-      min-width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: inline-grid;
-      place-items: center;
-      font-weight: 900;
-      font-size: 1rem;
-      background: rgba(34,211,238,.12);
-      border: 1px solid rgba(34,211,238,.24);
-      color: var(--primary-2);
-    }
-
-    .fila-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .fila-item {
-      display: grid;
-      grid-template-columns: 50px minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-    }
-
-    .fila-item.fila-top1 {
-      border-color: rgba(34,197,94,.22);
-      background: linear-gradient(180deg, rgba(34,197,94,.10), rgba(34,197,94,.05));
-    }
-
-    .fila-item.fila-top2 {
-      border-color: rgba(245,158,11,.22);
-      background: linear-gradient(180deg, rgba(245,158,11,.10), rgba(245,158,11,.05));
-    }
-
-    .fila-item.minha-inscricao {
-      border-color: rgba(96,165,250,.26);
-      background: linear-gradient(180deg, rgba(96,165,250,.13), rgba(34,211,238,.06));
-    }
-
-    .fila-posicao {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,.05);
-      border: 1px solid var(--line);
-      font-weight: 900;
-      color: var(--primary-2);
-    }
-
-    .fila-info { min-width: 0; }
-
-    .fila-nomes {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      margin-bottom: 5px;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .linha-dupla {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .nome-jogador { overflow-wrap: anywhere; }
-    .separador { margin: 0 4px; opacity: .6; }
-
-    .fila-detalhes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 12px;
+    .section-note {
       color: var(--muted);
-      font-size: .76rem;
-      font-weight: 600;
-    }
-
-    .fila-lateral {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .fila-previsao {
-      min-width: 88px;
-      padding: 10px 12px;
-      text-align: center;
-      border-radius: 14px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid var(--line);
-    }
-
-    .fila-previsao .quadra-tag {
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      color: var(--primary-2);
-    }
-
-    .fila-previsao .hora {
-      margin-top: 3px;
-      font-size: .98rem;
-      font-weight: 900;
-    }
-
-    .fila-previsao .tempo-relativo {
-      margin-top: 3px;
-      font-size: .68rem;
+      font-size: .84rem;
       font-weight: 700;
-      color: var(--muted);
     }
 
-    .fila-acoes-minha {
-      display: flex;
-      gap: 8px;
+    .section-badge {
+      min-width: 44px;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(47,107,88,.08);
+      border: 1px solid rgba(47,107,88,.18);
+      color: var(--green);
+      font-weight: 900;
     }
 
-    .btn-editar-fila,
-    .btn-remover-fila {
-      width: 36px;
-      height: 36px;
-      border: 0;
-      border-radius: 12px;
+    .courts-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .court-card {
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.64), rgba(255,255,255,.34));
+      border: 1px solid rgba(47,107,88,.14);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .court-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--green);
+    }
+
+    .court-card.busy::before { background: var(--clay); }
+
+    .court-number {
+      border-radius: 18px;
+      background: rgba(47,107,88,.08);
+      border: 1px solid rgba(47,107,88,.16);
       display: grid;
       place-items: center;
-      cursor: pointer;
-      font-weight: 900;
-      color: #fff;
-      box-shadow: none;
-    }
-
-    .btn-editar-fila { background: linear-gradient(180deg, #f59e0b, #d97706); }
-    .btn-remover-fila { background: linear-gradient(180deg, #ef4444, #dc2626); }
-
-    .vazio-state {
+      padding: 12px 8px;
       text-align: center;
-      padding: 30px 16px;
-      color: var(--muted);
-      border-radius: 20px;
-      border: 1px dashed var(--line-strong);
-      background: var(--surface);
-      font-weight: 600;
+      min-height: 86px;
     }
 
-    .form-subtext {
-      margin: -6px 0 16px;
+    .court-number span {
+      display: block;
+      font-size: .76rem;
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 4px;
+    }
+
+    .court-number strong {
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--green);
+      font-family: var(--serif);
+    }
+
+    .court-body {
+      display: grid;
+      gap: 10px;
+    }
+
+    .court-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .court-status {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      background: rgba(47,107,88,.1);
+      color: var(--green);
+      border: 1px solid rgba(47,107,88,.18);
+    }
+
+    .court-card.busy .court-status {
+      background: rgba(138,90,52,.12);
+      color: var(--clay);
+      border-color: rgba(138,90,52,.18);
+    }
+
+    .court-names {
+      font-size: 1.05rem;
+      font-weight: 900;
+      line-height: 1.24;
+    }
+
+    .court-sub {
       color: var(--muted);
       font-size: .85rem;
       line-height: 1.45;
     }
 
-    .alerta-edicao {
-      display: none;
-      margin-bottom: 14px;
+    .court-timer {
       padding: 12px 14px;
+      border-radius: 18px;
+      background: #f7f0e6;
+      border: 1px solid rgba(138,90,52,.12);
+      min-width: 110px;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--clay);
+    }
+
+    .court-timer.free {
+      color: var(--green);
+      background: rgba(47,107,88,.06);
+      border-color: rgba(47,107,88,.14);
+    }
+
+    .court-timer.warning {
+      color: var(--red);
+      background: rgba(184,72,63,.08);
+      border-color: rgba(184,72,63,.18);
+    }
+
+    .court-prediction {
       border-radius: 16px;
-      background: rgba(245,158,11,.12);
-      border: 1px solid rgba(245,158,11,.20);
-      color: #fbbf24;
-      font-weight: 700;
-      font-size: .82rem;
+      background: rgba(47,107,88,.05);
+      border: 1px dashed rgba(47,107,88,.22);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.45;
     }
 
-    .input-group {
+    .inline-field {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 6px;
+      margin-top: 2px;
     }
 
-    input, select, .btn {
+    .inline-field label,
+    .field label {
+      font-size: .76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+
+    select,
+    input,
+    button {
       font: inherit;
     }
 
-    input,
-    select {
+    select,
+    input {
       width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      border-radius: 14px;
+      border: 1px solid rgba(138,90,52,.16);
+      background: rgba(255,255,255,.75);
       color: var(--text);
-      padding: 15px 16px;
+      padding: 13px 14px;
       outline: none;
-      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
     }
 
-    input::placeholder,
-    select { color: var(--muted); }
-
-    input:focus,
-    select:focus {
-      border-color: rgba(34,211,238,.46);
-      box-shadow: 0 0 0 3px rgba(34,211,238,.12);
-      background: rgba(255,255,255,.06);
+    select:focus,
+    input:focus {
+      border-color: rgba(47,107,88,.44);
+      box-shadow: 0 0 0 4px rgba(47,107,88,.10);
     }
 
-    input.error,
-    body.light input.error {
-      border-color: var(--danger) !important;
-      box-shadow: 0 0 0 3px rgba(239,68,68,.14) !important;
-    }
-
-    .full-width { grid-column: 1 / -1; }
-
-    .btn-row {
+    .court-actions,
+    .form-actions,
+    .queue-actions {
       display: flex;
+      gap: 8px;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
+      align-items: center;
     }
 
     .btn {
       border: 0;
-      border-radius: 16px;
-      padding: 15px 18px;
+      border-radius: 14px;
+      padding: 13px 14px;
       cursor: pointer;
-      font-weight: 800;
+      font-weight: 900;
+      letter-spacing: .01em;
+      transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+    }
+
+    .btn:active { transform: translateY(1px) scale(.99); }
+
+    .btn-primary {
+      background: linear-gradient(180deg, var(--green-2), var(--green));
       color: #fff;
-      letter-spacing: -.01em;
-      transition: transform .15s ease, filter .15s ease;
-      flex: 1 1 0;
     }
 
-    .btn:active { transform: scale(.985); }
-    .btn:hover { filter: brightness(1.04); }
-
-    .btn-inscrever {
-      background: linear-gradient(180deg, #38bdf8, #0284c7);
-      min-width: 220px;
+    .btn-secondary {
+      background: rgba(255,255,255,.72);
+      color: var(--text);
+      border: 1px solid rgba(138,90,52,.16);
     }
 
-    .btn-editar {
-      background: linear-gradient(180deg, #f59e0b, #d97706) !important;
+    .btn-warning {
+      background: linear-gradient(180deg, #9d6740, var(--clay));
+      color: #fff;
     }
 
-    .btn-sair-fila {
-      background: linear-gradient(180deg, #ef4444, #dc2626);
-      min-width: 180px;
+    .btn-danger {
+      background: linear-gradient(180deg, #cb5d50, var(--red));
+      color: #fff;
     }
 
-    .meta-grid {
+    .entry-board,
+    .queue-board {
+      border-radius: var(--radius-xl);
+      padding: 18px;
+    }
+
+    .mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .mode-toggle button {
+      border: 1px solid rgba(138,90,52,.14);
+      border-radius: 18px;
+      padding: 16px 14px;
+      background: rgba(255,255,255,.7);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .mode-toggle button strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .mode-toggle button span {
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 700;
+    }
+
+    .mode-toggle button.active {
+      background: linear-gradient(180deg, rgba(47,107,88,.12), rgba(47,107,88,.06));
+      border-color: rgba(47,107,88,.28);
+      box-shadow: inset 0 0 0 1px rgba(47,107,88,.10);
+    }
+
+    .players-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
-      margin-top: 16px;
     }
 
-    .meta-card {
+    .player-card {
       border-radius: 18px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(138,90,52,.12);
       padding: 14px;
-      background: var(--surface);
-      border: 1px solid var(--line);
     }
 
-    .meta-card strong {
-      display: block;
-      font-size: .74rem;
+    .player-card h4 {
+      margin: 0 0 12px;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .field:last-child { margin-bottom: 0; }
+
+    .message {
+      display: none;
+      margin-top: 14px;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: .95rem;
+      font-weight: 700;
+    }
+
+    .message.show { display: block; }
+    .message.success {
+      background: rgba(47,107,88,.10);
+      border: 1px solid rgba(47,107,88,.18);
+      color: var(--green);
+    }
+    .message.error {
+      background: rgba(184,72,63,.10);
+      border: 1px solid rgba(184,72,63,.16);
+      color: var(--red);
+    }
+
+    .queue-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .queue-item {
+      position: relative;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.48));
+      border: 1px solid rgba(138,90,52,.14);
+      padding: 14px 16px;
+      overflow: hidden;
+    }
+
+    .queue-item::before,
+    .queue-item::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 1px solid rgba(138,90,52,.10);
+    }
+
+    .queue-item::before { left: -9px; }
+    .queue-item::after { right: -9px; }
+
+    .queue-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .queue-head strong {
+      font-size: 1.04rem;
+      line-height: 1.28;
+    }
+
+    .queue-index {
+      color: var(--clay);
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      margin-right: 6px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .76rem;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--muted);
-      margin-bottom: 6px;
+      letter-spacing: .08em;
+      white-space: nowrap;
     }
 
-    .meta-card span {
-      font-size: .96rem;
+    .badge.simple {
+      background: rgba(47,107,88,.09);
+      color: var(--green);
+      border: 1px solid rgba(47,107,88,.16);
+    }
+
+    .badge.double {
+      background: rgba(185,137,69,.10);
+      color: var(--clay);
+      border: 1px solid rgba(185,137,69,.16);
+    }
+
+    .queue-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+
+    .queue-cell {
+      border-radius: 14px;
+      background: rgba(47,107,88,.04);
+      border: 1px dashed rgba(47,107,88,.14);
+      padding: 10px;
+    }
+
+    .queue-cell span {
+      display: block;
+      font-size: .72rem;
+      color: var(--muted);
       font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+
+    .queue-cell strong {
+      font-size: .92rem;
       line-height: 1.35;
     }
 
-    .theme-fab {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      z-index: 1000;
-      color: var(--text);
-    }
-
-    .theme-fab .material-icons-outlined { font-size: 24px; }
-
-    .app-footer {
-      margin-top: 24px;
-      text-align: center;
+    .queue-empty {
       color: var(--muted);
-      font-size: .76rem;
-      font-weight: 600;
-    }
-
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(2,8,23,.68);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      backdrop-filter: blur(6px);
-    }
-
-    .popup-card {
-      width: min(540px, 100%);
-      border-radius: 28px;
-      overflow: hidden;
-    }
-
-    .popup-header,
-    .popup-footer {
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .popup-footer {
-      border-top: 1px solid var(--line);
-      border-bottom: 0;
-    }
-
-    .popup-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 1rem;
-      font-weight: 900;
+      border-radius: 22px;
+      padding: 20px 18px;
+      background: rgba(255,255,255,.46);
+      border: 1px dashed rgba(138,90,52,.16);
       text-align: center;
+      font-weight: 700;
     }
 
-    .popup-content {
-      max-height: 56vh;
-      overflow: auto;
-      padding: 16px 22px;
+    .footer-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.55;
     }
 
-    .regulamento-texto {
-      font-size: .83rem;
-      line-height: 1.58;
-      color: var(--text);
+    @media (max-width: 980px) {
+      .masthead,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-panel {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
-    .regulamento-texto h3 {
-      margin: 12px 0 6px;
-      color: var(--primary-2);
-      font-size: .86rem;
-      letter-spacing: .02em;
+    @media (max-width: 760px) {
+      .players-grid,
+      .queue-grid,
+      .stats-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .court-card {
+        grid-template-columns: 70px minmax(0, 1fr);
+      }
+
+      .court-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .court-timer { min-width: 0; width: 100%; }
+
+      .brand-top {
+        flex-direction: column;
+      }
+
+      .install-pill {
+        width: fit-content;
+      }
     }
 
-    .regulamento-texto ul {
-      margin: 0 0 8px;
-      padding-left: 18px;
-    }
+    @media (max-width: 520px) {
+      body::before { inset: 10px; border-radius: 24px; }
+      .app { width: min(100%, calc(100% - 18px)); }
+      .brand-panel,
+      .stats-panel,
+      .board,
+      .entry-board,
+      .queue-board {
+        padding: 14px;
+        border-radius: 22px;
+      }
 
-    .regulamento-texto li { margin-bottom: 4px; }
+      .mode-toggle {
+        grid-template-columns: 1fr;
+      }
 
-    .checkbox-wrapper {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-      color: var(--text);
-      font-size: .88rem;
-      font-weight: 600;
-    }
+      .court-actions,
+      .form-actions,
+      .queue-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
 
-    .checkbox-wrapper input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--primary-2);
-    }
-
-    .btn-aceitar {
-      width: 100%;
-      border: 0;
-      border-radius: 16px;
-      padding: 15px 18px;
-      background: linear-gradient(180deg, #38bdf8, #0284c7);
-      color: #fff;
-      font: inherit;
-      font-weight: 900;
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .btn-aceitar.active {
-      opacity: 1;
-      cursor: pointer;
-    }
-
-    .shimmer {
-      position: relative;
-      overflow: hidden;
-      background: rgba(148,163,184,.10) !important;
-      border-color: rgba(148,163,184,.14) !important;
-    }
-
-    .shimmer::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      transform: translateX(-100%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
-      animation: shimmerMove 1.2s infinite;
-    }
-
-    @keyframes shimmerMove {
-      100% { transform: translateX(100%); }
-    }
-
-    @keyframes toastFadeIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(18px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
-
-    @media (max-width: 960px) {
-      .hero,
-      .main-grid { grid-template-columns: 1fr; }
-      .hero-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .quadras-wrapper { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .page { width: min(100%, calc(100% - 18px)); }
-      .hero-card,
-      .fila-section,
-      .form-card { padding: 18px; }
-      .brand { align-items: flex-start; }
-      .brand-icon { width: 60px; height: 60px; border-radius: 18px; }
-      .hero-side { grid-template-columns: 1fr; }
-      .input-group,
-      .meta-grid { grid-template-columns: 1fr; }
-      .btn-row { flex-direction: column; }
       .btn { width: 100%; }
-      .fila-item {
-        grid-template-columns: 44px minmax(0, 1fr);
-        align-items: flex-start;
-      }
-      .fila-lateral {
-        grid-column: 1 / -1;
-        margin-left: 56px;
-        justify-content: space-between;
-      }
-      .fila-previsao { min-width: 94px; }
-    }
-
-    @media (max-width: 460px) {
-      .hero-top { align-items: center; }
-      .brand { gap: 12px; }
-      .brand h1 { font-size: 2.2rem; }
-      .hero-pills { gap: 8px; }
-      .pill { width: 100%; justify-content: center; }
-      .quadra-card { min-height: 118px; }
-      .quadra-timer { font-size: 1.2rem; min-width: 78px; }
-      .fila-lateral {
-        margin-left: 0;
-        flex-wrap: wrap;
-      }
-      .fila-acoes-minha { margin-left: auto; }
     }
   </style>
 </head>
 <body>
-<script>
-const VERSAO_REGULAMENTO = 'v4';
-if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
-  localStorage.removeItem('regulamentoAceito');
-  localStorage.setItem('regulamentoVersao', VERSAO_REGULAMENTO);
-}
-</script>
+  <div class="app">
+    <header class="masthead">
+      <section class="brand-panel">
+        <div class="brand-top">
+          <div class="brand-sign">
+            <div class="brand-mark">🎾</div>
+            <div class="brand-copy">
+              <h1>Laranjeiras</h1>
+              <p>Controle da fila, previsão de quadra e jogos em andamento.</p>
+            </div>
+          </div>
+          <div class="install-pill" id="installStatus">PWA pronto para instalar</div>
+        </div>
+        <div class="brand-ribbon">
+          <div class="ribbon-chip"><strong>Simples</strong> • 45 min</div>
+          <div class="ribbon-chip"><strong>Duplas</strong> • 1h</div>
+          <div class="ribbon-chip">Previsão automática por ordem da fila</div>
+        </div>
+      </section>
 
-<div class="popup-overlay" id="popupRegulamento">
-  <div class="popup-card">
-    <div class="popup-header">
-      <div class="popup-title"><span class="material-icons-outlined">description</span> Regulamento de Uso das Quadras de Tênis</div>
-    </div>
-    <div class="popup-content">
-      <div class="regulamento-texto">
-        <h3 style="text-align:center;">DISPOSIÇÕES GERAIS</h3>
-        <h3>1. Distribuição das quadras</h3>
-        <ul>
-          <li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas.</li>
-          <li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li>
-        </ul>
-        <h3>2. Tempo de jogo</h3>
-        <ul>
-          <li><strong>Jogos de simples:</strong> 45 minutos.</li>
-          <li><strong>Jogos de duplas:</strong> 1 hora.</li>
-          <li>O tempo de aquecimento está incluído na duração total.</li>
-          <li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li>
-          <li>O controle do tempo será realizado em planilha diária específica.</li>
-        </ul>
-        <h3>3. Aulas</h3>
-        <ul>
-          <li><strong>Local permitido:</strong> exclusivamente Quadra 4.</li>
-          <li><strong>Horário permitido:</strong> das 07h às 21h.</li>
-          <li>É permitida a presença de um assistente por professor, a critério deste.</li>
-          <li><strong>Limite diário por professor:</strong> até 7 horas de aula.</li>
-        </ul>
-        <h3>4. Agendamento de aulas</h3>
-        <ul>
-          <li>Não é permitido o agendamento do mesmo horário em dias consecutivos para os mesmos alunos.</li>
-        </ul>
-        <h3>5. Períodos de exceção</h3>
-        <ul>
-          <li>Ficam suspensas as aulas nos seguintes períodos:</li>
-          <li>De 26/12 a 03/01.</li>
-          <li>Da sexta-feira véspera de Carnaval até a Quarta-feira de Cinzas.</li>
-        </ul>
-        <h3>6. Fiscalização e organização</h3>
-        <ul>
-          <li>Durante períodos de maior movimento, um colaborador designado pelo condomínio será responsável pela organização da ocupação das quadras.</li>
-        </ul>
-        <h3>7. Regras complementares</h3>
-        <ul>
-          <li>É vedado o agendamento de aulas nas Quadras 1, 2 e 3.</li>
-          <li>É obrigatório o uso de vestimenta e calçados adequados à prática do tênis.</li>
-        </ul>
-        <p style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line);text-align:center;font-weight:600;font-size:.74rem;">
-          <strong>Disposição final:</strong> este regulamento foi aprovado pelo Conselho de Administração do Condomínio Laranjeiras em 13/06/2025 e entra em vigor a partir de 14/06/2025.
-        </p>
+      <aside class="stats-panel">
+        <div class="stat-box">
+          <div class="stat-label">Na fila</div>
+          <div class="stat-value" id="queueCount">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Quadras ocupadas</div>
+          <div class="stat-value" id="busyCount">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Próxima vaga</div>
+          <div class="stat-value" id="nextFree">Agora</div>
+        </div>
+      </aside>
+    </header>
+
+    <div id="statusBanner" class="status-banner"></div>
+
+    <main class="layout">
+      <div class="left-stack">
+        <section class="board">
+          <div class="section-head">
+            <h2 class="section-title">Quadras em andamento</h2>
+            <div class="section-note">3 quadras no total</div>
+          </div>
+          <div class="courts-list" id="courts"></div>
+        </section>
       </div>
-    </div>
-    <div class="popup-footer">
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="naoMostrarNovamente" onchange="toggleBotaoAceitar()">
-        <label for="naoMostrarNovamente">Li e concordo com o regulamento</label>
+
+      <div class="right-stack">
+        <section class="entry-board">
+          <div class="section-head">
+            <h2 class="section-title">Nova inscrição</h2>
+            <div class="section-note">Nome e Q/L obrigatórios</div>
+          </div>
+
+          <div class="mode-toggle">
+            <button type="button" id="btnSimple" class="active">
+              <strong>Simples</strong>
+              <span>2 jogadores • 45 min</span>
+            </button>
+            <button type="button" id="btnDouble">
+              <strong>Duplas</strong>
+              <span>4 jogadores • 1h</span>
+            </button>
+          </div>
+
+          <form id="entryForm">
+            <div class="players-grid" id="playersGrid"></div>
+            <div class="form-actions" style="margin-top:14px;">
+              <button type="submit" class="btn btn-primary">Entrar na fila</button>
+              <button type="button" class="btn btn-secondary" id="clearFormBtn">Limpar campos</button>
+            </div>
+            <div id="messageBox" class="message"></div>
+          </form>
+        </section>
+
+        <section class="queue-board">
+          <div class="section-head">
+            <h2 class="section-title">Fila de espera</h2>
+            <div class="section-badge" id="queueBadge">0</div>
+          </div>
+          <div class="queue-list" id="queueList"></div>
+          <div class="footer-note">
+            O sistema recalcula a previsão sempre que alguém entra na fila, um jogo começa ou uma quadra é encerrada antes do tempo.
+          </div>
+        </section>
       </div>
-      <button class="btn-aceitar" id="btnAceitar" onclick="aceitarRegulamento()" disabled>Aceitar e continuar</button>
-    </div>
+    </main>
   </div>
-</div>
 
-<div class="page">
-  <section class="hero">
-    <div class="hero-card">
-      <div class="hero-top">
-        <div class="brand">
-          <div class="brand-icon"><span class="material-icons-outlined">sports_tennis</span></div>
-          <div>
-            <h1>Laranjeiras</h1>
-            <p>Fila inteligente para as quadras de tênis</p>
-          </div>
-        </div>
-      </div>
-      <div class="hero-pills">
-        <div class="pill"><span class="material-icons-outlined" style="font-size:18px;">sports_score</span> Simples <strong>45 min</strong></div>
-        <div class="pill"><span class="material-icons-outlined" style="font-size:18px;">groups</span> Duplas <strong>1h</strong></div>
-        <div class="pill"><span class="material-icons-outlined" style="font-size:18px;">schedule</span> Previsão automática de quadra e horário</div>
-      </div>
-    </div>
-
-    <div class="hero-side">
-      <div class="mini-card">
-        <div class="mini-label">Quadras monitoradas</div>
-        <div class="mini-value">3 <span>em tempo real</span></div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-label">Entrada na fila</div>
-        <div class="mini-value">Q/L <span>com máscara 99/99</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div id="meuStatus" class="meu-status-card"></div>
-
-  <div class="quadras-wrapper" id="q-render"></div>
-
-  <section class="main-grid">
-    <div class="fila-section">
-      <div class="section-head">
-        <div class="section-title"><span class="material-icons-outlined">queue</span>Fila de espera</div>
-        <span class="fila-count" id="fila-count">0</span>
-      </div>
-      <div class="fila-list" id="corpoFila"></div>
-    </div>
-
-    <div class="form-card" id="formCard">
-      <div class="section-title" id="formTitle"><span class="material-icons-outlined">edit_note</span>Inscrever-se na fila</div>
-      <p class="form-subtext">A inscrição mostra automaticamente a quadra provável e o horário estimado. Nomes iguais não podem aparecer duas vezes na fila ou em jogo. O mesmo Q/L pode se repetir dentro da mesma inscrição, mas não em outra inscrição ativa.</p>
-      <div id="alertaEdicao" class="alerta-edicao">Você está editando sua inscrição atual.</div>
-
-      <div class="input-group">
-        <select id="tipoJogo" class="full-width" onchange="toggleCampos()">
-          <option value="45">🎾 Simples (45 min)</option>
-          <option value="60">👥 Duplas (1h)</option>
-        </select>
-
-        <input type="text" id="j1_nome" placeholder="Jogador 1 *" data-required="true" autocomplete="off">
-        <input type="text" id="j1_ql" maxlength="5" placeholder="Q/L * (99/99)" data-required="true" inputmode="numeric" oninput="mascaraQL(this)" autocomplete="off">
-
-        <input type="text" id="j2_nome" placeholder="Jogador 2 *" data-required="true" autocomplete="off">
-        <input type="text" id="j2_ql" maxlength="5" placeholder="Q/L * (99/99)" data-required="true" inputmode="numeric" oninput="mascaraQL(this)" autocomplete="off">
-
-        <input type="text" id="j3_nome" placeholder="Jogador 3 *" data-required="true" style="display:none" autocomplete="off">
-        <input type="text" id="j3_ql" maxlength="5" placeholder="Q/L * (99/99)" data-required="true" inputmode="numeric" oninput="mascaraQL(this)" style="display:none" autocomplete="off">
-
-        <input type="text" id="j4_nome" placeholder="Jogador 4 (opcional)" data-required="false" style="display:none" oninput="toggleQL4Required()" autocomplete="off">
-        <input type="text" id="j4_ql" maxlength="5" placeholder="Q/L (opcional)" data-required="false" inputmode="numeric" oninput="mascaraQL(this)" style="display:none" autocomplete="off">
-      </div>
-
-      <div class="btn-row">
-        <button id="btnSubmit" class="btn btn-inscrever" onclick="inscreverNaFila()">➕ Entrar na fila</button>
-        <button id="btnCancelarEdicao" class="btn btn-sair-fila" style="display:none;" onclick="cancelarEdicao()">↩ Cancelar edição</button>
-      </div>
-
-      <div class="meta-grid">
-        <div class="meta-card">
-          <strong>Regras da entrada</strong>
-          <span>Simples exige 2 jogadores. Duplas exige no mínimo 3.</span>
-        </div>
-        <div class="meta-card">
-          <strong>Previsão</strong>
-          <span>Baseada no tempo restante atual das 3 quadras e na ordem da fila.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="app-footer">Desenvolvido por <strong>Vinícius Santos</strong></footer>
-</div>
-
-<button class="theme-fab" id="themeToggle" onclick="toggleTema()"><span class="material-icons-outlined">light_mode</span></button>
-
-<script>
-  let editandoId = null;
-
-  function toggleBotaoAceitar() {
-    const cb = document.getElementById('naoMostrarNovamente');
-    const btn = document.getElementById('btnAceitar');
-    if (btn) {
-      btn.disabled = !cb.checked;
-      btn.classList.toggle('active', cb.checked);
-    }
-  }
-
-  function aceitarRegulamento() {
-    if (!document.getElementById('naoMostrarNovamente').checked) return;
-    localStorage.setItem('regulamentoAceito', 'true');
-    document.getElementById('popupRegulamento').style.display = 'none';
-  }
-
-  (function() {
-    if (localStorage.getItem('regulamentoAceito') !== 'true') {
-      const popup = document.getElementById('popupRegulamento');
-      if (popup) popup.style.display = 'flex';
-      const btn = document.getElementById('btnAceitar');
-      if (btn) btn.disabled = true;
-    }
-  })();
-
-  function cancelarEdicao() {
-    editandoId = null;
-    document.getElementById('formTitle').innerHTML = '<span class="material-icons-outlined">edit_note</span>Inscrever-se na fila';
-    document.getElementById('btnSubmit').textContent = '➕ Entrar na fila';
-    document.getElementById('btnSubmit').classList.remove('btn-editar');
-    document.getElementById('btnCancelarEdicao').style.display = 'none';
-    document.getElementById('alertaEdicao').style.display = 'none';
-    document.querySelectorAll('.input-group input').forEach(i => i.value = '');
-    document.getElementById('tipoJogo').value = '45';
-    if (typeof toggleCampos === 'function') toggleCampos();
-  }
-
-  window.mascaraQL = function(input) {
-    let cursorPos = input.selectionStart;
-    let valorAntigo = input.value;
-    let numeros = valorAntigo.replace(/\D/g, '');
-    if (numeros.length > 4) numeros = numeros.slice(0, 4);
-    let formatado = '';
-    if (numeros.length === 0) {
-      formatado = '';
-    } else if (numeros.length <= 2) {
-      formatado = numeros;
-    } else {
-      formatado = numeros.slice(0, 2) + '/' + numeros.slice(2, 4);
-    }
-    if (valorAntigo !== formatado) {
-      input.value = formatado;
-      let novoCursor = cursorPos;
-      if (cursorPos === valorAntigo.length) {
-        novoCursor = formatado.length;
-      } else {
-        let diff = formatado.length - valorAntigo.length;
-        novoCursor = cursorPos + diff;
-        if (novoCursor < 0) novoCursor = 0;
-        if (novoCursor > formatado.length) novoCursor = formatado.length;
-      }
-      input.setSelectionRange(novoCursor, novoCursor);
-    }
-  };
-
-  window.toggleCampos = function() {
-    const d = document.getElementById('tipoJogo').value === '60';
-    ['j3_nome', 'j3_ql', 'j4_nome', 'j4_ql'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.style.display = d ? 'block' : 'none';
-        if (id.includes('j3')) el.dataset.required = d ? 'true' : 'false';
-        if (id === 'j4_nome') el.dataset.required = 'false';
-        if (id === 'j4_ql') {
-          el.dataset.required = 'false';
-          el.placeholder = 'Q/L (opcional)';
-        }
-        if (!d) el.value = '';
-      }
-    });
-  };
-
-  window.toggleQL4Required = function() {
-    const n = document.getElementById('j4_nome');
-    const q = document.getElementById('j4_ql');
-    if (n && q) {
-      q.dataset.required = n.value.trim() !== '' ? 'true' : 'false';
-      q.placeholder = n.value.trim() !== '' ? 'Q/L * (99/99)' : 'Q/L (opcional)';
-      if (!n.value.trim()) q.value = '';
-    }
-  };
-
-  window.toggleTema = function() {
-    document.body.classList.toggle('light');
-    const icon = document.querySelector('#themeToggle .material-icons-outlined');
-    if (icon) icon.textContent = document.body.classList.contains('light') ? 'dark_mode' : 'light_mode';
-    localStorage.setItem('tema', document.body.classList.contains('light') ? 'light' : 'dark');
-  };
-
-  (function() {
-    const temaSalvo = localStorage.getItem('tema');
-    if (temaSalvo === 'light') {
-      document.body.classList.add('light');
-    }
-    const icon = document.querySelector('#themeToggle .material-icons-outlined');
-    if (icon) icon.textContent = document.body.classList.contains('light') ? 'dark_mode' : 'light_mode';
-  })();
-</script>
-
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-  import { getDatabase, ref, set, onValue, push, remove } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
-  import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-
-  const firebaseConfig = {
-    apiKey: 'AIzaSyDum7FyxneVNe3JQkmxuTbxCMpJSJscwvM',
-    authDomain: 'controle-laranjeiras.firebaseapp.com',
-    databaseURL: 'https://controle-laranjeiras-default-rtdb.firebaseio.com',
-    projectId: 'controle-laranjeiras',
-    storageBucket: 'controle-laranjeiras.firebasestorage.app',
-    messagingSenderId: '884128857219',
-    appId: '1:884128857219:web:638a0a6836aa2563b9afb6'
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const auth = getAuth(app);
-
-  let fila = [];
-  let quadras = [];
-  let meuUid = null;
-  let filaKeys = [];
-  let carregandoQuadras = true;
-  let carregandoFila = true;
-  let tempoMinimoShimmer = true;
-
-  setTimeout(() => {
-    tempoMinimoShimmer = false;
-    renderQuadras();
-    renderFila();
-  }, 500);
-
-  signInAnonymously(auth)
-    .then((userCredential) => {
-      meuUid = userCredential.user.uid;
-      console.log('✅ Usuário autenticado anonimamente! UID:', meuUid);
-    })
-    .catch((error) => console.error('❌ Erro autenticação:', error));
-
-  function normalize(value) {
-    return String(value || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  function formatarTimer(s) {
-    return `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
-  }
-
-  function formatarHora(d) {
-    return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-  }
-
-  function formatarChegada(d) {
-    return new Date(d).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-  }
-
-  function formatarTempoRelativo(segundos) {
-    const minutos = Math.max(0, Math.ceil((segundos || 0) / 60));
-    if (minutos <= 0) return 'agora';
-    if (minutos < 60) return `≈ ${minutos} min`;
-    const horas = Math.floor(minutos / 60);
-    const resto = minutos % 60;
-    return resto ? `≈ ${horas}h ${resto}min` : `≈ ${horas}h`;
-  }
-
-  function formatarNomesFila(jogadores = [], fallback = '') {
-    const nomes = (jogadores || []).filter(Boolean);
-    const lista = nomes.length ? nomes : (fallback ? fallback.split('•').map(n => n.trim()).filter(Boolean) : []);
-    const linha = (arr) => arr.filter(Boolean).map((nome, i, todos) => `
-      <span class="nome-jogador">${nome}</span>${i < todos.length - 1 ? '<span class="separador"> • </span>' : ''}
-    `).join('');
-
-    if (lista.length <= 2) return linha(lista);
-
-    return `
-      <div class="linha-dupla">${linha([lista[0], lista[1]])}</div>
-      <div class="linha-dupla">${linha([lista[2], lista[3]])}</div>
-    `;
-  }
-
-  function formatarQLFila(jogo) {
-    const qls = (jogo.qls || [])
-      .filter(Boolean)
-      .map(q => String(q).trim())
-      .filter(q => q !== '');
-
-    if (qls.length) return qls.join(', ');
-
-    const detalhes = (jogo.detalhes || '').trim();
-    if (!detalhes) return 'Sem Q/L';
-
-    return detalhes
-      .split(',')
-      .map(q => q.trim())
-      .filter(q => q !== '')
-      .join(', ') || 'Sem Q/L';
-  }
-
-  function gerarChaveJogo(jogadores, qls) {
-    const pares = [];
-    for (let i = 0; i < jogadores.length; i++) {
-      if (jogadores[i] && qls[i]) {
-        pares.push(`${normalize(jogadores[i])}|${normalize(qls[i])}`);
-      }
-    }
-    return pares.sort().join('||');
-  }
-
-  function mostrarToast(mensagem, cor = '#f59e0b') {
-    const t = document.createElement('div');
-    t.innerHTML = mensagem;
-    t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${cor};color:#fff;padding:14px 20px;border-radius:18px;font-weight:700;z-index:9999;box-shadow:0 14px 30px rgba(0,0,0,0.22);animation:toastFadeIn 0.25s ease-out;font-family:Inter,sans-serif;font-size:.92rem;text-align:center;line-height:1.45;max-width:92%;`;
-    document.body.appendChild(t);
-    setTimeout(() => {
-      t.style.opacity = '0';
-      t.style.transition = 'opacity 0.25s';
-      setTimeout(() => t.remove(), 250);
-    }, 3800);
-  }
-
-  function renderQuadras() {
-    const c = document.getElementById('q-render');
-    if (!c) return;
-
-    if (carregandoQuadras || tempoMinimoShimmer) {
-      c.innerHTML = `
-        <div class="quadra-card shimmer"></div>
-        <div class="quadra-card shimmer"></div>
-        <div class="quadra-card shimmer"></div>
-      `;
-      return;
-    }
-
-    c.innerHTML = quadras.map(q => {
-      return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
-        <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
-        <div class="quadra-info">
-          <div class="quadra-numero">Quadra ${q.id}</div>
-          <div class="quadra-jogadores ${!q.ocupada ? 'livre' : ''}">${q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível'}</div>
-          <div class="quadra-tempo"><span class="material-icons-outlined" style="font-size:16px;">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
-        </div>
-        <div class="quadra-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
-      </div>`;
-    }).join('');
-  }
-
-  function atualizarMeuStatus(minhaPosicao, meuItem) {
-    const status = document.getElementById('meuStatus');
-    if (!status) return;
-
-    status.classList.remove('status-agora', 'status-proximo');
-
-    if (minhaPosicao === -1 || !meuItem) {
-      status.style.display = 'none';
-      status.innerHTML = '';
-      return;
-    }
-
-    if (minhaPosicao === 0) {
-      status.style.display = 'block';
-      status.classList.add('status-proximo');
-      status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde a liberação de uma quadra. Sua previsão muda automaticamente conforme o tempo restante.</span>`;
-      return;
-    }
-
-    status.style.display = 'none';
-    status.innerHTML = '';
-  }
-
-  function renderFila() {
-    const countEl = document.getElementById('fila-count');
-    const corpo = document.getElementById('corpoFila');
-    if (!countEl || !corpo) return;
-
-    countEl.innerText = fila.length;
-    corpo.innerHTML = '';
-
-    if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) {
-      atualizarMeuStatus(-1, null);
-      corpo.innerHTML = `
-        <div class="fila-item shimmer" style="min-height:94px"></div>
-        <div class="fila-item shimmer" style="min-height:94px"></div>
-        <div class="fila-item shimmer" style="min-height:94px"></div>
-      `;
-      return;
-    }
-
-    const minhaPosicao = fila.findIndex(j => meuUid && j.deviceId === meuUid);
-    atualizarMeuStatus(minhaPosicao, minhaPosicao >= 0 ? fila[minhaPosicao] : null);
-
-    if (fila.length === 0) {
-      corpo.innerHTML = '<div class="vazio-state">✨ Nenhum jogo na fila. Seja o primeiro a se inscrever.</div>';
-      return;
-    }
-
-    let ts = quadras.map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
-    let agora = Date.now();
-
-    fila.forEach((j, idx) => {
-      const ehMinha = meuUid && j.deviceId === meuUid;
-      const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
-      const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
-      const qlHTML = formatarQLFila(j);
-
-      ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
-      let qE = ts[0] || { id: '-', tempoSeg: 0 };
-      const esperaSeg = qE.tempoSeg || 0;
-      let dp = new Date(agora + (esperaSeg * 1000));
-      qE.tempoSeg += (j.duracao || 45) * 60;
-
-      corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
-        <span class="fila-posicao">#${idx + 1}</span>
-        <div class="fila-info">
-          <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
-          <div class="fila-detalhes">
-            <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-            <span>🎫 ${qlHTML}</span>
-            <span>${(j.duracao || 45) === 60 ? '👥 Duplas' : '🎾 Simples'}</span>
-          </div>
-        </div>
-        <div class="fila-lateral">
-          <div class="fila-previsao">
-            <div class="quadra-tag">Q${qE.id}</div>
-            <div class="hora">${formatarHora(dp)}</div>
-            <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
-          </div>
-          ${ehMinha ? `
-          <div class="fila-acoes-minha">
-            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
-            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
-          </div>
-          ` : ''}
-        </div>
-      </div>`;
-    });
-  }
-
-  window.editarMeuItem = function(id) {
-    const item = fila.find(j => j.id === id);
-    if (!item) return;
-    editandoId = id;
-    document.getElementById('j1_nome').value = item.jogadores?.[0] || '';
-    document.getElementById('j1_ql').value = item.qls?.[0] || '';
-    document.getElementById('j2_nome').value = item.jogadores?.[1] || '';
-    document.getElementById('j2_ql').value = item.qls?.[1] || '';
-    document.getElementById('j3_nome').value = item.jogadores?.[2] || '';
-    document.getElementById('j3_ql').value = item.qls?.[2] || '';
-    document.getElementById('j4_nome').value = item.jogadores?.[3] || '';
-    document.getElementById('j4_ql').value = item.qls?.[3] || '';
-    document.getElementById('tipoJogo').value = item.duracao;
-    window.toggleCampos();
-    document.getElementById('formTitle').innerHTML = '<span class="material-icons-outlined">edit</span>Editando inscrição';
-    document.getElementById('btnSubmit').textContent = '💾 Salvar alterações';
-    document.getElementById('btnSubmit').classList.add('btn-editar');
-    document.getElementById('btnCancelarEdicao').style.display = 'block';
-    document.getElementById('alertaEdicao').style.display = 'block';
-    document.getElementById('formCard').scrollIntoView({ behavior: 'smooth' });
-  };
-
-  window.removerMinhaInscricao = function(id) {
-    if (!confirm('Remover sua inscrição da fila?')) return;
-
-    const index = fila.findIndex(item => item.id === id);
-    if (index !== -1 && filaKeys[index]) {
-      remove(ref(db, `fila/${filaKeys[index]}`))
-        .then(() => {
-          mostrarToast('✅ Inscrição removida!', '#16a34a');
-          if (editandoId === id) cancelarEdicao();
-        })
-        .catch(() => mostrarToast('❌ Erro ao remover.', '#dc2626'));
-    }
-  };
-
-  function obterJogadoresExistentes(quadrasAtual, filaAtual) {
-    const jogadoresFila = (filaAtual || []).flatMap(item => (item.jogadores || []).map((nome, index) => ({
-      nome,
-      ql: item.qls?.[index] || '',
-      origem: 'fila',
-      itemId: item.id
-    })));
-
-    const jogadoresQuadra = (quadrasAtual || []).flatMap(q => {
-      if (!q?.ocupada || !q?.rodando || !q?.jogo) return [];
-      return (q.jogo.jogadores || []).map((nome, index) => ({
-        nome,
-        ql: q.jogo.qls?.[index] || '',
-        origem: 'quadra',
-        itemId: q.jogo.id
-      }));
+  <script>
+    const STORAGE_KEY = 'fila-quadras-v2';
+    const COURT_COUNT = 3;
+    const DURATIONS = { simple: 45, double: 60 };
+
+    const state = loadState();
+    let currentMode = 'simple';
+
+    const playersGrid = document.getElementById('playersGrid');
+    const btnSimple = document.getElementById('btnSimple');
+    const btnDouble = document.getElementById('btnDouble');
+    const entryForm = document.getElementById('entryForm');
+    const messageBox = document.getElementById('messageBox');
+    const clearFormBtn = document.getElementById('clearFormBtn');
+    const queueList = document.getElementById('queueList');
+    const courtsEl = document.getElementById('courts');
+    const queueCountEl = document.getElementById('queueCount');
+    const busyCountEl = document.getElementById('busyCount');
+    const nextFreeEl = document.getElementById('nextFree');
+    const queueBadgeEl = document.getElementById('queueBadge');
+    const statusBannerEl = document.getElementById('statusBanner');
+
+    btnSimple.addEventListener('click', () => setMode('simple'));
+    btnDouble.addEventListener('click', () => setMode('double'));
+    clearFormBtn.addEventListener('click', resetForm);
+
+    entryForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      addEntryFromForm();
     });
 
-    return [...jogadoresFila, ...jogadoresQuadra];
-  }
-
-  function validarDuplicidadesSistema(nomes, qls, quadrasAtual, filaAtual) {
-    const nomesLocais = new Set();
-    for (const nome of nomes) {
-      const nomeKey = normalize(nome);
-      if (nomesLocais.has(nomeKey)) return `⚠️ O nome "${nome}" está repetido dentro da mesma inscrição.`;
-      nomesLocais.add(nomeKey);
-    }
-
-    const jogadoresExistentes = obterJogadoresExistentes(quadrasAtual, filaAtual);
-
-    for (const nome of nomes) {
-      const nomeKey = normalize(nome);
-      const conflitoNome = jogadoresExistentes.find(p => normalize(p.nome) === nomeKey);
-      if (conflitoNome) {
-        return `⚠️ O nome "${nome}" já está ${conflitoNome.origem === 'fila' ? 'na fila' : 'em jogo'}.`;
+    window.addEventListener('load', () => {
+      setMode(currentMode);
+      renderAll();
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(console.error);
       }
-    }
+    });
 
-    const qlsUnicosDaInscricao = [...new Set(qls.filter(Boolean).map(ql => normalize(ql)))];
-    for (const qlKey of qlsUnicosDaInscricao) {
-      const conflitoQL = jogadoresExistentes.find(p => normalize(p.ql) === qlKey);
-      if (conflitoQL) {
-        const qlOriginal = qls.find(ql => normalize(ql) === qlKey) || qlKey;
-        return `⚠️ O Q/L "${qlOriginal}" já está ${conflitoQL.origem === 'fila' ? 'na fila' : 'em jogo'}.`;
-      }
-    }
+    setInterval(renderAll, 1000);
 
-    return null;
-  }
-
-  window.inscreverNaFila = function() {
-    if (!meuUid) {
-      mostrarToast('⚠️ Aguarde a autenticação...', '#d97706');
-      return;
-    }
-
-    const tipoJogo = document.getElementById('tipoJogo').value;
-    const isDupla = tipoJogo === '60';
-    window.toggleQL4Required();
-    document.querySelectorAll('input,select').forEach(el => el.classList.remove('error'));
-
-    let temErro = false;
-    const nomes = [];
-    const qls = [];
-
-    for (let i = 1; i <= 4; i++) {
-      const ni = document.getElementById(`j${i}_nome`);
-      const qi = document.getElementById(`j${i}_ql`);
-      if (ni && ni.offsetParent !== null) {
-        if (ni.dataset.required === 'true' && !ni.value.trim()) {
-          ni.classList.add('error');
-          temErro = true;
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed.courts) && Array.isArray(parsed.queue)) {
+            while (parsed.courts.length < COURT_COUNT) {
+              parsed.courts.push({ id: parsed.courts.length + 1, activeMatch: null });
+            }
+            return parsed;
+          }
+        } catch (error) {
+          console.error(error);
         }
-        if (ni.value.trim()) nomes.push(ni.value.trim());
       }
-      if (qi && qi.offsetParent !== null) {
-        if (qi.dataset.required === 'true' && !qi.value.trim()) {
-          qi.classList.add('error');
-          temErro = true;
-        }
-        if (qi.value.trim() && !/^\d{2}\/\d{2}$/.test(qi.value.trim())) {
-          qi.classList.add('error');
-          temErro = true;
-        }
-        if (qi.value.trim()) qls.push(qi.value.trim());
+      return {
+        queue: [],
+        courts: Array.from({ length: COURT_COUNT }, (_, i) => ({ id: i + 1, activeMatch: null }))
+      };
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      btnSimple.classList.toggle('active', mode === 'simple');
+      btnDouble.classList.toggle('active', mode === 'double');
+      renderPlayerFields();
+      clearMessage();
+    }
+
+    function renderPlayerFields() {
+      const totalPlayers = currentMode === 'simple' ? 2 : 4;
+      playersGrid.innerHTML = '';
+      for (let i = 1; i <= totalPlayers; i++) {
+        const card = document.createElement('div');
+        card.className = 'player-card';
+        card.innerHTML = `
+          <h4>Jogador ${i}</h4>
+          <div class="field">
+            <label for="playerName${i}">Nome *</label>
+            <input id="playerName${i}" maxlength="40" placeholder="Nome do jogador ${i}" required />
+          </div>
+          <div class="field">
+            <label for="playerQl${i}">Q/L *</label>
+            <input id="playerQl${i}" maxlength="5" inputmode="numeric" placeholder="99/99" required />
+          </div>
+        `;
+        playersGrid.appendChild(card);
       }
+      applyQlMasks();
     }
 
-    if (temErro) {
-      const pe = document.querySelector('.error');
-      if (pe) pe.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      mostrarToast('⚠️ Revise os campos obrigatórios. O Q/L deve estar em 99/99.', '#dc2626');
-      return;
-    }
-
-    const minimo = isDupla ? 3 : 2;
-    if (nomes.length < minimo) {
-      mostrarToast(`⚠️ Mínimo de ${minimo} jogadores para ${isDupla ? 'duplas' : 'simples'}.`, '#dc2626');
-      return;
-    }
-
-    if (editandoId) {
-      const idx = fila.findIndex(item => item.id === editandoId);
-      if (idx !== -1 && filaKeys[idx]) {
-        remove(ref(db, `fila/${filaKeys[idx]}`)).then(() => {
-          editandoId = null;
-          cancelarEdicao();
-          criarNovaInscricao(nomes, qls, tipoJogo);
+    function applyQlMasks() {
+      playersGrid.querySelectorAll('input[id^="playerQl"]').forEach((input) => {
+        input.addEventListener('input', () => {
+          const digits = input.value.replace(/\D/g, '').slice(0, 4);
+          input.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
         });
-        return;
-      }
+      });
     }
 
-    criarNovaInscricao(nomes, qls, tipoJogo);
-  };
+    function resetForm() {
+      renderPlayerFields();
+      clearMessage();
+    }
 
-  function criarNovaInscricao(nomes, qls, tipoJogo) {
-    Promise.all([
-      new Promise(resolve => onValue(ref(db, 'quadras'), snapshot => resolve(snapshot.val()), { onlyOnce: true })),
-      new Promise(resolve => onValue(ref(db, 'fila'), snapshot => resolve(snapshot.val()), { onlyOnce: true }))
-    ]).then(([quadrasData, filaData]) => {
-      const quadrasAtual = quadrasData ? (Array.isArray(quadrasData) ? quadrasData : Object.values(quadrasData).filter(i => i !== null)) : [];
-      const filaAtual = filaData ? (Array.isArray(filaData) ? filaData : Object.values(filaData).filter(i => i !== null)) : [];
+    function addEntryFromForm() {
+      const totalPlayers = currentMode === 'simple' ? 2 : 4;
+      const players = [];
 
-      const mensagemDuplicidade = validarDuplicidadesSistema(nomes, qls, quadrasAtual, filaAtual);
-      if (mensagemDuplicidade) {
-        mostrarToast(mensagemDuplicidade, '#dc2626');
+      for (let i = 1; i <= totalPlayers; i++) {
+        const name = document.getElementById(`playerName${i}`).value.trim();
+        const ql = document.getElementById(`playerQl${i}`).value.trim();
+
+        if (!name || !ql) {
+          showMessage('Preencha nome e Q/L de todos os jogadores obrigatórios.', 'error');
+          return;
+        }
+
+        if (!/^\d{2}\/\d{2}$/.test(ql)) {
+          showMessage(`O Q/L do Jogador ${i} precisa estar no formato 99/99.`, 'error');
+          return;
+        }
+
+        players.push({ name, ql });
+      }
+
+      const localDup = hasInternalDuplicates(players);
+      if (localDup) {
+        showMessage(localDup, 'error');
         return;
       }
 
-      const novaChave = gerarChaveJogo(nomes, qls);
-      const estaNaFilaExatamente = filaAtual.some(item => gerarChaveJogo(item.jogadores || [], item.qls || []) === novaChave);
-      if (estaNaFilaExatamente) {
-        mostrarToast('⚠️ Essa composição de jogadores já está na fila.', '#d97706');
+      const duplicateMessage = findDuplicateInSystem(players);
+      if (duplicateMessage) {
+        showMessage(duplicateMessage, 'error');
         return;
       }
 
-      const novoJogo = {
-        id: Date.now(),
-        nomes: nomes.join(' • '),
-        detalhes: qls.join(', '),
-        duracao: parseInt(tipoJogo, 10),
-        chegada: new Date().toISOString(),
-        jogadores: nomes,
-        qls: qls,
-        deviceId: meuUid
+      const entry = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+        mode: currentMode,
+        durationMin: currentMode === 'simple' ? DURATIONS.simple : DURATIONS.double,
+        players,
+        createdAt: Date.now()
       };
 
-      push(ref(db, 'fila'), novoJogo)
-        .then(() => {
-          mostrarToast('✅ Inscrição confirmada!', '#16a34a');
-          cancelarEdicao();
-          const j4ql = document.getElementById('j4_ql');
-          if (j4ql) {
-            j4ql.dataset.required = 'false';
-            j4ql.placeholder = 'Q/L (opcional)';
-          }
-        })
-        .catch(() => mostrarToast('❌ Erro ao inscrever. Tente novamente.', '#dc2626'));
-    });
-  }
+      state.queue.push(entry);
+      saveState();
+      const predictions = computePredictions();
+      const prediction = predictions.find((item) => item.id === entry.id);
+      resetForm();
+      renderAll();
 
-  onValue(ref(db, 'fila'), (snapshot) => {
-    carregandoFila = false;
-    const d = snapshot.val();
-    if (!d) {
-      fila = [];
-      filaKeys = [];
-    } else {
-      const entries = Object.entries(d).sort((a, b) => {
-        const av = a[1]?.chegada ? new Date(a[1].chegada).getTime() : 0;
-        const bv = b[1]?.chegada ? new Date(b[1].chegada).getTime() : 0;
-        return av - bv;
-      });
-      fila = entries.map(([key, value]) => ({ ...value, id: value.id }));
-      filaKeys = entries.map(([key]) => key);
+      showMessage(
+        prediction
+          ? `Inscrição feita. Previsão: Quadra ${prediction.courtId} às ${formatTime(prediction.startTs)}.`
+          : 'Inscrição feita com sucesso.',
+        'success'
+      );
     }
-    renderFila();
-  });
 
-  onValue(ref(db, 'quadras'), (snapshot) => {
-    carregandoQuadras = false;
-    if (!snapshot.exists()) {
-      set(ref(db, 'quadras'), [
-        { id: 1, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
-        { id: 2, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
-        { id: 3, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 }
-      ]);
-    }
-    const d = snapshot.val();
-    if (d) quadras = Array.isArray(d) ? d : Object.values(d).filter(i => i !== null);
-    renderQuadras();
-    renderFila();
-  });
-
-  setInterval(() => {
-    let mudou = false;
-    const agora = Date.now();
-    quadras.forEach(q => {
-      if (q && q.ocupada && q.rodando && !q.pausada && q.horaTerminoAbsoluta) {
-        let restante = Math.max(0, Math.ceil((q.horaTerminoAbsoluta - agora) / 1000));
-        if (q.tempoRestante !== restante) {
-          q.tempoRestante = restante;
-          mudou = true;
-        }
+    function hasInternalDuplicates(players) {
+      const names = new Set();
+      for (const player of players) {
+        const nameKey = normalize(player.name);
+        if (names.has(nameKey)) return 'Há nomes repetidos dentro da mesma inscrição.';
+        names.add(nameKey);
       }
-    });
-    if (mudou) {
-      renderQuadras();
-      renderFila();
+      return null;
     }
-  }, 1000);
-</script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js?v=2.0');
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!sessionStorage.getItem('swAtualizado')) {
-      sessionStorage.setItem('swAtualizado', 'sim');
-      window.location.reload();
+    function findDuplicateInSystem(players) {
+      const existingPlayers = [
+        ...state.queue.flatMap((entry) => entry.players),
+        ...state.courts.flatMap((court) => court.activeMatch ? court.activeMatch.players : [])
+      ];
+
+      for (const player of players) {
+        const nameKey = normalize(player.name);
+        const qlKey = normalize(player.ql);
+
+        const sameName = existingPlayers.find((existing) => normalize(existing.name) === nameKey);
+        if (sameName) return `O nome "${player.name}" já está na fila ou em jogo.`;
+
+        const sameQl = existingPlayers.find((existing) => normalize(existing.ql) === qlKey);
+        if (sameQl) return `O Q/L "${player.ql}" já está em outra inscrição ou em jogo.`;
+      }
+
+      return null;
     }
-  });
-}
-</script>
+
+    function normalize(value) {
+      return String(value)
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function computePredictions() {
+      const nextAvailability = state.courts.map((court) => ({
+        courtId: court.id,
+        nextTs: court.activeMatch ? court.activeMatch.plannedEndTs : Date.now()
+      }));
+
+      const predictions = [];
+      const orderedQueue = [...state.queue].sort((a, b) => a.createdAt - b.createdAt);
+
+      for (const entry of orderedQueue) {
+        nextAvailability.sort((a, b) => a.nextTs - b.nextTs || a.courtId - b.courtId);
+        const target = nextAvailability[0];
+        const startTs = Math.max(Date.now(), target.nextTs);
+        const endTs = startTs + entry.durationMin * 60000;
+        predictions.push({ id: entry.id, courtId: target.courtId, startTs, endTs });
+        target.nextTs = endTs;
+      }
+
+      return predictions;
+    }
+
+    function renderAll() {
+      const predictions = computePredictions();
+      renderSummary(predictions);
+      renderStatusBanner();
+      renderCourts(predictions);
+      renderQueue(predictions);
+    }
+
+    function renderSummary(predictions) {
+      queueCountEl.textContent = state.queue.length;
+      queueBadgeEl.textContent = state.queue.length;
+      busyCountEl.textContent = state.courts.filter((court) => !!court.activeMatch).length;
+
+      if (predictions.length) {
+        const next = predictions.reduce((min, item) => item.startTs < min.startTs ? item : min, predictions[0]);
+        nextFreeEl.textContent = `${formatTime(next.startTs)} • Q${next.courtId}`;
+      } else {
+        const freeNow = state.courts.find((court) => !court.activeMatch);
+        nextFreeEl.textContent = freeNow ? `Agora • Q${freeNow.id}` : earliestCourtText();
+      }
+    }
+
+    function renderStatusBanner() {
+      if (!state.queue.length) {
+        statusBannerEl.style.display = 'none';
+        statusBannerEl.innerHTML = '';
+        return;
+      }
+
+      const first = [...state.queue].sort((a, b) => a.createdAt - b.createdAt)[0];
+      statusBannerEl.style.display = 'block';
+      statusBannerEl.innerHTML = `Próximo da fila: ${labelForEntry(first)}<span class="status-sub">Assim que a primeira quadra liberar, este grupo é o primeiro sugerido.</span>`;
+    }
+
+    function earliestCourtText() {
+      const busyCourts = state.courts.filter((court) => court.activeMatch);
+      if (!busyCourts.length) return 'Agora';
+      const earliest = busyCourts.reduce((min, court) => court.activeMatch.plannedEndTs < min.activeMatch.plannedEndTs ? court : min, busyCourts[0]);
+      return `${formatTime(earliest.activeMatch.plannedEndTs)} • Q${earliest.id}`;
+    }
+
+    function renderCourts(predictions) {
+      courtsEl.innerHTML = '';
+
+      state.courts.forEach((court) => {
+        const active = court.activeMatch;
+        const card = document.createElement('div');
+        card.className = `court-card ${active ? 'busy' : 'free'}`;
+
+        const remainingMs = active ? Math.max(0, active.plannedEndTs - Date.now()) : 0;
+        const warningClass = active && remainingMs <= 10 * 60000 ? 'warning' : '';
+        const predictedForCourt = predictions.filter((item) => item.courtId === court.id).sort((a, b) => a.startTs - b.startTs)[0];
+
+        if (active) {
+          card.innerHTML = `
+            <div class="court-number">
+              <div><span>Quadra</span><strong>${court.id}</strong></div>
+            </div>
+            <div class="court-body">
+              <div class="court-row">
+                <div>
+                  <div class="court-status">Em jogo</div>
+                  <div class="court-names" style="margin-top:10px;">${playersLine(active.players)}</div>
+                  <div class="court-sub">${active.mode === 'simple' ? 'Simples • 45 min' : 'Duplas • 1h'} • Entrada ${formatTime(active.startTs)} • Saída ${formatTime(active.plannedEndTs)}</div>
+                </div>
+                <div class="court-timer ${warningClass}">${formatCountdown(remainingMs)}</div>
+              </div>
+              <div class="court-prediction">Próximo previsto nesta quadra: ${predictedForCourt ? `${labelForEntryId(predictedForCourt.id)} às ${formatTime(predictedForCourt.startTs)}` : 'Sem grupos aguardando para esta quadra.'}</div>
+              <div class="court-actions">
+                <button class="btn btn-warning" data-action="finish" data-court="${court.id}">Encerrar jogo</button>
+              </div>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="court-number">
+              <div><span>Quadra</span><strong>${court.id}</strong></div>
+            </div>
+            <div class="court-body">
+              <div class="court-row">
+                <div>
+                  <div class="court-status">Disponível</div>
+                  <div class="court-names" style="margin-top:10px;">Livre para começar</div>
+                  <div class="court-sub">${predictedForCourt ? `Sugerido: ${labelForEntryId(predictedForCourt.id)} às ${formatTime(predictedForCourt.startTs)}` : 'Nenhuma inscrição aguardando agora.'}</div>
+                </div>
+                <div class="court-timer free">LIVRE</div>
+              </div>
+              <div class="inline-field">
+                <label for="startSelect${court.id}">Escolher inscrição da fila</label>
+                <select id="startSelect${court.id}">
+                  <option value="">Selecione</option>
+                  ${[...state.queue].sort((a, b) => a.createdAt - b.createdAt).map((entry) => `<option value="${entry.id}">${labelForEntry(entry)} • ${entry.mode === 'simple' ? 'Simples' : 'Duplas'}</option>`).join('')}
+                </select>
+              </div>
+              <div class="court-actions">
+                <button class="btn btn-primary" data-action="startSuggested" data-court="${court.id}">Chamar sugerido</button>
+                <button class="btn btn-secondary" data-action="startSelected" data-court="${court.id}">Iniciar selecionado</button>
+              </div>
+            </div>
+          `;
+        }
+
+        courtsEl.appendChild(card);
+      });
+
+      courtsEl.querySelectorAll('[data-action="finish"]').forEach((button) => {
+        button.addEventListener('click', () => finishCourt(Number(button.dataset.court)));
+      });
+
+      courtsEl.querySelectorAll('[data-action="startSuggested"]').forEach((button) => {
+        button.addEventListener('click', () => startSuggestedOnCourt(Number(button.dataset.court)));
+      });
+
+      courtsEl.querySelectorAll('[data-action="startSelected"]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const courtId = Number(button.dataset.court);
+          const select = document.getElementById(`startSelect${courtId}`);
+          if (!select.value) {
+            showMessage('Escolha uma inscrição da fila para iniciar na quadra.', 'error');
+            return;
+          }
+          startEntryOnCourt(courtId, select.value);
+        });
+      });
+    }
+
+    function renderQueue(predictions) {
+      queueList.innerHTML = '';
+
+      if (!state.queue.length) {
+        queueList.innerHTML = '<div class="queue-empty">Nenhuma inscrição na fila no momento.</div>';
+        return;
+      }
+
+      const ordered = [...state.queue].sort((a, b) => a.createdAt - b.createdAt);
+      const predictionsMap = Object.fromEntries(predictions.map((item) => [item.id, item]));
+
+      ordered.forEach((entry, index) => {
+        const prediction = predictionsMap[entry.id];
+        const card = document.createElement('div');
+        card.className = 'queue-item';
+        card.innerHTML = `
+          <div class="queue-head">
+            <div>
+              <strong><span class="queue-index">#${index + 1}</span>${playersLine(entry.players)}</strong>
+            </div>
+            <span class="badge ${entry.mode === 'simple' ? 'simple' : 'double'}">${entry.mode === 'simple' ? 'Simples • 45 min' : 'Duplas • 1h'}</span>
+          </div>
+
+          <div class="queue-grid">
+            <div class="queue-cell">
+              <span>Q/L</span>
+              <strong>${entry.players.map((player) => player.ql).join(' • ')}</strong>
+            </div>
+            <div class="queue-cell">
+              <span>Quadra prevista</span>
+              <strong>${prediction ? `Quadra ${prediction.courtId}` : '-'}</strong>
+            </div>
+            <div class="queue-cell">
+              <span>Horário previsto</span>
+              <strong>${prediction ? formatTime(prediction.startTs) : '-'}</strong>
+            </div>
+            <div class="queue-cell">
+              <span>Saída estimada</span>
+              <strong>${prediction ? formatTime(prediction.endTs) : '-'}</strong>
+            </div>
+          </div>
+
+          <div class="queue-actions">
+            <button class="btn btn-danger" data-action="remove" data-id="${entry.id}">Remover da fila</button>
+          </div>
+        `;
+        queueList.appendChild(card);
+      });
+
+      queueList.querySelectorAll('[data-action="remove"]').forEach((button) => {
+        button.addEventListener('click', () => removeEntry(button.dataset.id));
+      });
+    }
+
+    function removeEntry(id) {
+      const index = state.queue.findIndex((entry) => entry.id === id);
+      if (index === -1) return;
+      state.queue.splice(index, 1);
+      saveState();
+      renderAll();
+      showMessage('Inscrição removida da fila.', 'success');
+    }
+
+    function startSuggestedOnCourt(courtId) {
+      const predictions = computePredictions();
+      const suggested = suggestedQueueForCourt(courtId, predictions);
+      if (!suggested) {
+        showMessage('Não há inscrição sugerida para esta quadra.', 'error');
+        return;
+      }
+      startEntryOnCourt(courtId, suggested.id);
+    }
+
+    function suggestedQueueForCourt(courtId, predictions) {
+      const exact = predictions.filter((item) => item.courtId === courtId).sort((a, b) => a.startTs - b.startTs)[0];
+      if (exact) return exact;
+      return state.queue[0] ? { id: state.queue[0].id, courtId, startTs: Date.now() } : null;
+    }
+
+    function startEntryOnCourt(courtId, entryId) {
+      const court = state.courts.find((item) => item.id === courtId);
+      if (!court || court.activeMatch) {
+        showMessage('Essa quadra já está ocupada.', 'error');
+        return;
+      }
+
+      const index = state.queue.findIndex((entry) => entry.id === entryId);
+      if (index === -1) {
+        showMessage('Inscrição não encontrada na fila.', 'error');
+        return;
+      }
+
+      const entry = state.queue[index];
+      const now = Date.now();
+      court.activeMatch = {
+        id: entry.id,
+        mode: entry.mode,
+        durationMin: entry.durationMin,
+        players: entry.players,
+        startTs: now,
+        plannedEndTs: now + entry.durationMin * 60000
+      };
+
+      state.queue.splice(index, 1);
+      saveState();
+      renderAll();
+      showMessage(`Quadra ${courtId} iniciada para ${labelForEntry(entry)}.`, 'success');
+    }
+
+    function finishCourt(courtId) {
+      const court = state.courts.find((item) => item.id === courtId);
+      if (!court || !court.activeMatch) return;
+      court.activeMatch = null;
+      saveState();
+      renderAll();
+      showMessage(`Quadra ${courtId} encerrada.`, 'success');
+    }
+
+    function labelForEntry(entry) {
+      return entry.players.map((player) => player.name).join(' / ');
+    }
+
+    function labelForEntryId(id) {
+      const entry = state.queue.find((item) => item.id === id) || state.courts.map((court) => court.activeMatch).find((item) => item && item.id === id);
+      return entry ? labelForEntry(entry) : 'Inscrição';
+    }
+
+    function playersLine(players) {
+      return players.map((player) => player.name).join(' / ');
+    }
+
+    function formatTime(timestamp) {
+      return new Intl.DateTimeFormat('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(timestamp);
+    }
+
+    function formatCountdown(ms) {
+      const total = Math.max(0, Math.floor(ms / 1000));
+      const hours = String(Math.floor(total / 3600)).padStart(2, '0');
+      const minutes = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+      const seconds = String(total % 60).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = `message show ${type}`;
+    }
+
+    function clearMessage() {
+      messageBox.textContent = '';
+      messageBox.className = 'message';
+    }
+  </script>
 </body>
 </html>
