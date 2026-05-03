@@ -1136,407 +1136,755 @@ body.dark input.error {
 
 
 /* =========================================================
-   5 LAYOUTS ALTERNATIVOS - APP REAL
-   Mantém IDs, funções, Firebase, fila, timers e máscaras.
-   Muda disposição visual com CSS + botão de alternância.
+   REDESIGN REAL — 5 DIREÇÕES VISUAIS DIFERENTES
+   Funções, IDs, Firebase, fila, timers e máscaras preservados.
    ========================================================= */
 
-.layout-badge {
+.design-badge {
     position: fixed;
     bottom: 78px;
     left: 18px;
     z-index: 1001;
-    max-width: 190px;
-    padding: 7px 10px;
+    max-width: 210px;
+    padding: 8px 11px;
     border-radius: 999px;
-    background: rgba(15,23,42,.88);
+    background: rgba(2, 6, 23, .88);
     color: #fff;
-    font-size: .62rem;
+    font-size: .64rem;
     font-weight: 900;
-    letter-spacing: .35px;
-    box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    letter-spacing: .4px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.20);
     pointer-events: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-body[class*="layout-alt-"] {
-    transition: background .25s ease, color .25s ease;
-}
-
-body[class*="layout-alt-"] .theme-fab {
-    width: 54px !important;
-    height: 54px !important;
-    border-radius: 999px !important;
+body[class*="redesign-"] .theme-fab {
+    width: 56px !important;
+    height: 56px !important;
     left: 18px !important;
     bottom: 18px !important;
+    border-radius: 999px !important;
+    z-index: 1000;
 }
 
-/* Base anti-neon mais sóbria */
-body[class*="layout-alt-"] {
-    --bg: #f4f6f8;
-    --card-bg: #ffffff;
-    --card-border: #d8e1ea;
-    --text: #172033;
-    --text-secondary: #667085;
-    --green: #16865a;
-    --red: #d92d20;
-    --primary: #1d4ed8;
-    --warning: #d97706;
-    --shadow: 0 10px 26px rgba(15,23,42,.07);
-    --shadow-lg: 0 18px 42px rgba(15,23,42,.10);
-    background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%) !important;
-    color: var(--text) !important;
+/* Base: apagar “cara neon/source” */
+body[class*="redesign-"] {
+    transition: background .25s ease, color .25s ease;
 }
-
-body[class*="layout-alt-"] .app-title {
+body[class*="redesign-"] .app-title {
     background: none !important;
-    -webkit-text-fill-color: var(--text) !important;
-    color: var(--text) !important;
+    -webkit-text-fill-color: initial !important;
+}
+body[class*="redesign-"] .quadra-card,
+body[class*="redesign-"] .fila-section,
+body[class*="redesign-"] .form-card,
+body[class*="redesign-"] .popup-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+body[class*="redesign-"] .quadra-card::before {
+    box-shadow: none !important;
 }
 
-body[class*="layout-alt-"] .quadra-card,
-body[class*="layout-alt-"] .fila-section,
-body[class*="layout-alt-"] .form-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
+/* =========================================================
+   1 — CLUBHOUSE MODERNO
+   Visual: app premium claro, institucional, sem neon.
+   ========================================================= */
+body.redesign-1 {
+    --bg: #f6f1e8;
+    --card-bg: #fffaf2;
+    --card-border: #e7dac7;
+    --text: #241f17;
+    --text-secondary: #7b6d5b;
+    --primary: #6f4f28;
+    --green: #2f7d54;
+    --red: #b42318;
+    --warning: #b7791f;
+    --shadow: 0 14px 32px rgba(67, 50, 28, .10);
+    --shadow-lg: 0 24px 60px rgba(67, 50, 28, .15);
+    --radius: 28px;
+    --radius-sm: 18px;
+    background:
+        radial-gradient(circle at top left, rgba(111,79,40,.13), transparent 34%),
+        linear-gradient(135deg, #fbf7ef 0%, #efe4d1 100%) !important;
+    color: var(--text) !important;
+}
+body.redesign-1 .container { max-width: 690px !important; }
+body.redesign-1 .app-header {
+    min-height: 96px !important;
+    padding: 24px 18px !important;
+    background: #fffaf2 !important;
+    border: 1px solid #e7dac7 !important;
+    border-radius: 34px !important;
+    box-shadow: var(--shadow-lg) !important;
+    margin-bottom: 18px !important;
+}
+body.redesign-1 .app-logo {
+    left: 22px !important;
+    width: 56px !important;
+    height: 56px !important;
+    background: #241f17 !important;
+    border-radius: 20px !important;
+    border: 0 !important;
+}
+body.redesign-1 .app-logo .material-icons-outlined { color: #fffaf2 !important; }
+body.redesign-1 .app-title {
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 2.15rem !important;
+    font-weight: 500 !important;
+    color: #241f17 !important;
+    letter-spacing: -.8px !important;
+}
+body.redesign-1 .app-subtitle {
+    color: #8b6f47 !important;
+    letter-spacing: 2.4px !important;
+    font-size: .68rem !important;
+}
+body.redesign-1 .quadras-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+}
+body.redesign-1 .quadra-card {
+    background: #fffaf2 !important;
+    border: 1px solid #e7dac7 !important;
+    border-radius: 30px !important;
+    padding: 20px !important;
     box-shadow: var(--shadow) !important;
 }
-
-body[class*="layout-alt-"] .quadra-timer {
-    background: #eef4ff !important;
-    color: #1d4ed8 !important;
-    border: 1px solid #c7d7fe !important;
-    border-radius: 14px !important;
-    padding: 8px 10px !important;
+body.redesign-1 .quadra-card::before {
+    width: 0 !important;
+}
+body.redesign-1 .quadra-status {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 18px !important;
+    background: #efe4d1 !important;
+    color: #2f7d54 !important;
+    border: 1px solid #e0d0b8 !important;
+}
+body.redesign-1 .quadra-card.ocupada .quadra-status {
+    background: #f8ded9 !important;
+    color: #b42318 !important;
+}
+body.redesign-1 .quadra-numero {
+    color: #8b6f47 !important;
+    font-size: .68rem !important;
+    letter-spacing: 1.5px !important;
+}
+body.redesign-1 .quadra-jogadores {
+    color: #241f17 !important;
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+}
+body.redesign-1 .quadra-tempo { color: #7b6d5b !important; }
+body.redesign-1 .quadra-timer {
+    background: #241f17 !important;
+    color: #fffaf2 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    padding: 10px 15px !important;
+    min-width: 104px !important;
     text-align: center !important;
+    box-shadow: none !important;
 }
-
-body[class*="layout-alt-"] .fila-previsao {
-    background: #f2f6fb !important;
-    border: 1px solid #d9e3ef !important;
-    border-radius: 12px !important;
-    padding: 7px 9px !important;
+body.redesign-1 .fila-section,
+body.redesign-1 .form-card {
+    background: #fffaf2 !important;
+    border: 1px solid #e7dac7 !important;
+    border-radius: 32px !important;
+    padding: 22px !important;
+    box-shadow: var(--shadow-lg) !important;
 }
-
-body[class*="layout-alt-"] input,
-body[class*="layout-alt-"] select {
-    background: #ffffff !important;
-    border: 1px solid #d8e1ea !important;
-    color: #172033 !important;
+body.redesign-1 .fila-title,
+body.redesign-1 .form-title {
+    color: #6f4f28 !important;
+    font-size: .78rem !important;
+    letter-spacing: 1.8px !important;
 }
-
-body[class*="layout-alt-"] .btn,
-body[class*="layout-alt-"] .btn-aceitar {
-    background: #1d4ed8 !important;
-    color: #ffffff !important;
-    border-radius: 14px !important;
+body.redesign-1 .fila-count {
+    background: #241f17 !important;
+    color: #fffaf2 !important;
 }
-
-/* 1 — Dashboard equilibrado: parecido com o bom, mas mais organizado */
-body.layout-alt-1 .container {
-    max-width: 720px !important;
-}
-body.layout-alt-1 .app-header {
-    background: #fff !important;
-    border: 1px solid #d8e1ea !important;
+body.redesign-1 .fila-item {
+    background: #fbf4e8 !important;
+    border: 1px solid #eadcc8 !important;
     border-radius: 22px !important;
+    padding: 14px !important;
+}
+body.redesign-1 .fila-posicao {
+    color: #6f4f28 !important;
+}
+body.redesign-1 .fila-previsao {
+    background: #efe4d1 !important;
+    border: 1px solid #e0d0b8 !important;
+    border-radius: 16px !important;
+    padding: 8px 10px !important;
+}
+body.redesign-1 input,
+body.redesign-1 select {
+    background: #fbf4e8 !important;
+    border: 1px solid #e0d0b8 !important;
+    border-radius: 18px !important;
+    color: #241f17 !important;
+}
+body.redesign-1 .btn,
+body.redesign-1 .btn-aceitar {
+    background: #241f17 !important;
+    color: #fffaf2 !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   2 — SCOREBOARD PRO
+   Visual: placar esportivo maduro, alto contraste, nada neon.
+   ========================================================= */
+body.redesign-2 {
+    --bg: #111827;
+    --card-bg: #161f2e;
+    --card-border: #2b3546;
+    --text: #f8fafc;
+    --text-secondary: #aeb7c6;
+    --primary: #f2c94c;
+    --green: #27ae60;
+    --red: #eb5757;
+    --warning: #f2c94c;
+    --shadow: 0 18px 46px rgba(0,0,0,.34);
+    --shadow-lg: 0 30px 80px rgba(0,0,0,.42);
+    --radius: 12px;
+    --radius-sm: 8px;
+    background:
+        linear-gradient(135deg, #0b1018 0%, #172033 62%, #111827 100%) !important;
+    color: var(--text) !important;
+}
+body.redesign-2 .container { max-width: 820px !important; }
+body.redesign-2 .app-header {
+    text-align: left !important;
+    min-height: 78px !important;
+    padding: 18px 20px !important;
+    background: #0b1018 !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 14px !important;
     box-shadow: var(--shadow) !important;
     margin-bottom: 14px !important;
 }
-body.layout-alt-1 .app-logo {
-    left: 18px !important;
-    background: #eff6ff !important;
-    border: 1px solid #c7d7fe !important;
-    border-radius: 16px !important;
+body.redesign-2 .app-logo {
+    right: 20px !important;
+    left: auto !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: #f2c94c !important;
+    color: #0b1018 !important;
+    border-radius: 8px !important;
+    border: 0 !important;
 }
-body.layout-alt-1 .quadras-wrapper {
+body.redesign-2 .app-logo .material-icons-outlined { color: #0b1018 !important; }
+body.redesign-2 .app-title {
+    text-align: left !important;
+    color: #f8fafc !important;
+    font-size: 1.8rem !important;
+    text-transform: uppercase !important;
+    font-weight: 900 !important;
+    letter-spacing: .5px !important;
+}
+body.redesign-2 .app-subtitle {
+    text-align: left !important;
+    color: #f2c94c !important;
+    letter-spacing: 1.6px !important;
+}
+body.redesign-2 .quadras-wrapper {
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 12px !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
 }
-body.layout-alt-1 .quadra-card {
-    min-height: 142px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: space-between !important;
-    border-radius: 22px !important;
+body.redesign-2 .quadra-card {
+    background: #0f1724 !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    box-shadow: var(--shadow) !important;
 }
-body.layout-alt-1 .quadra-card::before {
-    width: 100% !important;
-    height: 5px !important;
-    bottom: auto !important;
-    right: 0 !important;
-    border-radius: 22px 22px 0 0 !important;
+body.redesign-2 .quadra-card::before {
+    width: 6px !important;
+    background: #27ae60 !important;
+    border-radius: 0 !important;
 }
-body.layout-alt-1 .quadra-info {
-    width: 100% !important;
+body.redesign-2 .quadra-card.ocupada::before { background: #eb5757 !important; }
+body.redesign-2 .quadra-status {
+    background: rgba(242,201,76,.14) !important;
+    color: #f2c94c !important;
+    border: 1px solid rgba(242,201,76,.26) !important;
+    border-radius: 8px !important;
 }
-body.layout-alt-1 .quadra-timer {
-    align-self: stretch !important;
-    font-size: 1.35rem !important;
+body.redesign-2 .quadra-numero {
+    color: #f2c94c !important;
+    letter-spacing: 1.7px !important;
 }
-body.layout-alt-1 .fila-section,
-body.layout-alt-1 .form-card {
-    border-radius: 22px !important;
+body.redesign-2 .quadra-jogadores {
+    color: #f8fafc !important;
+    font-size: 1.05rem !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+}
+body.redesign-2 .quadra-tempo { color: #aeb7c6 !important; }
+body.redesign-2 .quadra-timer {
+    background: #f2c94c !important;
+    color: #0b1018 !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    min-width: 112px !important;
+    padding: 7px 10px !important;
+    font-size: 2rem !important;
+    text-align: center !important;
+    box-shadow: none !important;
+}
+body.redesign-2 .fila-section,
+body.redesign-2 .form-card {
+    background: #0f1724 !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+body.redesign-2 .fila-header,
+body.redesign-2 .form-title {
+    border-bottom: 1px solid #2b3546 !important;
+    padding-bottom: 10px !important;
+}
+body.redesign-2 .fila-title,
+body.redesign-2 .form-title,
+body.redesign-2 .fila-nomes,
+body.redesign-2 .fila-previsao .hora {
+    color: #f8fafc !important;
+}
+body.redesign-2 .fila-detalhes { color: #aeb7c6 !important; }
+body.redesign-2 .fila-count {
+    background: #f2c94c !important;
+    color: #0b1018 !important;
+}
+body.redesign-2 .fila-item {
+    background: #161f2e !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 8px !important;
+}
+body.redesign-2 .fila-posicao,
+body.redesign-2 .fila-previsao .quadra-tag {
+    color: #f2c94c !important;
+}
+body.redesign-2 .fila-previsao {
+    background: #0b1018 !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 8px !important;
+}
+body.redesign-2 input,
+body.redesign-2 select {
+    background: #161f2e !important;
+    border: 1px solid #2b3546 !important;
+    border-radius: 8px !important;
+    color: #f8fafc !important;
+}
+body.redesign-2 .btn,
+body.redesign-2 .btn-aceitar {
+    background: #f2c94c !important;
+    color: #0b1018 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
 }
 
-/* 2 — Painel operacional: quadras em cima compactas, fila mais forte */
-body.layout-alt-2 .container {
-    max-width: 760px !important;
+/* =========================================================
+   3 — OPERADOR COMPACTO
+   Visual: sistema denso, administrativo, prático.
+   ========================================================= */
+body.redesign-3 {
+    --bg: #eef2f6;
+    --card-bg: #ffffff;
+    --card-border: #cfd8e3;
+    --text: #111827;
+    --text-secondary: #5f6b7a;
+    --primary: #0f172a;
+    --green: #11875d;
+    --red: #c2410c;
+    --warning: #b45309;
+    --shadow: none;
+    --shadow-lg: none;
+    --radius: 10px;
+    --radius-sm: 8px;
+    background: #eef2f6 !important;
+    color: var(--text) !important;
 }
-body.layout-alt-2 .app-header {
-    min-height: 58px !important;
-    padding: 8px 0 14px !important;
+body.redesign-3 .container { max-width: 780px !important; }
+body.redesign-3 .app-header {
+    min-height: 54px !important;
+    padding: 8px 0 12px !important;
+    text-align: left !important;
+    border-bottom: 2px solid #cfd8e3 !important;
+    margin-bottom: 10px !important;
 }
-body.layout-alt-2 .quadras-wrapper {
+body.redesign-3 .app-logo { display: none !important; }
+body.redesign-3 .app-title {
+    text-align: left !important;
+    color: #111827 !important;
+    font-size: 1.55rem !important;
+    font-weight: 900 !important;
+}
+body.redesign-3 .app-subtitle {
+    text-align: left !important;
+    color: #5f6b7a !important;
+}
+body.redesign-3 .quadras-wrapper {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 8px !important;
 }
-body.layout-alt-2 .quadra-card {
-    padding: 11px !important;
-    border-radius: 16px !important;
-    min-height: 118px !important;
+body.redesign-3 .quadra-card {
+    min-height: 112px !important;
+    background: #ffffff !important;
+    border: 1px solid #cfd8e3 !important;
+    border-radius: 10px !important;
+    padding: 9px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 8px !important;
+    gap: 7px !important;
+    box-shadow: none !important;
 }
-body.layout-alt-2 .quadra-status {
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 12px !important;
-}
-body.layout-alt-2 .quadra-jogadores {
-    font-size: .82rem !important;
-    line-height: 1.15 !important;
-}
-body.layout-alt-2 .quadra-tempo {
-    font-size: .66rem !important;
-}
-body.layout-alt-2 .quadra-timer {
-    font-size: 1.05rem !important;
-    min-width: 0 !important;
+body.redesign-3 .quadra-card::before {
+    height: 4px !important;
     width: 100% !important;
+    bottom: auto !important;
+    right: 0 !important;
+    border-radius: 10px 10px 0 0 !important;
+}
+body.redesign-3 .quadra-status {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+}
+body.redesign-3 .quadra-status .material-icons-outlined {
+    font-size: 18px !important;
+}
+body.redesign-3 .quadra-numero {
+    font-size: .62rem !important;
+}
+body.redesign-3 .quadra-jogadores {
+    font-size: .78rem !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+}
+body.redesign-3 .quadra-tempo {
+    font-size: .62rem !important;
+}
+body.redesign-3 .quadra-timer {
+    width: 100% !important;
+    min-width: 0 !important;
+    background: #111827 !important;
+    color: #ffffff !important;
+    border: 0 !important;
+    border-radius: 8px !important;
     padding: 6px !important;
+    font-size: .98rem !important;
+    text-align: center !important;
 }
-body.layout-alt-2 .fila-section {
-    border-radius: 20px !important;
-    padding: 16px !important;
+body.redesign-3 .fila-section,
+body.redesign-3 .form-card {
+    background: #ffffff !important;
+    border: 1px solid #cfd8e3 !important;
+    border-radius: 10px !important;
+    padding: 14px !important;
+    box-shadow: none !important;
 }
-body.layout-alt-2 .fila-item {
-    border-radius: 15px !important;
-    padding: 10px 12px !important;
+body.redesign-3 .fila-item {
+    background: #f8fafc !important;
+    border: 1px solid #dbe3ec !important;
+    border-radius: 8px !important;
+    padding: 9px 10px !important;
 }
-body.layout-alt-2 .fila-posicao {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: #eff6ff !important;
-    border-radius: 999px !important;
-}
-
-/* 3 — Fila protagonista: decisão primeiro */
-body.layout-alt-3 .container {
-    max-width: 700px !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-body.layout-alt-3 .fila-section {
-    order: -1 !important;
-    border-radius: 24px !important;
-    padding: 18px !important;
-    border: 2px solid #bfdbfe !important;
-}
-body.layout-alt-3 .fila-header {
-    background: #eff6ff !important;
-    margin: -8px -8px 14px !important;
-    padding: 12px !important;
-    border-radius: 18px !important;
-}
-body.layout-alt-3 .fila-title {
-    font-size: 1rem !important;
-    color: #1d4ed8 !important;
-}
-body.layout-alt-3 .fila-count {
-    background: #1d4ed8 !important;
-    color: #fff !important;
-}
-body.layout-alt-3 .fila-item {
-    display: grid !important;
-    grid-template-columns: 48px minmax(0, 1fr) auto !important;
-    align-items: center !important;
-    border-radius: 18px !important;
-    padding: 13px !important;
-}
-body.layout-alt-3 .fila-item.fila-top1 {
-    background: #f0fdf4 !important;
-    border-color: #86efac !important;
-}
-body.layout-alt-3 .fila-posicao {
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    border-radius: 999px !important;
-    background: #dcfce7 !important;
-    color: #166534 !important;
+body.redesign-3 .fila-posicao {
+    min-width: 36px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    background: #e5e7eb !important;
+    color: #111827 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
 }
-body.layout-alt-3 .quadras-wrapper {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
+body.redesign-3 .fila-previsao {
+    background: #e5e7eb !important;
+    border: 0 !important;
+    border-radius: 8px !important;
 }
-body.layout-alt-3 .quadra-card {
-    border-radius: 18px !important;
-    padding: 13px !important;
+body.redesign-3 input,
+body.redesign-3 select {
+    background: #ffffff !important;
+    border: 1px solid #cfd8e3 !important;
+    border-radius: 8px !important;
 }
-body.layout-alt-3 .form-card {
-    border-radius: 24px !important;
+body.redesign-3 .btn,
+body.redesign-3 .btn-aceitar {
+    background: #111827 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
 }
 
-/* 4 — Premium claro: mais elegante e espaçado */
-body.layout-alt-4 {
-    --primary: #324052;
-    --green: #247857;
-    --red: #b42318;
-    --card-border: #e6ded2;
-    --text: #2b2417;
-    --text-secondary: #756b5c;
+/* =========================================================
+   4 — MOBILE APP MODERNO
+   Visual: app contemporâneo, fluido, mas sem roxo/neon.
+   ========================================================= */
+body.redesign-4 {
+    --bg: #eaf3f5;
+    --card-bg: #ffffff;
+    --card-border: rgba(15, 118, 110, .16);
+    --text: #102a2d;
+    --text-secondary: #637c80;
+    --primary: #0f766e;
+    --green: #16a34a;
+    --red: #dc2626;
+    --warning: #d97706;
+    --shadow: 0 12px 28px rgba(15, 118, 110, .08);
+    --shadow-lg: 0 22px 54px rgba(15, 118, 110, .13);
+    --radius: 24px;
+    --radius-sm: 18px;
     background:
-        radial-gradient(circle at top left, rgba(191,161,98,.16), transparent 34%),
-        linear-gradient(135deg, #fbf8f0 0%, #f0eadc 100%) !important;
+        radial-gradient(circle at top right, rgba(20, 184, 166, .16), transparent 34%),
+        linear-gradient(135deg, #f5fbfc 0%, #e4f1f2 100%) !important;
+    color: var(--text) !important;
 }
-body.layout-alt-4 .container {
-    max-width: 680px !important;
+body.redesign-4 .container { max-width: 680px !important; }
+body.redesign-4 .app-header {
+    min-height: 80px !important;
+    padding: 18px 0 22px !important;
 }
-body.layout-alt-4 .app-header {
-    min-height: 90px !important;
-    padding: 24px 0 !important;
-}
-body.layout-alt-4 .app-logo {
+body.redesign-4 .app-logo {
     left: 18px !important;
-    width: 54px !important;
-    height: 54px !important;
-    background: #2b2417 !important;
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 18px !important;
+    background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+    border: 0 !important;
 }
-body.layout-alt-4 .app-logo .material-icons-outlined {
-    color: #f8f3e7 !important;
+body.redesign-4 .app-logo .material-icons-outlined { color: #ffffff !important; }
+body.redesign-4 .app-title {
+    color: #102a2d !important;
+    font-size: 1.75rem !important;
+    font-weight: 900 !important;
 }
-body.layout-alt-4 .app-title {
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: 2.1rem !important;
-    font-weight: 500 !important;
+body.redesign-4 .app-subtitle {
+    color: #0f766e !important;
 }
-body.layout-alt-4 .quadras-wrapper {
-    gap: 14px !important;
+body.redesign-4 .quadras-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 12px !important;
+    padding-bottom: 4px !important;
+    scroll-snap-type: x mandatory !important;
 }
-body.layout-alt-4 .quadra-card {
-    border-radius: 30px !important;
-    padding: 20px !important;
+body.redesign-4 .quadra-card {
+    min-width: 230px !important;
+    min-height: 168px !important;
+    scroll-snap-align: start !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(15,118,110,.16) !important;
+    border-radius: 28px !important;
+    padding: 18px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    box-shadow: var(--shadow) !important;
 }
-body.layout-alt-4 .quadra-card::before {
+body.redesign-4 .quadra-card::before {
     width: 0 !important;
 }
-body.layout-alt-4 .quadra-status {
+body.redesign-4 .quadra-status {
     border-radius: 18px !important;
-    background: #f1eadc !important;
+    background: #e0f2f1 !important;
+    color: #0f766e !important;
 }
-body.layout-alt-4 .quadra-timer {
-    background: #2b2417 !important;
-    color: #f8f3e7 !important;
-    border-radius: 999px !important;
-    border-color: #2b2417 !important;
+body.redesign-4 .quadra-card.ocupada .quadra-status {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
 }
-body.layout-alt-4 .fila-section,
-body.layout-alt-4 .form-card {
-    border-radius: 30px !important;
-    padding: 22px !important;
+body.redesign-4 .quadra-info {
+    width: 100% !important;
 }
-body.layout-alt-4 .fila-item {
-    border-radius: 22px !important;
-    background: #fffaf0 !important;
+body.redesign-4 .quadra-timer {
+    width: 100% !important;
+    background: #0f766e !important;
+    color: #ffffff !important;
+    border: 0 !important;
+    border-radius: 18px !important;
+    text-align: center !important;
+}
+body.redesign-4 .fila-section,
+body.redesign-4 .form-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(15,118,110,.16) !important;
+    border-radius: 28px !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+body.redesign-4 .fila-item {
+    background: #f5fbfc !important;
+    border: 1px solid rgba(15,118,110,.10) !important;
+    border-radius: 20px !important;
+}
+body.redesign-4 .fila-posicao {
+    color: #0f766e !important;
+}
+body.redesign-4 .fila-previsao {
+    background: #e0f2f1 !important;
+    border: 0 !important;
+}
+body.redesign-4 input,
+body.redesign-4 select {
+    background: #f5fbfc !important;
+    border: 1px solid rgba(15,118,110,.18) !important;
+    border-radius: 18px !important;
+}
+body.redesign-4 .btn,
+body.redesign-4 .btn-aceitar {
+    background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+    color: #ffffff !important;
+    border-radius: 18px !important;
+    box-shadow: 0 12px 24px rgba(15,118,110,.18) !important;
 }
 
-/* 5 — Lista rápida: tudo mais direto e adulto */
-body.layout-alt-5 {
-    --primary: #0f172a;
-    background: #f8fafc !important;
+/* =========================================================
+   5 — EDITORIAL CLEAN
+   Visual: radicalmente limpo, quase jornal/sistema premium.
+   ========================================================= */
+body.redesign-5 {
+    --bg: #ffffff;
+    --card-bg: transparent;
+    --card-border: #111827;
+    --text: #111827;
+    --text-secondary: #6b7280;
+    --primary: #111827;
+    --green: #111827;
+    --red: #b91c1c;
+    --warning: #92400e;
+    --shadow: none;
+    --shadow-lg: none;
+    --radius: 0;
+    --radius-sm: 0;
+    background: #ffffff !important;
+    color: #111827 !important;
 }
-body.layout-alt-5 .container {
-    max-width: 760px !important;
-}
-body.layout-alt-5 .app-header {
+body.redesign-5 .container { max-width: 760px !important; }
+body.redesign-5 .app-header {
+    min-height: 78px !important;
     text-align: left !important;
-    min-height: 58px !important;
-    padding: 10px 0 16px !important;
-    border-bottom: 1px solid #d8e1ea !important;
-    margin-bottom: 14px !important;
+    padding: 18px 0 !important;
+    border-bottom: 2px solid #111827 !important;
+    margin-bottom: 16px !important;
 }
-body.layout-alt-5 .app-logo {
-    display: none !important;
-}
-body.layout-alt-5 .app-title,
-body.layout-alt-5 .app-subtitle {
+body.redesign-5 .app-logo { display: none !important; }
+body.redesign-5 .app-title {
     text-align: left !important;
+    color: #111827 !important;
+    font-size: 2.35rem !important;
+    font-weight: 900 !important;
+    letter-spacing: -1.4px !important;
 }
-body.layout-alt-5 .app-title {
-    font-size: 1.85rem !important;
+body.redesign-5 .app-subtitle {
+    text-align: left !important;
+    color: #111827 !important;
+    letter-spacing: 2.8px !important;
 }
-body.layout-alt-5 .quadras-wrapper {
+body.redesign-5 .quadras-wrapper {
     gap: 0 !important;
-    border: 1px solid #d8e1ea !important;
-    border-radius: 18px !important;
-    overflow: hidden !important;
-    background: #fff !important;
-    margin-bottom: 14px !important;
+    border-top: 1px solid #111827 !important;
+    margin-bottom: 18px !important;
 }
-body.layout-alt-5 .quadra-card {
+body.redesign-5 .quadra-card {
+    background: transparent !important;
     border: none !important;
-    border-bottom: 1px solid #edf1f5 !important;
+    border-bottom: 1px solid #111827 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    padding: 13px 15px !important;
+    padding: 18px 0 !important;
 }
-body.layout-alt-5 .quadra-card:last-child {
-    border-bottom: 0 !important;
+body.redesign-5 .quadra-card::before {
+    display: none !important;
 }
-body.layout-alt-5 .quadra-card::before {
-    width: 3px !important;
+body.redesign-5 .quadra-status {
+    background: #111827 !important;
+    color: #ffffff !important;
+    border-radius: 0 !important;
 }
-body.layout-alt-5 .quadra-status {
-    width: 36px !important;
-    height: 36px !important;
+body.redesign-5 .quadra-card.ocupada .quadra-status {
+    background: #b91c1c !important;
+    color: #ffffff !important;
 }
-body.layout-alt-5 .quadra-timer {
-    font-size: 1.25rem !important;
-    min-width: 86px !important;
+body.redesign-5 .quadra-numero {
+    color: #111827 !important;
 }
-body.layout-alt-5 .fila-section,
-body.layout-alt-5 .form-card {
-    border-radius: 18px !important;
+body.redesign-5 .quadra-jogadores {
+    color: #111827 !important;
+    font-size: 1.08rem !important;
+    font-weight: 800 !important;
+}
+body.redesign-5 .quadra-tempo {
+    color: #6b7280 !important;
+}
+body.redesign-5 .quadra-timer {
+    background: transparent !important;
+    color: #111827 !important;
+    border: 0 !important;
+    border-bottom: 4px solid #111827 !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    font-size: 1.75rem !important;
+    min-width: 92px !important;
+}
+body.redesign-5 .fila-section,
+body.redesign-5 .form-card {
+    background: transparent !important;
+    border: 1px solid #111827 !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
 }
-body.layout-alt-5 .fila-item {
-    border-radius: 12px !important;
-    padding: 10px 12px !important;
+body.redesign-5 .fila-title,
+body.redesign-5 .form-title {
+    color: #111827 !important;
+    letter-spacing: 1.7px !important;
+}
+body.redesign-5 .fila-count,
+body.redesign-5 .fila-previsao,
+body.redesign-5 .btn,
+body.redesign-5 .btn-aceitar {
+    background: #111827 !important;
+    color: #ffffff !important;
+    border-radius: 0 !important;
+}
+body.redesign-5 .fila-item {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid #d1d5db !important;
+    border-radius: 0 !important;
+}
+body.redesign-5 .fila-posicao {
+    color: #111827 !important;
+}
+body.redesign-5 input,
+body.redesign-5 select {
+    background: #ffffff !important;
+    border: 1px solid #111827 !important;
+    border-radius: 0 !important;
+    color: #111827 !important;
 }
 
 /* Shimmer protegido */
-body[class*="layout-alt-"] .shimmer {
+body[class*="redesign-"] .shimmer {
     position: relative !important;
     overflow: hidden !important;
-    background: rgba(148,163,184,.20) !important;
-    border-color: rgba(148,163,184,.24) !important;
+    background: rgba(148,163,184,.22) !important;
+    border-color: rgba(148,163,184,.28) !important;
 }
-body[class*="layout-alt-"] .shimmer::after {
+body[class*="redesign-"] .shimmer::after {
     content: "" !important;
     position: absolute !important;
     inset: 0 !important;
@@ -1546,69 +1894,43 @@ body[class*="layout-alt-"] .shimmer::after {
 }
 
 @media (max-width: 430px) {
-    body.layout-alt-1 .quadras-wrapper,
-    body.layout-alt-3 .quadras-wrapper {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
+    body.redesign-1 .quadra-timer,
+    body.redesign-2 .quadra-timer,
+    body.redesign-5 .quadra-timer {
+        font-size: 1.25rem !important;
+        min-width: 78px !important;
     }
 
-    body.layout-alt-1 .quadra-card,
-    body.layout-alt-3 .quadra-card {
-        min-height: 126px !important;
-        padding: 11px !important;
+    body.redesign-3 .quadras-wrapper {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
     }
 
-    body.layout-alt-1 .quadra-status,
-    body.layout-alt-3 .quadra-status {
-        width: 34px !important;
-        height: 34px !important;
+    body.redesign-3 .quadra-card {
+        min-height: 106px !important;
+        padding: 7px !important;
     }
 
-    body.layout-alt-1 .quadra-timer,
-    body.layout-alt-3 .quadra-timer {
-        font-size: 1.02rem !important;
-        min-width: 0 !important;
-        width: 100% !important;
+    body.redesign-3 .quadra-jogadores {
+        font-size: .68rem !important;
     }
 
-    body.layout-alt-2 .quadras-wrapper {
-        grid-template-columns: 1fr 1fr 1fr !important;
+    body.redesign-3 .quadra-tempo {
+        font-size: .56rem !important;
     }
 
-    body.layout-alt-2 .quadra-card {
-        min-height: 112px !important;
-        padding: 8px !important;
+    body.redesign-4 .quadra-card {
+        min-width: 214px !important;
     }
 
-    body.layout-alt-2 .quadra-status {
-        width: 30px !important;
-        height: 30px !important;
+    body.redesign-5 .app-title {
+        font-size: 2rem !important;
     }
 
-    body.layout-alt-2 .quadra-jogadores {
-        font-size: .72rem !important;
-    }
-
-    body.layout-alt-2 .quadra-tempo {
-        font-size: .60rem !important;
-    }
-
-    body.layout-alt-2 .quadra-timer {
-        font-size: .9rem !important;
-    }
-
-    body.layout-alt-3 .fila-item {
-        grid-template-columns: 42px minmax(0, 1fr) auto !important;
-        gap: 8px !important;
-    }
-
-    body.layout-alt-4 .app-title {
-        font-size: 1.75rem !important;
-    }
-
-    .layout-badge {
-        bottom: 76px;
+    .design-badge {
         left: 12px;
+        bottom: 76px;
+        max-width: 180px;
     }
 }
 
@@ -1696,7 +2018,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 </div>
 
 <footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
-<button class="theme-fab" id="themeToggle" onclick="toggleTema()" title="Mudar layout"><span class="material-icons-outlined">dashboard_customize</span></button><div id="layoutBadge" class="layout-badge">Dashboard equilibrado</div>
+<button class="theme-fab" id="themeToggle" onclick="toggleTema()" title="Mudar redesign"><span class="material-icons-outlined">auto_awesome</span></button><div id="designBadge" class="design-badge">Clubhouse moderno</div>
 
 <script>
     let editandoId = null;
@@ -1791,39 +2113,40 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     };
     
     window.toggleTema = function() {
-        const atual = parseInt(localStorage.getItem('layoutAlternativoLaranjeiras') || '0', 10);
-        const proximo = (atual + 1) % LAYOUTS_ALTERNATIVOS.length;
-        aplicarLayoutAlternativo(proximo);
+        const atual = parseInt(localStorage.getItem('redesignLaranjeiras') || '0', 10);
+        const proximo = (atual + 1) % REDESIGNS_LARANJEIRAS.length;
+        aplicarRedesignLaranjeiras(proximo);
     };
     
-    const LAYOUTS_ALTERNATIVOS = [
-        { classe: 'layout-alt-1', nome: 'Dashboard equilibrado' },
-        { classe: 'layout-alt-2', nome: 'Painel operacional' },
-        { classe: 'layout-alt-3', nome: 'Fila protagonista' },
-        { classe: 'layout-alt-4', nome: 'Premium claro' },
-        { classe: 'layout-alt-5', nome: 'Lista rápida' }
+    const REDESIGNS_LARANJEIRAS = [
+        { classe: 'redesign-1', nome: 'Clubhouse moderno' },
+        { classe: 'redesign-2', nome: 'Scoreboard Pro' },
+        { classe: 'redesign-3', nome: 'Operador compacto' },
+        { classe: 'redesign-4', nome: 'Mobile app moderno' },
+        { classe: 'redesign-5', nome: 'Editorial clean' }
     ];
 
-    function aplicarLayoutAlternativo(indice) {
+    function aplicarRedesignLaranjeiras(indice) {
         document.body.classList.remove('dark');
         const classesAntigas = [
+            'redesign-1','redesign-2','redesign-3','redesign-4','redesign-5',
             'layout-alt-1','layout-alt-2','layout-alt-3','layout-alt-4','layout-alt-5',
             'court-1','court-2','court-3','court-4','court-5',
             'visual-1','visual-2','visual-3','visual-4','visual-5'
         ];
         classesAntigas.forEach(c => document.body.classList.remove(c));
-        const layout = LAYOUTS_ALTERNATIVOS[indice] || LAYOUTS_ALTERNATIVOS[0];
-        document.body.classList.add(layout.classe);
-        localStorage.setItem('layoutAlternativoLaranjeiras', String(indice));
-        const badge = document.getElementById('layoutBadge');
-        if (badge) badge.textContent = layout.nome;
+        const design = REDESIGNS_LARANJEIRAS[indice] || REDESIGNS_LARANJEIRAS[0];
+        document.body.classList.add(design.classe);
+        localStorage.setItem('redesignLaranjeiras', String(indice));
+        const badge = document.getElementById('designBadge');
+        if (badge) badge.textContent = design.nome;
         const icon = document.querySelector('#themeToggle .material-icons-outlined');
-        if (icon) icon.textContent = 'dashboard_customize';
+        if (icon) icon.textContent = 'auto_awesome';
     }
 
     (function() {
-        const salvo = parseInt(localStorage.getItem('layoutAlternativoLaranjeiras') || '0', 10);
-        aplicarLayoutAlternativo(Number.isFinite(salvo) ? salvo : 0);
+        const salvo = parseInt(localStorage.getItem('redesignLaranjeiras') || '0', 10);
+        aplicarRedesignLaranjeiras(Number.isFinite(salvo) ? salvo : 0);
     })();
 </script>
 
