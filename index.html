@@ -1382,6 +1382,181 @@ body.dark .shimmer::after {
     display: flex !important;
     flex-direction: column !important;
 }
+
+
+/* =========================================================
+   AJUSTE FINAL: MODO ESCURO ALL BLACK
+   Mantém o modo claro branco/verde. No escuro, remove o
+   fundo verde e deixa preto fosco com acentos discretos.
+   ========================================================= */
+body.dark {
+    --bg: #000000;
+    --card-bg: #101010;
+    --card-border: #242424;
+    --text: #f5f5f5;
+    --text-secondary: #a3a3a3;
+    --green: #22c55e;
+    --red: #ef4444;
+    --primary: #e5e5e5;
+    --warning: #f59e0b;
+    --pause: #737373;
+    --shadow: 0 10px 26px rgba(0,0,0,.45);
+    --shadow-lg: 0 16px 38px rgba(0,0,0,.55);
+    background: #000000 !important;
+    color: var(--text) !important;
+}
+
+body.dark .app-logo {
+    background: #111111 !important;
+    border-color: #2a2a2a !important;
+    box-shadow: none !important;
+}
+
+body.dark .app-logo .material-icons-outlined {
+    color: #e5e5e5 !important;
+}
+
+body.dark .app-title {
+    background: none !important;
+    -webkit-text-fill-color: #f5f5f5 !important;
+    color: #f5f5f5 !important;
+}
+
+body.dark .quadra-card,
+body.dark .fila-section,
+body.dark .form-card,
+body.dark .popup-card,
+body.dark .theme-fab,
+body.dark .meu-status-card {
+    background: #101010 !important;
+    border-color: #242424 !important;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45) !important;
+}
+
+body.dark .quadra-card::before {
+    box-shadow: none !important;
+}
+
+body.dark .quadra-card.ocupada::before {
+    box-shadow: none !important;
+}
+
+body.dark .quadra-status,
+body.dark .quadra-card.ocupada .quadra-status {
+    background: #171717 !important;
+    border-color: #2a2a2a !important;
+}
+
+body.dark .quadra-status {
+    color: #22c55e !important;
+}
+
+body.dark .quadra-card.ocupada .quadra-status {
+    color: #ef4444 !important;
+}
+
+body.dark .quadra-timer,
+body.dark .fila-previsao,
+body.dark input,
+body.dark select {
+    background: #090909 !important;
+    border-color: #2a2a2a !important;
+    box-shadow: none !important;
+    color: #f5f5f5 !important;
+}
+
+body.dark input::placeholder {
+    color: #737373 !important;
+}
+
+body.dark input:focus,
+body.dark select:focus {
+    border-color: #525252 !important;
+    box-shadow: 0 0 0 3px rgba(255,255,255,.08) !important;
+}
+
+body.dark .fila-item {
+    background: #0b0b0b !important;
+    border-color: #242424 !important;
+}
+
+body.dark .fila-item.fila-top1 {
+    border-left-color: #22c55e !important;
+    box-shadow: none !important;
+}
+
+body.dark .fila-item.fila-top2 {
+    border-left-color: #f59e0b !important;
+}
+
+body.dark .fila-count {
+    background: #181818 !important;
+    color: #e5e5e5 !important;
+    border-color: #2a2a2a !important;
+}
+
+body.dark .fila-posicao,
+body.dark .fila-previsao .quadra-tag,
+body.dark .theme-fab,
+body.dark .regulamento-texto h3 {
+    color: #e5e5e5 !important;
+}
+
+body.dark .btn,
+body.dark .btn-aceitar {
+    background: #1f1f1f !important;
+    border-color: #333333 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+}
+
+body.dark .btn-inscrever,
+body.dark .btn-aceitar.active {
+    background: #166534 !important;
+    border-color: #166534 !important;
+}
+
+body.dark .btn-editar {
+    background: #b45309 !important;
+    border-color: #b45309 !important;
+}
+
+body.dark .btn-sair-fila {
+    background: #991b1b !important;
+    border-color: #991b1b !important;
+}
+
+body.dark .btn-editar-fila {
+    background: #2a2113 !important;
+    color: #f59e0b !important;
+}
+
+body.dark .btn-remover-fila {
+    background: #2a1515 !important;
+    color: #ef4444 !important;
+}
+
+body.dark .meu-status-card,
+body.dark .meu-status-card.status-proximo {
+    background: #101010 !important;
+    border-color: #2a2a2a !important;
+}
+
+body.dark .fila-item.minha-inscricao {
+    background: #14110a !important;
+    border-color: #3f2f12 !important;
+    box-shadow: none !important;
+}
+
+body.dark .popup-overlay {
+    background: rgba(0,0,0,.78) !important;
+}
+
+body.dark .popup-header,
+body.dark .popup-footer {
+    border-color: #242424 !important;
+}
+
 </style>
 </head>
 <body>
