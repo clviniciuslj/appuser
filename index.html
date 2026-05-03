@@ -17,97 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* =========================================================
-           RESET E VARIÁVEIS BASE - TODOS OS LAYOUTS COMPARTILHAM
-        ========================================================= */
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            min-height: 100vh;
-            margin: 0; 
-            padding: 16px; 
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        .container { max-width: 640px; margin: 0 auto; transition: all 0.3s; }
-
-        /* Estilos comuns que NÃO mudam entre layouts */
-        .quadra-timer.warning { animation: pulse 1s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
-        
-        .btn-editar-fila, .btn-remover-fila {
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 4px;
-            border: none;
-        }
-        .btn-editar-fila { background: rgba(245,158,11,0.15); color: #f59e0b; }
-        .btn-remover-fila { background: rgba(239,68,68,0.15); color: #ef4444; }
-
-        .btn:active { transform: scale(0.98); }
-        .theme-fab:active { transform: scale(0.95); }
-
-        .vazio-state { text-align: center; padding: 24px; font-size: 0.85rem; }
-        
-        .alerta-edicao {
-            background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: 14px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            text-align: center;
-            font-weight: 500;
-            font-size: 0.8rem;
-        }
-
-        .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-        .popup-card{background:white;border-radius:24px;max-width:480px;width:100%;max-height:80vh;box-shadow:0 16px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden}
-        .popup-header{padding:18px 20px 12px;border-bottom:1px solid rgba(0,0,0,.06);text-align:center}
-        .popup-title{font-size:1.2rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
-        .popup-content{padding:16px 20px;overflow-y:auto;flex:1;text-align:left}
-        .regulamento-texto{font-size:.78rem;line-height:1.5}
-        .regulamento-texto h3{font-size:.82rem;font-weight:700;margin:10px 0 4px;text-align:left}
-        .regulamento-texto ul{margin:4px 0;padding-left:16px;text-align:left}.regulamento-texto li{margin:2px 0}
-        .popup-footer{padding:12px 20px 16px;border-top:1px solid rgba(0,0,0,.06);text-align:center}
-        .checkbox-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
-        .checkbox-wrapper input[type="checkbox"]{width:20px;height:20px;cursor:pointer;margin:0}
-        .checkbox-wrapper label{font-size:.85rem;cursor:pointer}
-        .btn-aceitar{width:100%;padding:14px;color:#fff;border:none;border-radius:40px;font-size:.9rem;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
-        .btn-aceitar.active{opacity:1}.btn-aceitar:disabled{cursor:not-allowed}
-
-        @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-
-        /* Shimmer comum */
-        .shimmer {
-            position: relative !important;
-            overflow: hidden !important;
-        }
-        .shimmer::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            transform: translateX(-100%);
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-            animation: shimmerMove 1.15s infinite;
-        }
-        @keyframes shimmerMove { 100% { transform: translateX(100%); } }
-
-        .meu-status-card { display: none; margin: 0 0 12px; padding: 13px 14px; border-radius: 16px; text-align: center; font-weight: 850; line-height: 1.25; }
-        .meu-status-card .status-sub { display: block; margin-top: 3px; font-size: .72rem; font-weight: 650; }
-
-        .fila-acoes-minha { display: flex; gap: 8px; }
-        .fila-lateral { margin-left: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; flex-shrink: 0; }
-
-        .fila-nomes { display: flex !important; flex-direction: column !important; gap: 1px !important; }
-        .linha-dupla { display: flex !important; flex-wrap: wrap !important; align-items: center !important; line-height: 1.15 !important; }
-        .nome-jogador { white-space: normal !important; overflow-wrap: anywhere !important; }
-        .separador { white-space: nowrap !important; margin: 0 4px !important; opacity: .7 !important; }
-
-        /* TEMA CLARO/ESCURO PADRÃO PARA TODOS LAYOUTS */
+        /* TEMA CLARO (padrão) */
         :root {
             --bg: #f0f2f5;
             --card-bg: rgba(255,255,255,0.85);
@@ -118,12 +28,14 @@
             --red: #ef4444;
             --primary: #0f172a;
             --warning: #f59e0b;
+            --pause: #3b82f6;
             --shadow: 0 4px 24px rgba(0,0,0,0.06);
             --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
             --radius: 20px;
             --radius-sm: 14px;
         }
 
+        /* TEMA ESCURO - ALL BLACK */
         body.dark {
             --bg: #0a0a0a;
             --card-bg: #1a1a1a;
@@ -134,249 +46,1383 @@
             --shadow: 0 1px 2px rgba(0,0,0,0.3);
             --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
         }
-    </style>
 
-    <style>
-        /* =========================================================
-           LAYOUT 11 - MODO AGENDA (cronograma/horários)
-        ========================================================= */
-        body.layout-11 {
-            background: var(--bg);
+        body.dark .quadra-card .quadra-status {
+            background: rgba(255,255,255,0.08);
+        }
+
+        body.dark .form-card,
+        body.dark .fila-section,
+        body.dark .quadra-card,
+        body.dark .btn-historico,
+        body.dark .modal,
+        body.dark .popup-card {
+            background: var(--card-bg);
+            border-color: var(--card-border);
+        }
+
+        body.dark input, 
+        body.dark select {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        body.dark .fila-item {
+            background: rgba(255,255,255,0.03);
+            border-color: var(--card-border);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: linear-gradient(135deg, #e2e8f0 0%, #f0f2f5 50%, #e8ecf1 100%);
+            min-height: 100vh;
+            margin: 0; 
+            padding: 16px; 
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark {
+            background: #0a0a0a;
+        }
+        
+        .container { max-width: 640px; margin: 0 auto; }
+
+        /* CABEÇALHO - ÍCONE À ESQUERDA, TÍTULO CENTRALIZADO */
+        .app-header { 
+            position: relative;
+            text-align: center; 
+            padding: 12px 0 20px; 
+            width: 100%; 
+            min-height: 70px;
+        }
+        .app-logo { 
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .app-logo .material-icons-outlined { 
+            font-size: 32px; 
+            color: var(--primary); 
+        }
+        .app-title { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+            text-align: center;
+        }
+        body.dark .app-title { 
+            background: none;
+            -webkit-text-fill-color: var(--text);
             color: var(--text);
         }
-        body.layout-11 .container { max-width: 700px; }
-        body.layout-11 .app-header { text-align: center; padding: 12px 0 20px; position: relative; }
-        body.layout-11 .app-logo { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); }
-        body.layout-11 .app-title { font-size: 1.5rem; font-weight: 800; }
-        body.layout-11 .quadras-wrapper { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-        body.layout-11 .quadra-card { 
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-sm);
-            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            position: relative; overflow: hidden;
+        .app-subtitle { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            text-align: center;
+            margin-top: 4px;
         }
-        body.layout-11 .quadra-card::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-            background: var(--green); border-radius: 0 4px 4px 0;
-        }
-        body.layout-11 .quadra-card.ocupada::before { background: var(--red); }
-        body.layout-11 .quadra-status { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-        body.layout-11 .quadra-info { flex: 1; }
-        body.layout-11 .quadra-numero { font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); }
-        body.layout-11 .quadra-jogadores { font-weight: 600; font-size: 0.85rem; }
-        body.layout-11 .quadra-tempo { font-size: 0.7rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
-        body.layout-11 .quadra-timer { font-family: monospace; font-size: 1.2rem; font-weight: 700; min-width: 60px; text-align: right; }
-        body.layout-11 .fila-section, body.layout-11 .form-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 16px; border: 1px solid var(--card-border); }
-        body.layout-11 .fila-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; margin-bottom: 8px; background: rgba(0,0,0,0.02); }
-        body.layout-11 .fila-previsao { background: rgba(0,0,0,0.04); padding: 4px 8px; border-radius: 8px; text-align: center; }
-        body.layout-11 input, body.layout-11 select { padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text); }
-        body.layout-11 .btn { border-radius: 30px; padding: 14px; background: var(--primary); color: white; font-weight: 700; border: none; cursor: pointer; }
 
-        /* =========================================================
-           LAYOUT 12 - DASHBOARD VERTICAL (cards empilhados expandidos)
-        ========================================================= */
-        body.layout-12 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .quadras-wrapper { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+        .quadra-card { 
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark .quadra-card {
+            backdrop-filter: none;
+        }
+
+        .quadra-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--green);
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s;
+        }
+
+        .quadra-card.ocupada::before { background: var(--red); }
+
+        .quadra-status {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .quadra-card.ocupada .quadra-status {
+            background: rgba(239,68,68,0.12);
+            color: var(--red);
+        }
+
+        .quadra-card:not(.ocupada) .quadra-status {
+            background: rgba(16,185,129,0.12);
+            color: var(--green);
+        }
+
+        .quadra-info { 
+            flex: 1; 
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .quadra-numero { 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: var(--text-secondary); 
+        }
+        
+        .quadra-jogadores { 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            color: var(--text);
+        }
+        
+        .quadra-jogadores.livre { 
+            color: var(--text-secondary); 
+        }
+        
+        .quadra-tempo { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+        }
+        
+        .quadra-timer { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 1.6rem;
+            font-weight: 700; 
+            color: var(--text); 
+            flex-shrink: 0; 
+            min-width: 70px; 
+            text-align: right; 
+            letter-spacing: 1px;
+        }
+        
+        .quadra-timer.warning { 
+            color: var(--red); 
+            animation: pulse 1s infinite; 
+        }
+
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+        .fila-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+        
+        body.dark .fila-section {
+            backdrop-filter: none;
+        }
+
+        .fila-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .fila-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fila-count {
+            background: var(--primary);
             color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
         }
-        body.layout-12 .container { max-width: 600px; }
-        body.layout-12 .app-header { text-align: center; padding: 20px 0; background: rgba(0,0,0,0.2); border-radius: 24px; margin-bottom: 16px; }
-        body.layout-12 .app-title { font-size: 1.8rem; font-weight: 800; }
-        body.layout-12 .quadra-card {
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
-            border-radius: 24px; padding: 20px; margin-bottom: 12px;
-            display: flex; flex-direction: column; gap: 12px;
-        }
-        body.layout-12 .quadra-header { display: flex; justify-content: space-between; align-items: center; }
-        body.layout-12 .quadra-numero { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; }
-        body.layout-12 .quadra-status { width: 48px; height: 48px; border-radius: 24px; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
-        body.layout-12 .quadra-jogadores { font-size: 1rem; font-weight: 600; margin: 8px 0; }
-        body.layout-12 .quadra-timer { font-size: 2rem; font-weight: 800; font-family: monospace; text-align: center; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 16px; }
-        body.layout-12 .fila-section, body.layout-12 .form-card { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 24px; padding: 20px; margin-bottom: 16px; }
-        body.layout-12 .fila-item { background: rgba(0,0,0,0.2); border-radius: 16px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
-        body.layout-12 .btn { background: white; color: #667eea; border-radius: 40px; padding: 16px; font-weight: 800; }
 
-        /* =========================================================
-           LAYOUT 13 - TERMINAL MODE (monospace, estilo hacker)
-        ========================================================= */
-        body.layout-13 {
-            background: #0a0a0a;
-            color: #00ff41;
-            font-family: 'JetBrains Mono', monospace;
+        .fila-item { 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid transparent;
+            transition: all 0.2s;
         }
-        body.layout-13 .container { max-width: 800px; }
-        body.layout-13 .app-header { border-bottom: 2px solid #00ff41; padding: 16px 0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        body.layout-13 .app-title { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; }
-        body.layout-13 .app-subtitle { font-size: 0.7rem; opacity: 0.7; }
-        body.layout-13 .quadra-card {
-            background: #111111; border: 1px solid #00ff41; border-radius: 0;
-            padding: 12px; margin-bottom: 8px;
-            display: grid; grid-template-columns: auto 1fr auto;
-            gap: 12px; align-items: center;
-        }
-        body.layout-13 .quadra-status { display: none; }
-        body.layout-13 .quadra-numero { font-size: 0.7rem; opacity: 0.7; }
-        body.layout-13 .quadra-jogadores { font-size: 0.8rem; text-transform: uppercase; }
-        body.layout-13 .quadra-timer { font-size: 1.1rem; font-family: monospace; }
-        body.layout-13 .fila-section, body.layout-13 .form-card { background: #111111; border: 1px solid #00ff41; border-radius: 0; padding: 16px; margin-bottom: 16px; }
-        body.layout-13 .fila-item { border-bottom: 1px solid #00ff4133; padding: 8px 0; display: flex; gap: 12px; }
-        body.layout-13 input, body.layout-13 select { background: #000; border: 1px solid #00ff41; color: #00ff41; font-family: monospace; border-radius: 0; }
-        body.layout-13 .btn { background: #00ff41; color: #000; border-radius: 0; font-weight: 800; text-transform: uppercase; }
 
-        /* =========================================================
-           LAYOUT 14 - MINIMALISTA FOCO (só timer e status)
-        ========================================================= */
-        body.layout-14 {
-            background: #f5f5f5;
-            color: #222;
+        body.dark .fila-item {
+            background: rgba(255,255,255,0.03);
         }
-        body.layout-14 .container { max-width: 500px; }
-        body.layout-14 .app-header { display: none; }
-        body.layout-14 .quadra-card {
-            background: white; border-radius: 0; border-bottom: 2px solid #ddd;
-            padding: 16px; display: flex; justify-content: space-between; align-items: center;
-        }
-        body.layout-14 .quadra-info .quadra-numero { font-size: 1.2rem; font-weight: 700; }
-        body.layout-14 .quadra-info .quadra-jogadores { display: none; }
-        body.layout-14 .quadra-info .quadra-tempo { display: none; }
-        body.layout-14 .quadra-status { display: none; }
-        body.layout-14 .quadra-timer { font-size: 1.8rem; font-weight: 800; font-family: monospace; }
-        body.layout-14 .fila-section, body.layout-14 .form-card { background: white; padding: 16px; margin-bottom: 12px; border-radius: 0; }
-        body.layout-14 .fila-item { border-bottom: 1px solid #eee; padding: 12px 0; display: flex; gap: 12px; }
-        body.layout-14 .fila-previsao { display: none; }
-        body.layout-14 .btn { background: #222; color: white; border-radius: 0; }
 
-        /* =========================================================
-           LAYOUT 15 - KANBAN BOARD (quadras como colunas)
-        ========================================================= */
-        body.layout-15 {
-            background: #1e293b;
-            color: #f1f5f9;
+        .fila-item.minha-inscricao {
+            background: rgba(245,158,11,0.08);
+            border-color: rgba(245,158,11,0.3);
         }
-        body.layout-15 .container { max-width: 1200px; }
-        body.layout-15 .app-header { text-align: center; padding: 20px; }
-        body.layout-15 .quadras-wrapper { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; margin-bottom: 20px; }
-        body.layout-15 .quadra-card {
-            min-width: 280px; background: #334155; border-radius: 12px; padding: 16px;
-            display: flex; flex-direction: column; gap: 12px;
-        }
-        body.layout-15 .quadra-header { display: flex; justify-content: space-between; align-items: center; }
-        body.layout-15 .quadra-numero { font-size: 1.1rem; font-weight: 800; }
-        body.layout-15 .quadra-status { width: 36px; height: 36px; border-radius: 18px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
-        body.layout-15 .quadra-timer { font-size: 1.5rem; font-family: monospace; text-align: center; padding: 12px; background: #1e293b; border-radius: 8px; }
-        body.layout-15 .fila-section, body.layout-15 .form-card { background: #334155; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-        body.layout-15 .fila-item { background: #1e293b; border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; gap: 12px; }
-        body.layout-15 .btn { background: #f59e0b; color: #1e293b; border-radius: 8px; font-weight: 800; }
 
-        /* =========================================================
-           LAYOUT 16 - SCOREBOARD (placar eletrônico)
-        ========================================================= */
-        body.layout-16 {
-            background: #000;
-            color: #ff6600;
-            font-family: 'JetBrains Mono', monospace;
+        .fila-posicao {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary);
+            min-width: 28px;
         }
-        body.layout-16 .container { max-width: 700px; }
-        body.layout-16 .app-header { text-align: center; padding: 20px; border-bottom: 3px solid #ff6600; margin-bottom: 20px; }
-        body.layout-16 .app-title { font-size: 2rem; letter-spacing: 4px; }
-        body.layout-16 .quadra-card {
-            background: #111; border: 2px solid #ff6600; border-radius: 8px; margin-bottom: 12px;
-            display: grid; grid-template-columns: auto 1fr auto; gap: 16px; padding: 16px;
-        }
-        body.layout-16 .quadra-numero { font-size: 1.2rem; font-weight: 800; }
-        body.layout-16 .quadra-jogadores { font-size: 0.9rem; text-transform: uppercase; }
-        body.layout-16 .quadra-timer { font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
-        body.layout-16 .fila-section, body.layout-16 .form-card { background: #111; border: 1px solid #ff6600; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        body.layout-16 .fila-item { border-bottom: 1px solid #ff660033; padding: 10px 0; display: flex; gap: 12px; }
-        body.layout-16 .btn { background: #ff6600; color: #000; border-radius: 4px; font-weight: 800; }
 
-        /* =========================================================
-           LAYOUT 17 - WIDGET MODE (cards pequenos estilo iOS)
-        ========================================================= */
-        body.layout-17 {
-            background: #e8edf2;
-            color: #1c1c1e;
-        }
-        body.layout-17 .container { max-width: 650px; }
-        body.layout-17 .app-header { text-align: center; padding: 16px; background: white; border-radius: 24px; margin-bottom: 16px; }
-        body.layout-17 .quadras-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
-        body.layout-17 .quadra-card {
-            background: white; border-radius: 20px; padding: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            display: flex; flex-direction: column; gap: 8px;
-        }
-        body.layout-17 .quadra-status { width: 32px; height: 32px; border-radius: 10px; background: #f2f2f2; display: flex; align-items: center; justify-content: center; }
-        body.layout-17 .quadra-numero { font-size: 0.65rem; font-weight: 600; color: #8e8e93; }
-        body.layout-17 .quadra-jogadores { font-size: 0.8rem; font-weight: 600; }
-        body.layout-17 .quadra-timer { font-size: 1.1rem; font-weight: 700; text-align: right; }
-        body.layout-17 .fila-section, body.layout-17 .form-card { background: white; border-radius: 24px; padding: 16px; margin-bottom: 16px; }
-        body.layout-17 .fila-item { background: #f9f9fb; border-radius: 14px; padding: 12px; margin-bottom: 8px; display: flex; gap: 10px; }
-        body.layout-17 .btn { background: #007aff; color: white; border-radius: 14px; padding: 14px; font-weight: 600; }
+        .fila-info { flex: 1; min-width: 0; }
+        .fila-nomes { font-weight: 600; font-size: 0.85rem; }
+        .fila-detalhes { font-size: 0.7rem; color: var(--text-secondary); display: flex; gap: 10px; flex-wrap: wrap; }
+        .fila-previsao { margin-left: auto; text-align: right; flex-shrink: 0; }
+        .fila-previsao .quadra-tag { font-size: 0.7rem; font-weight: 700; color: var(--primary); }
+        .fila-previsao .hora { font-size: 0.8rem; font-weight: 600; }
 
-        /* =========================================================
-           LAYOUT 18 - TIMELINE VERTICAL (linha do tempo única)
-        ========================================================= */
-        body.layout-18 {
-            background: linear-gradient(180deg, #f0f2f5 0%, #e2e8f0 100%);
+        .btn-editar-fila, .btn-remover-fila {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 4px;
+            border: none;
+        }
+        .btn-editar-fila {
+            background: rgba(245,158,11,0.15);
+            color: #f59e0b;
+        }
+        .btn-remover-fila {
+            background: rgba(239,68,68,0.15);
+            color: #ef4444;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        body.dark .form-card {
+            backdrop-filter: none;
+        }
+
+        .form-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        input, select { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: var(--radius-sm); 
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: white;
             color: #1e293b;
+            transition: border-color 0.2s;
+            outline: none;
         }
-        body.layout-18 .container { max-width: 550px; }
-        body.layout-18 .app-header { text-align: center; padding: 16px; background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        body.layout-18 .timeline-item { display: flex; gap: 16px; margin-bottom: 16px; position: relative; }
-        body.layout-18 .timeline-marker { width: 48px; display: flex; flex-direction: column; align-items: center; }
-        body.layout-18 .timeline-line { width: 2px; flex: 1; background: linear-gradient(180deg, var(--primary) 0%, #cbd5e1 100%); margin-top: 40px; }
-        body.layout-18 .quadra-card, body.layout-18 .fila-section { flex: 1; background: white; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 0; }
-        body.layout-18 .form-card { background: white; border-radius: 16px; padding: 20px; margin-top: 16px; }
-        body.layout-18 .fila-section { background: white; }
-        body.layout-18 .fila-item { border-bottom: 1px solid #e2e8f0; padding: 10px 0; display: flex; gap: 12px; }
-        body.layout-18 .btn { background: var(--primary); color: white; border-radius: 30px; }
 
-        /* =========================================================
-           LAYOUT 19 - KIOSK/TOTEM (fontes grandes, modo quiosque)
-        ========================================================= */
-        body.layout-19 {
-            background: #0f172a;
-            color: white;
-            font-size: 18px;
+        body.dark input, 
+        body.dark select {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+            color: #ffffff;
         }
-        body.layout-19 .container { max-width: 700px; }
-        body.layout-19 .app-header { text-align: center; padding: 24px; background: #1e293b; border-radius: 32px; margin-bottom: 24px; }
-        body.layout-19 .app-title { font-size: 2.2rem; }
-        body.layout-19 .quadra-card {
-            background: #1e293b; border-radius: 32px; padding: 24px; margin-bottom: 16px;
-            display: flex; align-items: center; justify-content: space-between; gap: 20px;
-        }
-        body.layout-19 .quadra-numero { font-size: 1.1rem; }
-        body.layout-19 .quadra-jogadores { font-size: 1.1rem; font-weight: 600; }
-        body.layout-19 .quadra-timer { font-size: 2rem; font-family: monospace; font-weight: 800; background: #000; padding: 12px 20px; border-radius: 40px; }
-        body.layout-19 .fila-section, body.layout-19 .form-card { background: #1e293b; border-radius: 32px; padding: 24px; margin-bottom: 20px; }
-        body.layout-19 .fila-item { background: #334155; border-radius: 24px; padding: 16px; margin-bottom: 12px; display: flex; gap: 16px; font-size: 1rem; }
-        body.layout-19 .fila-posicao { font-size: 1.3rem; font-weight: 800; }
-        body.layout-19 input, body.layout-19 select { padding: 18px; font-size: 1rem; border-radius: 20px; }
-        body.layout-19 .btn { padding: 18px; font-size: 1.1rem; border-radius: 40px; background: #3b82f6; }
 
-        /* =========================================================
-           LAYOUT 20 - GLASSMORPHISM (vidro fosco moderno)
-        ========================================================= */
-        body.layout-20 {
-            background: radial-gradient(circle at 20% 30%, #1a1a2e, #16213e);
-            color: #fff;
+        body.dark input::placeholder,
+        body.dark select::placeholder {
+            color: #888888;
         }
-        body.layout-20 .container { max-width: 600px; }
-        body.layout-20 .app-header { text-align: center; padding: 24px; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 32px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.2); }
-        body.layout-20 .app-title { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #fff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        body.layout-20 .quadra-card {
-            background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-radius: 28px; padding: 18px; margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 16px;
+
+        input:focus, select:focus { border-color: var(--primary); }
+        input.error { border-color: var(--red) !important; }
+
+        .full-width { grid-column: span 2; }
+
+        .btn { 
+            border: none; 
+            padding: 16px; 
+            border-radius: 40px;
+            color: white; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            background: var(--primary);
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
         }
-        body.layout-20 .quadra-timer { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 10px 16px; font-family: monospace; font-size: 1.2rem; }
-        body.layout-20 .fila-section, body.layout-20 .form-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-radius: 28px; padding: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.15); }
-        body.layout-20 .fila-item { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 14px; margin-bottom: 10px; display: flex; gap: 12px; }
-        body.layout-20 .btn { background: linear-gradient(135deg, #8b5cf6, #6366f1); border-radius: 40px; padding: 16px; font-weight: 700; border: none; color: white; }
-        body.layout-20 input, body.layout-20 select { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 14px; color: white; }
-        body.layout-20 input::placeholder { color: rgba(255,255,255,0.5); }
-    </style>
+
+        .btn:active { transform: scale(0.98); }
+        .btn-inscrever { width: 100%; margin-top: 14px; }
+        .btn-editar { width: 100%; margin-top: 8px; background: #f59e0b; }
+        .btn-sair-fila { width: 100%; margin-top: 8px; background: var(--red); }
+
+        .theme-fab {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+        
+        body.dark .theme-fab {
+            backdrop-filter: none;
+            background: var(--card-bg);
+        }
+        
+        .theme-fab:active { transform: scale(0.95); }
+
+        .app-footer {
+            margin-top: 28px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .vazio-state { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 0.85rem; }
+        
+        .alerta-edicao {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #f59e0b;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+        .popup-card{background:var(--card-bg);border-radius:24px;max-width:480px;width:100%;max-height:80vh;box-shadow:0 16px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--card-border)}
+        .popup-header{padding:18px 20px 12px;border-bottom:1px solid rgba(0,0,0,.06);text-align:center}
+        .popup-title{font-size:1.2rem;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px}
+        .popup-content{padding:16px 20px;overflow-y:auto;flex:1;text-align:left}
+        .regulamento-texto{font-size:.78rem;line-height:1.5;color:var(--text)}
+        .regulamento-texto h3{font-size:.82rem;font-weight:700;margin:10px 0 4px;color:var(--primary);text-align:left}
+        .regulamento-texto ul{margin:4px 0;padding-left:16px;text-align:left}.regulamento-texto li{margin:2px 0}
+        .popup-footer{padding:12px 20px 16px;border-top:1px solid rgba(0,0,0,.06);text-align:center}
+        .checkbox-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+        .checkbox-wrapper input[type="checkbox"]{width:20px;height:20px;accent-color:var(--primary);cursor:pointer;margin:0}
+        .checkbox-wrapper label{font-size:.85rem;color:var(--text);cursor:pointer}
+        .btn-aceitar{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:40px;font-size:.9rem;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
+        .btn-aceitar.active{opacity:1}.btn-aceitar:disabled{cursor:not-allowed}
+
+        @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    
+
+/* =========================================================
+   05 USER - MATCHDAY NEON REFINADO
+   Claro = limpo esportivo | Escuro = neon moderado
+   Mantém toda a lógica original. Só altera aparência.
+   ========================================================= */
+
+:root {
+    --bg: #f5f8fc;
+    --card-bg: #ffffff;
+    --card-border: #d8e4f0;
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --green: #059669;
+    --red: #e11d48;
+    --primary: #0891b2;
+    --warning: #d97706;
+    --pause: #2563eb;
+    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
+    --radius: 20px;
+    --radius-sm: 14px;
+}
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
+        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
+    color: var(--text) !important;
+}
+
+body.dark {
+    --bg: #050816;
+    --card-bg: rgba(11, 16, 36, .94);
+    --card-border: rgba(34, 211, 238, .20);
+    --text: #f8fafc;
+    --text-secondary: #9aa8bd;
+    --green: #39ff88;
+    --red: #ff3b6b;
+    --primary: #22d3ee;
+    --warning: #facc15;
+    --pause: #818cf8;
+    --shadow: 0 14px 34px rgba(0,0,0,.32);
+    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
+    background:
+        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
+        #050816 !important;
+    color: var(--text) !important;
+}
+
+.container { max-width: 660px; }
+
+.app-logo {
+    left: 14px;
+    background: rgba(8,145,178,.08) !important;
+    border: 1px solid rgba(8,145,178,.22) !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+}
+body.dark .app-logo {
+    background: rgba(34,211,238,.08) !important;
+    border-color: rgba(34,211,238,.30) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+}
+.app-logo .material-icons-outlined { color: var(--primary) !important; }
+
+.app-title {
+    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+body.dark .app-title {
+    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+.app-subtitle { color: var(--text-secondary) !important; }
+
+.quadra-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    padding: 15px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .quadra-card {
+    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
+    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
+}
+.quadra-card::before {
+    background: var(--green) !important;
+    width: 5px !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
+.quadra-card.ocupada::before { background: var(--red) !important; }
+body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+
+.quadra-status {
+    background: rgba(5,150,105,.10) !important;
+    color: var(--green) !important;
+    border: 1px solid rgba(5,150,105,.18) !important;
+    border-radius: 14px !important;
+}
+.quadra-card.ocupada .quadra-status {
+    background: rgba(225,29,72,.10) !important;
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.18) !important;
+}
+body.dark .quadra-status {
+    background: rgba(57,255,136,.10) !important;
+    border-color: rgba(57,255,136,.20) !important;
+}
+body.dark .quadra-card.ocupada .quadra-status {
+    background: rgba(255,59,107,.10) !important;
+    border-color: rgba(255,59,107,.22) !important;
+}
+
+.quadra-numero { color: var(--text-secondary) !important; }
+.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
+.quadra-tempo { color: var(--text-secondary) !important; }
+.quadra-timer {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 14px !important;
+    padding: 8px 10px !important;
+    color: #0e7490 !important;
+    text-align: center !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-timer {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.24) !important;
+    color: #67e8f9 !important;
+    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
+}
+.quadra-timer.warning {
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.28) !important;
+    background: rgba(225,29,72,.08) !important;
+}
+
+.fila-section,
+.form-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .fila-section,
+body.dark .form-card {
+    background: rgba(11,16,36,.92) !important;
+}
+.fila-title,
+.form-title { color: var(--text) !important; }
+.fila-count {
+    background: #e0f7fe !important;
+    color: #0e7490 !important;
+    border: 1px solid #bae6fd !important;
+}
+body.dark .fila-count {
+    background: rgba(34,211,238,.12) !important;
+    color: #67e8f9 !important;
+    border-color: rgba(34,211,238,.26) !important;
+}
+.fila-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+}
+body.dark .fila-item {
+    background: rgba(2,6,23,.46) !important;
+    border-color: rgba(148,163,184,.14) !important;
+}
+.fila-item.minha-inscricao {
+    background: rgba(245,158,11,.10) !important;
+    border-color: rgba(245,158,11,.30) !important;
+}
+.fila-posicao { color: var(--primary) !important; }
+.fila-nomes { color: var(--text) !important; }
+.fila-detalhes { color: var(--text-secondary) !important; }
+.fila-previsao {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 12px !important;
+    padding: 7px 9px !important;
+}
+body.dark .fila-previsao {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.18) !important;
+}
+.fila-previsao .quadra-tag { color: var(--primary) !important; }
+.fila-previsao .hora { color: var(--text) !important; }
+
+input,
+select {
+    background: #f8fafc !important;
+    border: 1px solid #dbe5f2 !important;
+    border-radius: 14px !important;
+    color: #0f172a !important;
+}
+input::placeholder { color: #94a3b8 !important; }
+body.dark input,
+body.dark select {
+    background: rgba(2,6,23,.55) !important;
+    border-color: rgba(34,211,238,.18) !important;
+    color: #fff !important;
+}
+body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
+input:focus,
+select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
+}
+body.dark input:focus,
+body.dark select:focus {
+    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+}
+
+.btn,
+.btn-aceitar {
+    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
+    border: 1px solid rgba(8,145,178,.20) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
+    color: #ffffff !important;
+}
+body.dark .btn,
+body.dark .btn-aceitar {
+    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
+    border-color: rgba(34,211,238,.22) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
+}
+.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
+.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
+
+.popup-card {
+    background: var(--card-bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--card-border) !important;
+}
+.regulamento-texto { color: var(--text) !important; }
+.regulamento-texto h3 { color: var(--primary) !important; }
+.checkbox-wrapper label { color: var(--text) !important; }
+
+.theme-fab {
+    background: var(--card-bg) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item {
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
+    }
+    .fila-previsao {
+        margin-left: 0 !important;
+    }
+    .quadra-card {
+        gap: 10px !important;
+        padding: 13px !important;
+    }
+    .quadra-timer {
+        font-size: 1.15rem !important;
+        min-width: 68px !important;
+    }
+}
+
+
+/* ===== USER: shimmer + status de posição ===== */
+.shimmer {
+    position: relative !important;
+    overflow: hidden !important;
+    background: rgba(148,163,184,0.16) !important;
+    border-color: rgba(148,163,184,0.18) !important;
+}
+.shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+    animation: shimmerMoveUser 1.15s infinite;
+}
+body.dark .shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+}
+@keyframes shimmerMoveUser {
+    100% { transform: translateX(100%); }
+}
+
+.meu-status-card {
+    display: none;
+    margin: 0 0 12px;
+    padding: 13px 14px;
+    border-radius: 16px;
+    background: rgba(8,145,178,.10);
+    border: 1px solid rgba(8,145,178,.26);
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-weight: 850;
+    color: var(--text);
+    line-height: 1.25;
+}
+.meu-status-card .status-sub {
+    display: block;
+    margin-top: 3px;
+    font-size: .72rem;
+    font-weight: 650;
+    color: var(--text-secondary);
+}
+.meu-status-card.status-agora {
+    background: rgba(5,150,105,.12) !important;
+    border-color: rgba(5,150,105,.36) !important;
+}
+.meu-status-card.status-proximo {
+    background: rgba(245,158,11,.13) !important;
+    border-color: rgba(245,158,11,.38) !important;
+}
+body.dark .meu-status-card {
+    background: rgba(34,211,238,.10);
+    border-color: rgba(34,211,238,.26);
+}
+
+.fila-item.fila-top1 {
+    border-left: 5px solid var(--green) !important;
+    box-shadow: 0 10px 24px rgba(5,150,105,.10) !important;
+}
+.fila-item.fila-top2 {
+    border-left: 5px solid var(--warning) !important;
+}
+.fila-item.minha-inscricao {
+    background: rgba(245,158,11,.14) !important;
+    border-color: rgba(245,158,11,.45) !important;
+    box-shadow: 0 10px 24px rgba(245,158,11,.10) !important;
+}
+body.dark .fila-item.minha-inscricao {
+    background: rgba(245,158,11,.14) !important;
+}
+.voce-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(245,158,11,.16);
+    color: var(--warning);
+    font-size: .62rem;
+    font-weight: 900;
+}
+
+
+/* ===== ajuste: status e inscrição do usuário ===== */
+.meu-status-card.status-proximo {
+    background: rgba(8,145,178,.10) !important;
+    border-color: rgba(8,145,178,.28) !important;
+}
+body.dark .meu-status-card.status-proximo {
+    background: rgba(34,211,238,.10) !important;
+    border-color: rgba(34,211,238,.28) !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-basis: 100%;
+    margin-left: 0 !important;
+    padding-top: 6px;
+    border-top: 1px solid rgba(148,163,184,.18);
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    flex: 1;
+    margin-left: 0 !important;
+    padding: 8px 0 !important;
+    border-radius: 12px !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    flex: 1 1 135px;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.2;
+}
+
+
+/* ===== ajuste final fila user: ações abaixo da previsão ===== */
+.fila-lateral {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.fila-lateral .fila-previsao {
+    margin-left: 0 !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    margin-left: 0 !important;
+    width: 36px;
+    height: 30px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    gap: 8px !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        display: grid !important;
+        grid-template-columns: 52px minmax(0, 1fr) auto;
+        align-items: center !important;
+        column-gap: 10px !important;
+        row-gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-posicao {
+        min-width: 42px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        align-self: center;
+        margin-left: 0;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.68rem !important;
+        line-height: 1.2;
+    }
+}
+
+
+/* ===== ajuste final: minha inscrição compacta + erro Q/L no dark ===== */
+.voce-badge { display: none !important; }
+
+.fila-item.minha-inscricao {
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    row-gap: 4px !important;
+    padding: 10px 12px !important;
+    min-height: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0 !important;
+    flex: initial !important;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.12 !important;
+    margin-bottom: 2px !important;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.minha-inscricao .fila-lateral {
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao {
+    flex-shrink: 0 !important;
+    padding: 6px 8px !important;
+    min-width: 64px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .quadra-tag {
+    font-size: 0.68rem !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .hora {
+    font-size: 0.88rem !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    flex-basis: auto !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+    width: 32px !important;
+    height: 30px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 11px !important;
+    font-size: 0.72rem !important;
+}
+
+input.error,
+body.dark input.error {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,.18) !important;
+}
+
+body.dark input.error {
+    border-color: #ff3b6b !important;
+    box-shadow: 0 0 0 3px rgba(255,59,107,.22) !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        grid-template-columns: 42px minmax(0, 1fr) auto !important;
+        column-gap: 8px !important;
+        padding: 9px 10px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.66rem !important;
+        gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        gap: 5px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+    }
+}
+
+
+/* ===== ajuste final: nomes e Q/L completos na fila ===== */
+.fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.linha-dupla {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    line-height: 1.15 !important;
+}
+
+.nome-jogador {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.separador {
+    white-space: nowrap !important;
+    margin: 0 4px !important;
+    opacity: .7 !important;
+}
+
+.fila-item .fila-detalhes,
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 5px 9px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+}
+
+.fila-item .fila-detalhes span,
+.fila-item.minha-inscricao .fila-detalhes span {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+.secao-geral {
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    margin: 14px 0 10px;
+}
+
+/* ===== tempo relativo da fila ===== */
+.fila-previsao .tempo-relativo {
+    margin-top: 2px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+
+
+/* =========================================================
+   EXPERIMENTO DE 20 LAYOUTS ESTRUTURAIS - VERSÃO CORRIGIDA
+   - Mantém HTML, IDs e funções originais
+   - O botão original toggleTema() agora alterna layouts
+   - Usa classes body.layout-01 ... body.layout-20
+   ========================================================= */
+
+body[class*="layout-"] {
+    --layout-font: 'Inter', -apple-system, sans-serif;
+    font-family: var(--layout-font) !important;
+    padding-bottom: 86px !important;
+}
+
+body[class*="layout-"] .theme-fab {
+    width: auto !important;
+    min-width: 78px !important;
+    height: 46px !important;
+    padding: 0 13px !important;
+    border-radius: 999px !important;
+    font-size: 0.82rem !important;
+    font-weight: 900 !important;
+    letter-spacing: .2px !important;
+    left: auto !important;
+    right: 18px !important;
+    bottom: 18px !important;
+    gap: 6px !important;
+    z-index: 99999 !important;
+}
+body[class*="layout-"] .theme-fab .material-icons-outlined { font-size: 18px !important; }
+
+/* Shimmer blindado contra todos os layouts */
+body[class*="layout-"] .shimmer {
+    position: relative !important;
+    overflow: hidden !important;
+    color: transparent !important;
+    background: rgba(148,163,184,.18) !important;
+    border-color: rgba(148,163,184,.20) !important;
+}
+body[class*="layout-"] .shimmer::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    transform: translateX(-100%) !important;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent) !important;
+    animation: shimmerMoveUser 1.1s infinite !important;
+    z-index: 5 !important;
+}
+
+/* Base comum dos layouts */
+body[class*="layout-"] .container { transition: all .25s ease !important; }
+body[class*="layout-"] .quadra-card,
+body[class*="layout-"] .fila-section,
+body[class*="layout-"] .form-card,
+body[class*="layout-"] .fila-item,
+body[class*="layout-"] input,
+body[class*="layout-"] select,
+body[class*="layout-"] .btn { transition: all .22s ease !important; }
+
+/* 01 - Verde Quadra */
+body.layout-01 {
+    --primary:#047857; --green:#16a34a; --red:#dc2626; --warning:#ca8a04;
+    --text:#052e16; --text-secondary:#47705a; --card-bg:#ffffff; --card-border:#b7e4c7;
+    --shadow:0 10px 28px rgba(4,120,87,.13); --shadow-lg:0 18px 44px rgba(4,120,87,.18);
+    background: linear-gradient(160deg,#eafff2 0%,#f8fff9 45%,#d9f99d 140%) !important;
+}
+body.layout-01 .app-header { background:#064e3b !important; color:#fff !important; border-radius:24px !important; padding:18px !important; margin-bottom:14px !important; box-shadow:var(--shadow-lg) !important; }
+body.layout-01 .app-title, body.layout-01 .app-subtitle { -webkit-text-fill-color:#fff !important; color:#fff !important; background:none !important; }
+body.layout-01 .app-logo { left:18px !important; background:rgba(255,255,255,.16) !important; padding:8px !important; border-radius:16px !important; }
+body.layout-01 .app-logo .material-icons-outlined { color:#bbf7d0 !important; }
+body.layout-01 .quadras-wrapper { display:grid !important; grid-template-columns:1fr 1fr !important; gap:10px !important; }
+body.layout-01 .quadra-card { flex-direction:column !important; align-items:flex-start !important; padding:14px !important; border:1px solid #b7e4c7 !important; border-radius:22px !important; background:#fff !important; }
+body.layout-01 .quadra-timer { width:100% !important; text-align:center !important; color:#047857 !important; background:#dcfce7 !important; border-radius:14px !important; padding:8px !important; }
+body.layout-01 .fila-section { border-left:8px solid #16a34a !important; background:#fff !important; }
+body.layout-01 .btn, body.layout-01 .btn-aceitar { background:linear-gradient(135deg,#047857,#16a34a) !important; border-radius:18px !important; }
+
+/* 02 - Verde Premium */
+body.layout-02 {
+    --primary:#0f766e; --green:#2dd4bf; --red:#f43f5e; --warning:#f59e0b;
+    --text:#ecfeff; --text-secondary:#99f6e4; --card-bg:rgba(6,78,59,.74); --card-border:rgba(45,212,191,.25);
+    --shadow:0 18px 45px rgba(0,0,0,.28); --shadow-lg:0 24px 60px rgba(0,0,0,.38);
+    background: radial-gradient(circle at top,#134e4a 0%,#042f2e 42%,#020617 100%) !important;
+}
+body.layout-02 .container { max-width:720px !important; }
+body.layout-02 .app-header { text-align:left !important; padding:22px 0 !important; }
+body.layout-02 .app-logo { left:auto !important; right:0 !important; background:rgba(45,212,191,.10) !important; padding:10px !important; border:1px solid rgba(45,212,191,.25) !important; border-radius:20px !important; }
+body.layout-02 .app-title { font-size:2rem !important; background:linear-gradient(135deg,#f0fdfa,#5eead4) !important; -webkit-background-clip:text !important; -webkit-text-fill-color:transparent !important; }
+body.layout-02 .app-subtitle { text-align:left !important; color:#99f6e4 !important; }
+body.layout-02 .quadra-card, body.layout-02 .fila-section, body.layout-02 .form-card { background:linear-gradient(145deg,rgba(15,118,110,.50),rgba(2,6,23,.72)) !important; border:1px solid rgba(45,212,191,.22) !important; box-shadow:var(--shadow) !important; }
+body.layout-02 .quadra-timer, body.layout-02 .fila-previsao { background:rgba(2,6,23,.52) !important; color:#5eead4 !important; border:1px solid rgba(45,212,191,.24) !important; }
+body.layout-02 input, body.layout-02 select { background:rgba(2,6,23,.72) !important; color:#fff !important; border-color:rgba(45,212,191,.25) !important; }
+body.layout-02 .btn, body.layout-02 .btn-aceitar { background:linear-gradient(135deg,#0f766e,#14b8a6) !important; }
+
+/* 03 - Terminal Admin */
+body.layout-03 { --primary:#84cc16; --green:#a3e635; --red:#fb7185; --text:#d9f99d; --text-secondary:#94a3b8; --card-bg:#101510; --card-border:#2f3a25; background:#050805 !important; font-family:'JetBrains Mono', monospace !important; }
+body.layout-03 .container { max-width:780px !important; }
+body.layout-03 .app-header { border:1px dashed #3f6212 !important; border-radius:0 !important; text-align:left !important; padding-left:14px !important; }
+body.layout-03 .app-title { background:none !important; -webkit-text-fill-color:#d9f99d !important; text-transform:uppercase !important; letter-spacing:2px !important; }
+body.layout-03 .app-logo { display:none !important; }
+body.layout-03 .quadra-card, body.layout-03 .fila-section, body.layout-03 .form-card, body.layout-03 .fila-item { border-radius:0 !important; background:#101510 !important; border:1px solid #2f3a25 !important; box-shadow:none !important; }
+body.layout-03 .quadras-wrapper { gap:6px !important; }
+body.layout-03 .quadra-card { padding:10px 12px !important; }
+body.layout-03 .quadra-status { display:none !important; }
+body.layout-03 .quadra-timer { color:#bef264 !important; background:#050805 !important; padding:8px !important; border:1px solid #3f6212 !important; }
+body.layout-03 input, body.layout-03 select { border-radius:0 !important; background:#050805 !important; color:#d9f99d !important; border-color:#3f6212 !important; font-family:'JetBrains Mono', monospace !important; }
+body.layout-03 .btn { border-radius:0 !important; background:#3f6212 !important; }
+
+/* 04 - Revista Clean */
+body.layout-04 { --primary:#111827; --green:#059669; --red:#e11d48; --text:#111827; --text-secondary:#6b7280; --card-bg:#fff; --card-border:#111827; background:#f7f1e8 !important; }
+body.layout-04 .container { max-width:620px !important; }
+body.layout-04 .app-header { text-align:left !important; border-bottom:3px solid #111827 !important; margin-bottom:22px !important; }
+body.layout-04 .app-logo { display:none !important; }
+body.layout-04 .app-title { font-size:2.4rem !important; letter-spacing:-2px !important; background:none !important; -webkit-text-fill-color:#111827 !important; }
+body.layout-04 .app-subtitle { text-align:left !important; }
+body.layout-04 .quadra-card, body.layout-04 .fila-section, body.layout-04 .form-card { border-radius:0 !important; background:#fff !important; border:2px solid #111827 !important; box-shadow:7px 7px 0 #111827 !important; }
+body.layout-04 .quadra-card { display:grid !important; grid-template-columns:auto 1fr !important; }
+body.layout-04 .quadra-timer { grid-column:1 / -1 !important; text-align:left !important; font-size:2.3rem !important; }
+body.layout-04 .btn { border-radius:0 !important; background:#111827 !important; box-shadow:4px 4px 0 #9ca3af !important; }
+
+/* 05 - Cartões Gigantes */
+body.layout-05 { --primary:#2563eb; --green:#10b981; --red:#ef4444; --text:#172033; --text-secondary:#718096; --card-bg:#fff; --card-border:#d9e2ef; background:linear-gradient(#edf2ff,#ffffff) !important; }
+body.layout-05 .container { max-width:690px !important; }
+body.layout-05 .quadra-card { min-height:150px !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; text-align:center !important; border-radius:34px !important; padding:24px !important; }
+body.layout-05 .quadra-status { width:56px !important; height:56px !important; border-radius:20px !important; }
+body.layout-05 .quadra-numero { font-size:.78rem !important; }
+body.layout-05 .quadra-jogadores { font-size:1.2rem !important; }
+body.layout-05 .quadra-timer { font-size:2.4rem !important; text-align:center !important; }
+body.layout-05 .fila-section, body.layout-05 .form-card { border-radius:30px !important; padding:24px !important; }
+body.layout-05 .btn { border-radius:22px !important; padding:19px !important; }
+
+/* 06 - Lista Ultra Compacta */
+body.layout-06 { --primary:#334155; --green:#22c55e; --red:#f43f5e; --text:#0f172a; --text-secondary:#64748b; --card-bg:#fff; --card-border:#cbd5e1; background:#f8fafc !important; }
+body.layout-06 { padding:10px !important; }
+body.layout-06 .container { max-width:760px !important; }
+body.layout-06 .app-header { min-height:44px !important; padding:4px 0 8px !important; }
+body.layout-06 .app-logo { display:none !important; }
+body.layout-06 .app-title { font-size:1.1rem !important; }
+body.layout-06 .app-subtitle { display:none !important; }
+body.layout-06 .quadras-wrapper { gap:4px !important; margin-bottom:8px !important; }
+body.layout-06 .quadra-card { padding:8px 10px !important; border-radius:10px !important; gap:8px !important; }
+body.layout-06 .quadra-status { width:30px !important; height:30px !important; border-radius:9px !important; }
+body.layout-06 .quadra-timer { font-size:1rem !important; min-width:54px !important; }
+body.layout-06 .fila-section, body.layout-06 .form-card { padding:12px !important; border-radius:12px !important; margin-bottom:8px !important; }
+body.layout-06 input, body.layout-06 select { padding:10px !important; border-radius:9px !important; }
+
+/* 07 - Painel Esportivo Escuro */
+body.layout-07 { --primary:#f97316; --green:#22c55e; --red:#ef4444; --text:#fff7ed; --text-secondary:#fed7aa; --card-bg:#1c1917; --card-border:#44403c; background:radial-gradient(circle at top,#431407,#0c0a09 58%) !important; }
+body.layout-07 .container { max-width:720px !important; }
+body.layout-07 .app-header { background:linear-gradient(135deg,#ea580c,#7c2d12) !important; border-radius:0 0 28px 28px !important; margin:-16px -4px 16px !important; padding:26px 18px !important; }
+body.layout-07 .app-title, body.layout-07 .app-subtitle { color:#fff !important; -webkit-text-fill-color:#fff !important; background:none !important; }
+body.layout-07 .quadra-card, body.layout-07 .fila-section, body.layout-07 .form-card { background:#1c1917 !important; border:1px solid #44403c !important; }
+body.layout-07 .quadra-card::before { width:100% !important; height:4px !important; bottom:auto !important; right:0 !important; }
+body.layout-07 .quadra-timer { color:#fdba74 !important; font-size:1.9rem !important; }
+body.layout-07 input, body.layout-07 select { background:#0c0a09 !important; color:#fff !important; border-color:#57534e !important; }
+body.layout-07 .btn { background:linear-gradient(135deg,#f97316,#dc2626) !important; }
+
+/* 08 - Fila no Topo */
+body.layout-08 { --primary:#7c3aed; --green:#10b981; --red:#f43f5e; --text:#1e1b4b; --text-secondary:#6d67a8; --card-bg:#fff; --card-border:#ddd6fe; background:#f5f3ff !important; }
+body.layout-08 .container { display:flex !important; flex-direction:column !important; }
+body.layout-08 .fila-section { order:-2 !important; border-radius:28px !important; background:#ede9fe !important; border:1px solid #c4b5fd !important; }
+body.layout-08 #meuStatus { order:-3 !important; }
+body.layout-08 .app-header { order:-4 !important; }
+body.layout-08 .quadras-wrapper { order:-1 !important; display:grid !important; grid-template-columns:1fr 1fr !important; gap:8px !important; }
+body.layout-08 .quadra-card { padding:12px !important; border-radius:18px !important; flex-direction:column !important; align-items:flex-start !important; }
+body.layout-08 .quadra-timer { font-size:1.35rem !important; width:100% !important; text-align:center !important; }
+body.layout-08 .form-card { order:10 !important; }
+body.layout-08 .btn { background:#7c3aed !important; }
+
+/* 09 - App Branco Luxo */
+body.layout-09 { --primary:#0f172a; --green:#059669; --red:#be123c; --text:#0f172a; --text-secondary:#64748b; --card-bg:rgba(255,255,255,.94); --card-border:#eef2f7; background:linear-gradient(135deg,#fff,#f8fafc) !important; }
+body.layout-09 .container { max-width:650px !important; }
+body.layout-09 .app-header { background:#fff !important; border-radius:30px !important; box-shadow:0 18px 50px rgba(15,23,42,.08) !important; margin-bottom:18px !important; }
+body.layout-09 .quadra-card, body.layout-09 .fila-section, body.layout-09 .form-card { background:#fff !important; border:1px solid #eef2f7 !important; border-radius:30px !important; box-shadow:0 18px 50px rgba(15,23,42,.07) !important; }
+body.layout-09 .quadra-card::before { display:none !important; }
+body.layout-09 .quadra-status { background:#f8fafc !important; }
+body.layout-09 .quadra-timer { background:#0f172a !important; color:#fff !important; border-radius:20px !important; padding:10px !important; }
+body.layout-09 .btn { border-radius:18px !important; background:#0f172a !important; }
+
+/* 10 - Azul Técnico */
+body.layout-10 { --primary:#0284c7; --green:#06b6d4; --red:#e11d48; --text:#082f49; --text-secondary:#477086; --card-bg:#ffffff; --card-border:#bae6fd; background:linear-gradient(135deg,#e0f2fe,#f8fafc) !important; }
+body.layout-10 .quadras-wrapper { display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; }
+body.layout-10 .quadra-card { flex-direction:column !important; align-items:stretch !important; border-radius:18px !important; }
+body.layout-10 .quadra-info { gap:8px !important; }
+body.layout-10 .quadra-timer { background:#e0f2fe !important; color:#0369a1 !important; border:1px solid #7dd3fc !important; text-align:center !important; border-radius:16px !important; }
+body.layout-10 .fila-item { border-left:4px solid #0284c7 !important; }
+body.layout-10 .btn { background:linear-gradient(135deg,#0284c7,#06b6d4) !important; }
+
+/* 11 - Kanban Vertical */
+body.layout-11 { --primary:#475569; --green:#22c55e; --red:#ef4444; --text:#111827; --text-secondary:#6b7280; --card-bg:#fff; --card-border:#d1d5db; background:#e5e7eb !important; }
+body.layout-11 .container { max-width:800px !important; }
+body.layout-11 .quadras-wrapper { display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:8px !important; }
+body.layout-11 .quadra-card { min-height:170px !important; flex-direction:column !important; justify-content:space-between !important; align-items:flex-start !important; border-radius:12px !important; padding:12px !important; }
+body.layout-11 .quadra-status { align-self:flex-end !important; }
+body.layout-11 .quadra-timer { font-size:1.35rem !important; width:100% !important; text-align:left !important; }
+@media(max-width:520px){ body.layout-11 .quadras-wrapper{ grid-template-columns:1fr 1fr !important; } }
+body.layout-11 .fila-section, body.layout-11 .form-card { border-radius:12px !important; }
+
+/* 12 - Cartão Preto Premium */
+body.layout-12 { --primary:#f8fafc; --green:#22c55e; --red:#fb7185; --text:#f8fafc; --text-secondary:#94a3b8; --card-bg:#111827; --card-border:#334155; background:#020617 !important; }
+body.layout-12 .app-title { background:linear-gradient(135deg,#fff,#94a3b8) !important; -webkit-background-clip:text !important; -webkit-text-fill-color:transparent !important; }
+body.layout-12 .quadra-card, body.layout-12 .fila-section, body.layout-12 .form-card { background:linear-gradient(145deg,#111827,#020617) !important; border:1px solid #334155 !important; box-shadow:0 18px 44px rgba(0,0,0,.35) !important; }
+body.layout-12 .quadra-card { border-radius:28px !important; }
+body.layout-12 .quadra-timer { color:#fff !important; font-size:2rem !important; }
+body.layout-12 .fila-item { background:#020617 !important; border-color:#1e293b !important; }
+body.layout-12 input, body.layout-12 select { background:#020617 !important; color:#fff !important; border-color:#334155 !important; }
+body.layout-12 .btn { background:#f8fafc !important; color:#020617 !important; }
+
+/* 13 - Form Primeiro */
+body.layout-13 { --primary:#db2777; --green:#059669; --red:#dc2626; --text:#500724; --text-secondary:#9d4971; --card-bg:#fff; --card-border:#fbcfe8; background:#fdf2f8 !important; }
+body.layout-13 .container { display:flex !important; flex-direction:column !important; }
+body.layout-13 .form-card { order:-2 !important; background:#fff !important; border:1px solid #f9a8d4 !important; border-radius:28px !important; }
+body.layout-13 .quadras-wrapper { order:-1 !important; }
+body.layout-13 .fila-section { order:4 !important; }
+body.layout-13 .app-header { order:-3 !important; }
+body.layout-13 .btn { background:linear-gradient(135deg,#db2777,#be123c) !important; }
+body.layout-13 .quadra-card { border-radius:22px !important; }
+
+/* 14 - Mini Cards Horizontais */
+body.layout-14 { --primary:#0891b2; --green:#10b981; --red:#f43f5e; --text:#164e63; --text-secondary:#64748b; --card-bg:#fff; --card-border:#cffafe; background:#ecfeff !important; }
+body.layout-14 .quadras-wrapper { display:flex !important; overflow-x:auto !important; gap:10px !important; padding-bottom:8px !important; scroll-snap-type:x mandatory !important; }
+body.layout-14 .quadra-card { min-width:230px !important; scroll-snap-align:start !important; flex-direction:column !important; align-items:flex-start !important; border-radius:22px !important; }
+body.layout-14 .quadra-timer { width:100% !important; text-align:center !important; background:#cffafe !important; color:#0e7490 !important; border-radius:14px !important; padding:8px !important; }
+body.layout-14 .fila-section { border-radius:22px !important; }
+body.layout-14 .btn { background:#0891b2 !important; }
+
+/* 15 - Modo Bilhete */
+body.layout-15 { --primary:#92400e; --green:#16a34a; --red:#b91c1c; --text:#451a03; --text-secondary:#8a5a2b; --card-bg:#fffbeb; --card-border:#fcd34d; background:#fef3c7 !important; }
+body.layout-15 .quadra-card, body.layout-15 .fila-section, body.layout-15 .form-card { background:#fffbeb !important; border:1px dashed #d97706 !important; border-radius:6px !important; box-shadow:none !important; }
+body.layout-15 .quadra-card::before { background:repeating-linear-gradient(0deg,#16a34a 0 7px,transparent 7px 12px) !important; }
+body.layout-15 .quadra-timer { font-size:1.8rem !important; color:#92400e !important; }
+body.layout-15 input, body.layout-15 select { background:#fff7ed !important; border:1px dashed #d97706 !important; border-radius:4px !important; }
+body.layout-15 .btn { border-radius:6px !important; background:#92400e !important; }
+
+/* 16 - Vidro Colorido */
+body.layout-16 { --primary:#6366f1; --green:#22c55e; --red:#f43f5e; --text:#1e1b4b; --text-secondary:#64748b; --card-bg:rgba(255,255,255,.58); --card-border:rgba(255,255,255,.65); background:radial-gradient(circle at 20% 10%,#c4b5fd,transparent 28%),radial-gradient(circle at 90% 0%,#a7f3d0,transparent 30%),linear-gradient(135deg,#eef2ff,#f8fafc) !important; }
+body.layout-16 .quadra-card, body.layout-16 .fila-section, body.layout-16 .form-card { background:rgba(255,255,255,.58) !important; backdrop-filter:blur(18px) !important; border:1px solid rgba(255,255,255,.65) !important; border-radius:28px !important; box-shadow:0 18px 48px rgba(99,102,241,.13) !important; }
+body.layout-16 .quadra-timer { background:rgba(255,255,255,.55) !important; border-radius:18px !important; padding:9px !important; color:#4f46e5 !important; }
+body.layout-16 .btn { background:linear-gradient(135deg,#6366f1,#8b5cf6) !important; }
+
+/* 17 - Operacional com Barra Lateral */
+body.layout-17 { --primary:#0f172a; --green:#059669; --red:#dc2626; --text:#0f172a; --text-secondary:#64748b; --card-bg:#fff; --card-border:#e2e8f0; background:#f1f5f9 !important; }
+body.layout-17 .container { max-width:900px !important; display:grid !important; grid-template-columns:1fr 1.15fr !important; gap:12px !important; align-items:start !important; }
+body.layout-17 .app-header, body.layout-17 #meuStatus, body.layout-17 .form-card { grid-column:1 / -1 !important; }
+body.layout-17 .quadras-wrapper { grid-column:1 !important; }
+body.layout-17 .fila-section { grid-column:2 !important; grid-row:3 !important; }
+body.layout-17 .quadra-card { padding:10px !important; border-radius:14px !important; }
+@media(max-width:680px){ body.layout-17 .container{ display:block !important; max-width:650px !important; } }
+body.layout-17 .btn { background:#0f172a !important; }
+
+/* 18 - Neon Roxo */
+body.layout-18 { --primary:#a855f7; --green:#22c55e; --red:#fb7185; --text:#f5f3ff; --text-secondary:#c4b5fd; --card-bg:#160b2e; --card-border:rgba(168,85,247,.32); background:radial-gradient(circle at center top,#581c87,#0f0524 62%) !important; }
+body.layout-18 .app-title { background:linear-gradient(135deg,#e9d5ff,#f0abfc) !important; -webkit-background-clip:text !important; -webkit-text-fill-color:transparent !important; }
+body.layout-18 .quadra-card, body.layout-18 .fila-section, body.layout-18 .form-card { background:rgba(22,11,46,.86) !important; border:1px solid rgba(168,85,247,.32) !important; box-shadow:0 0 24px rgba(168,85,247,.12) !important; }
+body.layout-18 .quadra-timer, body.layout-18 .fila-previsao { color:#e9d5ff !important; background:rgba(88,28,135,.28) !important; border:1px solid rgba(216,180,254,.18) !important; }
+body.layout-18 input, body.layout-18 select { background:#0f0524 !important; color:#fff !important; border-color:rgba(168,85,247,.28) !important; }
+body.layout-18 .btn { background:linear-gradient(135deg,#a855f7,#ec4899) !important; }
+
+/* 19 - Cinza Corporativo */
+body.layout-19 { --primary:#374151; --green:#059669; --red:#dc2626; --text:#111827; --text-secondary:#6b7280; --card-bg:#f9fafb; --card-border:#d1d5db; background:#d1d5db !important; }
+body.layout-19 .app-header { background:#111827 !important; border-radius:12px !important; padding:18px !important; margin-bottom:12px !important; }
+body.layout-19 .app-title, body.layout-19 .app-subtitle { color:#fff !important; -webkit-text-fill-color:#fff !important; background:none !important; }
+body.layout-19 .app-logo .material-icons-outlined { color:#fff !important; }
+body.layout-19 .quadra-card, body.layout-19 .fila-section, body.layout-19 .form-card { background:#f9fafb !important; border:1px solid #9ca3af !important; border-radius:10px !important; box-shadow:0 2px 0 rgba(0,0,0,.08) !important; }
+body.layout-19 .quadras-wrapper { gap:8px !important; }
+body.layout-19 .btn { background:#374151 !important; border-radius:10px !important; }
+
+/* 20 - Experimental Blocos */
+body.layout-20 { --primary:#0d9488; --green:#84cc16; --red:#f43f5e; --text:#0f172a; --text-secondary:#64748b; --card-bg:#fff; --card-border:#ccfbf1; background:linear-gradient(90deg,#f0fdfa 0 50%,#ecfeff 50% 100%) !important; }
+body.layout-20 .container { max-width:760px !important; }
+body.layout-20 .app-header { transform:rotate(-1deg) !important; background:#ccfbf1 !important; border-radius:26px !important; margin-bottom:18px !important; }
+body.layout-20 .quadras-wrapper { display:grid !important; grid-template-columns:1.25fr .75fr !important; gap:12px !important; }
+body.layout-20 .quadra-card:nth-child(1) { grid-row:span 2 !important; }
+body.layout-20 .quadra-card { flex-direction:column !important; align-items:flex-start !important; border-radius:26px 10px 26px 10px !important; background:#fff !important; border:2px solid #99f6e4 !important; }
+body.layout-20 .quadra-timer { font-size:2rem !important; color:#0d9488 !important; text-align:left !important; }
+body.layout-20 .fila-section { border-radius:10px 28px 10px 28px !important; }
+body.layout-20 .btn { background:linear-gradient(135deg,#0d9488,#84cc16) !important; border-radius:10px 22px 10px 22px !important; }
+
+@media (max-width:430px) {
+    body.layout-01 .quadras-wrapper,
+    body.layout-08 .quadras-wrapper,
+    body.layout-10 .quadras-wrapper,
+    body.layout-20 .quadras-wrapper { grid-template-columns:1fr 1fr !important; }
+    body.layout-11 .quadras-wrapper { grid-template-columns:1fr 1fr !important; }
+}
+
+</style>
 </head>
-<body class="layout-11">
+<body>
 <script>
 const VERSAO_REGULAMENTO = 'v3';
 if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
@@ -384,29 +1430,30 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     localStorage.setItem('regulamentoVersao', VERSAO_REGULAMENTO);
 }
 </script>
-
-<!-- POP-UP REGULAMENTO (mesmo HTML original) -->
+<!-- POP-UP REGULAMENTO -->
 <div class="popup-overlay" id="popupRegulamento">
     <div class="popup-card">
         <div class="popup-header"><div class="popup-title"><span class="material-icons-outlined">description</span> REGULAMENTO DE USO DAS QUADRAS DE TÊNIS</div></div>
         <div class="popup-content">
            <div class="regulamento-texto">
-               <h3 class="secao-geral">DISPOSIÇÕES GERAIS</h3>
-               <h3>1. DISTRIBUIÇÃO DAS QUADRAS</h3> 
-               <ul><li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas;</li><li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li></ul>
-               <h3>2. TEMPO DE JOGO</h3>
-               <ul><li><strong>Jogos de simples:</strong> 45 minutos;</li><li><strong>Jogos de duplas:</strong> 1 hora;</li><li>O tempo de aquecimento está incluído na duração total.</li><li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li><li>O controle do tempo será realizado em planilha diária específica.</li></ul>
-               <h3>3. AULAS</h3>
-               <ul><li><strong>Local permitido:</strong> exclusivamente Quadra 4;</li><li><strong>Horário permitido:</strong> das 07h às 21h;</li><li>É permitida a presença de um assistente por professor, a critério deste;</li><li><strong>Limite diário por professor:</strong> até 7 horas de aula.</li></ul>
-               <h3>4. AGENDAMENTO DE AULAS</h3>
-               <ul><li>Não é permitido o agendamento do mesmo horário em dias consecutivos para os mesmos alunos.</li></ul>
-               <h3>5. PERÍODOS DE EXCEÇÃO</h3>
-               <ul><li>Ficam suspensas as aulas nos seguintes períodos:</li><li>De 26/12 a 03/01;</li><li>Da sexta-feira véspera de Carnaval até a Quarta-feira de Cinzas.</li></ul>
-               <h3>6. FISCALIZAÇÃO E ORGANIZAÇÃO</h3>
-               <ul><li>Durante períodos de maior movimento, um colaborador designado pelo condomínio será responsável pela organização da ocupação das quadras.</li></ul>
-               <h3>7. REGRAS COMPLEMENTARES</h3>
-               <ul><li>É vedado o agendamento de aulas nas Quadras 1, 2 e 3;</li><li>É obrigatório o uso de vestimenta e calçados adequados à prática do tênis.</li></ul>
-               <p style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);text-align:center;font-weight:500;font-size:.7rem;"><strong>DISPOSIÇÃO FINAL:</strong> Este regulamento foi aprovado pelo Conselho de Administração do Condomínio Laranjeiras em 13/06/2025 e entra em vigor a partir de 14/06/2025.</p>
+
+    <h3 class="secao-geral">DISPOSIÇÕES GERAIS</h3>
+
+    <h3>1. DISTRIBUIÇÃO DAS QUADRAS</h3> 
+                <ul><li><strong>Quadras 1, 2 e 3:</strong> uso exclusivo para jogos entre condôminos e seus convidados, sendo vedado o uso para a realização de aulas;</li><li><strong>Quadra 4:</strong> permitido o agendamento de aulas no período das 07h às 21h, além do uso regular para jogos quando não houver aulas agendadas.</li></ul>
+                <h3>2. TEMPO DE JOGO</h3>
+                <ul><li><strong>Jogos de simples:</strong> 45 minutos;</li><li><strong>Jogos de duplas:</strong> 1 hora;</li><li>O tempo de aquecimento está incluído na duração total.</li><li>O uso das quadras por menores de 14 anos é permitido até às 17h, ou em qualquer horário desde que acompanhados por um dos pais ou responsável legal.</li><li>O controle do tempo será realizado em planilha diária específica.</li></ul>
+                <h3>3. AULAS</h3>
+                <ul><li><strong>Local permitido:</strong> exclusivamente Quadra 4;</li><li><strong>Horário permitido:</strong> das 07h às 21h;</li><li>É permitida a presença de um assistente por professor, a critério deste;</li><li><strong>Limite diário por professor:</strong> até 7 horas de aula.</li></ul>
+                <h3>4. AGENDAMENTO DE AULAS</h3>
+                <ul><li>Não é permitido o agendamento do mesmo horário em dias consecutivos para os mesmos alunos.</li></ul>
+                <h3>5. PERÍODOS DE EXCEÇÃO</h3>
+                <ul><li>Ficam suspensas as aulas nos seguintes períodos:</li><li>De 26/12 a 03/01;</li><li>Da sexta-feira véspera de Carnaval até a Quarta-feira de Cinzas.</li></ul>
+                <h3>6. FISCALIZAÇÃO E ORGANIZAÇÃO</h3>
+                <ul><li>Durante períodos de maior movimento, um colaborador designado pelo condomínio será responsável pela organização da ocupação das quadras.</li></ul>
+                <h3>7. REGRAS COMPLEMENTARES</h3>
+                <ul><li>É vedado o agendamento de aulas nas Quadras 1, 2 e 3;</li><li>É obrigatório o uso de vestimenta e calçados adequados à prática do tênis.</li></ul>
+                <p style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);text-align:center;font-weight:500;font-size:.7rem;"><strong>DISPOSIÇÃO FINAL:</strong> Este regulamento foi aprovado pelo Conselho de Administração do Condomínio Laranjeiras em 13/06/2025 e entra em vigor a partir de 14/06/2025.</p>
             </div>
         </div>
         <div class="popup-footer">
@@ -457,7 +1504,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 </div>
 
 <footer class="app-footer">Desenvolvido por <strong>Vinícius Santos.</strong></footer>
-<button class="theme-fab visual-switcher" id="themeToggle" onclick="mudarLayout()" aria-label="Mudar layout"><span class="material-icons-outlined">view_quilt</span><small id="layoutLabel">11/20</small></button>
+<button class="theme-fab" id="themeToggle" onclick="toggleTema()"><span class="material-icons-outlined">dark_mode</span></button>
 
 <script>
     let editandoId = null;
@@ -551,25 +1598,20 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         }
     };
     
-    // SISTEMA DE LAYOUTS (11 a 20)
-    const LAYOUTS = ['layout-11', 'layout-12', 'layout-13', 'layout-14', 'layout-15', 'layout-16', 'layout-17', 'layout-18', 'layout-19', 'layout-20'];
-    let layoutAtual = parseInt(localStorage.getItem('layoutAtual') || '0', 10);
-    if (isNaN(layoutAtual) || layoutAtual < 0 || layoutAtual >= LAYOUTS.length) layoutAtual = 0;
-
-    window.aplicarLayout = function() {
-        document.body.classList.remove(...LAYOUTS);
-        document.body.classList.add(LAYOUTS[layoutAtual]);
-        localStorage.setItem('layoutAtual', String(layoutAtual));
-        const label = document.getElementById('layoutLabel');
-        if (label) label.textContent = `${layoutAtual + 11}/20`;
-    };
-
-    window.mudarLayout = function() {
-        layoutAtual = (layoutAtual + 1) % LAYOUTS.length;
-        window.aplicarLayout();
+    window.toggleTema = function() {
+        document.body.classList.toggle('dark');
+        const icon = document.querySelector('#themeToggle .material-icons-outlined');
+        if (icon) icon.textContent = document.body.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        localStorage.setItem('tema', document.body.classList.contains('dark') ? 'dark' : 'light');
     };
     
-    window.aplicarLayout();
+    (function() {
+        if (localStorage.getItem('tema') === 'dark') {
+            document.body.classList.add('dark');
+            const icon = document.querySelector('#themeToggle .material-icons-outlined');
+            if (icon) icon.textContent = 'light_mode';
+        }
+    })();
 </script>
 
 <script type="module">
@@ -596,9 +1638,13 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         renderFila();
     }, 500);
     
+    // Autenticação anônima
     signInAnonymously(auth)
-        .then((userCredential) => { meuUid = userCredential.user.uid; })
-        .catch((error) => console.error("Erro autenticação:", error));
+        .then((userCredential) => {
+            meuUid = userCredential.user.uid;
+            console.log("✅ Usuário autenticado anonimamente! UID:", meuUid);
+        })
+        .catch((error) => console.error("❌ Erro autenticação:", error));
     
     function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
     function formatarHora(d) { return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
@@ -618,17 +1664,34 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         const linha = (arr) => arr.filter(Boolean).map((nome, i, todos) => `
             <span class="nome-jogador">${nome}</span>${i < todos.length - 1 ? '<span class="separador"> • </span>' : ''}
         `).join('');
+
         if (lista.length <= 2) return linha(lista);
-        return `<div class="linha-dupla">${linha([lista[0], lista[1]])}</div><div class="linha-dupla">${linha([lista[2], lista[3]])}</div>`;
+
+        return `
+            <div class="linha-dupla">${linha([lista[0], lista[1]])}</div>
+            <div class="linha-dupla">${linha([lista[2], lista[3]])}</div>
+        `;
     }
 
     function formatarQLFila(jogo) {
-        const qls = (jogo.qls || []).filter(Boolean).map(q => String(q).trim()).filter(q => q !== '');
-        if (qls.length) return qls.join(', ');
-        const detalhes = (jogo.detalhes || '').trim();
-        if (!detalhes) return 'Sem Q/L';
-        return detalhes.split(',').map(q => q.trim()).filter(q => q !== '').join(', ') || 'Sem Q/L';
+    const qls = (jogo.qls || [])
+        .filter(Boolean)
+        .map(q => String(q).trim())
+        .filter(q => q !== '');
+
+    if (qls.length) {
+        return qls.join(', ');
     }
+
+    const detalhes = (jogo.detalhes || '').trim();
+    if (!detalhes) return 'Sem Q/L';
+
+    return detalhes
+        .split(',')
+        .map(q => q.trim())
+        .filter(q => q !== '')
+        .join(', ') || 'Sem Q/L';
+}
     
     function gerarChaveJogo(jogadores, qls) {
         const pares = [];
@@ -643,7 +1706,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function mostrarToast(mensagem, cor = '#f59e0b') {
         const t = document.createElement('div');
         t.innerHTML = mensagem;
-        t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${cor};color:#fff;padding:14px 20px;border-radius:24px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:toastFadeIn 0.3s ease-out;font-size:.9rem;text-align:center;max-width:90%;`;
+        t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${cor};color:#fff;padding:14px 20px;border-radius:24px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:toastFadeIn 0.3s ease-out;font-family:Inter,sans-serif;font-size:.9rem;text-align:center;line-height:1.4;max-width:90%;`;
         document.body.appendChild(t);
         setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 4000);
     }
@@ -651,80 +1714,116 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     function renderQuadras() {
         const c = document.getElementById('q-render');
         if (!c) return;
+
         if (carregandoQuadras || tempoMinimoShimmer) {
-            c.innerHTML = `<div class="quadra-card shimmer" style="height:86px"></div><div class="quadra-card shimmer" style="height:86px"></div><div class="quadra-card shimmer" style="height:86px"></div>`;
+            c.innerHTML = `
+                <div class="quadra-card shimmer" style="height:86px"></div>
+                <div class="quadra-card shimmer" style="height:86px"></div>
+                <div class="quadra-card shimmer" style="height:86px"></div>
+            `;
             return;
         }
-        c.innerHTML = quadras.map(q => `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
-            <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
-            <div class="quadra-info">
-                <div class="quadra-numero">Quadra ${q.id}</div>
-                <div class="quadra-jogadores ${!q.ocupada ? 'livre' : ''}">${q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível'}</div>
-                <div class="quadra-tempo"><span class="material-icons-outlined" style="font-size:14px">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
-            </div>
-            <div class="quadra-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
-        </div>`).join('');
+
+        c.innerHTML = quadras.map(q => {
+            return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
+                        <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
+                        <div class="quadra-info">
+                            <div class="quadra-numero">Quadra ${q.id}</div>
+                            <div class="quadra-jogadores ${!q.ocupada ? 'livre' : ''}">${q.ocupada && q.jogo ? q.jogo.nomes : 'Disponível'}</div>
+                            <div class="quadra-tempo"><span class="material-icons-outlined" style="font-size:14px">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
+                        </div>
+                        <div class="quadra-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
+                    </div>`;
+        }).join('');
     }
     
     function atualizarMeuStatus(minhaPosicao, meuItem) {
         const status = document.getElementById('meuStatus');
         if (!status) return;
+
         status.classList.remove('status-agora', 'status-proximo');
-        if (minhaPosicao === -1 || !meuItem) { status.style.display = 'none'; status.innerHTML = ''; return; }
+
+        if (minhaPosicao === -1 || !meuItem) {
+            status.style.display = 'none';
+            status.innerHTML = '';
+            return;
+        }
+
         status.style.display = 'block';
+
         if (minhaPosicao === 0) {
             status.classList.add('status-proximo');
             status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde ser chamado quando uma quadra liberar.</span>`;
-        } else { status.style.display = 'none'; status.innerHTML = ''; }
+        } else {
+            status.style.display = 'none';
+            status.innerHTML = '';
+        }
     }
 
     function renderFila() {
         const countEl = document.getElementById('fila-count');
         const corpo = document.getElementById('corpoFila');
         if (!countEl || !corpo) return;
+
         countEl.innerText = fila.length;
         corpo.innerHTML = "";
+
         if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) {
             atualizarMeuStatus(-1, null);
-            corpo.innerHTML = `<div class="fila-item shimmer" style="height:58px"></div><div class="fila-item shimmer" style="height:58px"></div>`;
+            corpo.innerHTML = `
+                <div class="fila-item shimmer" style="height:58px"></div>
+                <div class="fila-item shimmer" style="height:58px"></div>
+                <div class="fila-item shimmer" style="height:58px"></div>
+            `;
             return;
         }
+
         const minhaPosicao = fila.findIndex(j => meuUid && j.deviceId === meuUid);
         atualizarMeuStatus(minhaPosicao, minhaPosicao >= 0 ? fila[minhaPosicao] : null);
-        if (fila.length === 0) { corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>"; return; }
+
+        if (fila.length === 0) {
+            corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>";
+            return;
+        }
+        
         let ts = quadras.map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
         let agora = Date.now();
+        
         fila.forEach((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
             const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
             const qlHTML = formatarQLFila(j);
+            
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
             const esperaSeg = qE.tempoSeg || 0;
             let dp = new Date(agora + (esperaSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
+            
             corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
-                <span class="fila-posicao">#${idx+1}</span>
-                <div class="fila-info">
-                    <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
-                    <div class="fila-detalhes">
-                        <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
-                        <span>🎫 ${qlHTML}</span>
-                    </div>
-                </div>
-                <div class="fila-lateral">
-                    <div class="fila-previsao">
-                        <div class="quadra-tag">Q${qE.id}</div>
-                        <div class="hora">${formatarHora(dp)}</div>
-                        <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
-                    </div>
-                    ${ehMinha ? `<div class="fila-acoes-minha">
-                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
-                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
-                    </div>` : ''}
-                </div>
-            </div>`;
+                                    <span class="fila-posicao">#${idx+1}</span>
+                                    <div class="fila-info">
+                                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+                                        <div class="fila-detalhes">
+                                            <span>🕐 ${formatarChegada(j.chegada || new Date().toISOString())}</span>
+                                            <span>🎫 ${qlHTML}</span>
+                                        </div>
+                                    </div>
+                                    <div class="fila-lateral">
+                                        <div class="fila-previsao">
+                                            <div class="quadra-tag">Q${qE.id}</div>
+                                            <div class="hora">${formatarHora(dp)}</div>
+                                            <div class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</div>
+                                        </div>
+                                        ${ehMinha ? `
+                                        <div class="fila-acoes-minha">
+                                            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})">✏️</button>
+                                            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})">✕</button>
+                                        </div>
+                                        ` : ''}
+                                    </div>
+                                </div>`;
         });
     }
     
@@ -752,17 +1851,24 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     
     window.removerMinhaInscricao = function(id) {
         if (!confirm("Remover sua inscrição da fila?")) return;
+        
         const index = fila.findIndex(item => item.id === id);
         if (index !== -1 && filaKeys[index]) {
-            remove(ref(db, `fila/${filaKeys[index]}`)).then(() => {
-                mostrarToast('✅ Inscrição removida!', '#10b981');
-                if (editandoId === id) cancelarEdicao();
-            });
+            remove(ref(db, `fila/${filaKeys[index]}`))
+                .then(() => {
+                    mostrarToast('✅ Inscrição removida!', '#10b981');
+                    if (editandoId === id) cancelarEdicao();
+                })
+                .catch(e => mostrarToast('❌ Erro ao remover', '#ef4444'));
         }
     };
     
     window.inscreverNaFila = function() {
-        if (!meuUid) { mostrarToast("⚠️ Aguarde autenticação...", '#f59e0b'); return; }
+        if (!meuUid) {
+            mostrarToast("⚠️ Aguarde autenticação...", '#f59e0b');
+            return;
+        }
+        
         const tipoJogo = document.getElementById('tipoJogo').value;
         const isDupla = tipoJogo === "60";
         window.toggleQL4Required();
@@ -784,12 +1890,14 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         if (temErro) { const pe = document.querySelector('.error'); if (pe) pe.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
         const minimo = isDupla ? 3 : 2;
         if (nomes.length < minimo) { mostrarToast(`⚠️ Mínimo de ${minimo} jogadores para ${isDupla ? "Duplas" : "Simples"}!`, '#ef4444'); return; }
+        
         if (editandoId) {
             const idx = fila.findIndex(item => item.id === editandoId);
             if (idx !== -1 && filaKeys[idx]) {
                 remove(ref(db, `fila/${filaKeys[idx]}`)).then(() => {
                     editandoId = null;
                     cancelarEdicao();
+                    // Continua para criar nova inscrição após remover a antiga
                     criarNovaInscricao(nomes, qls, tipoJogo, isDupla);
                 });
                 return;
@@ -805,6 +1913,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         ]).then(([quadrasData, filaData]) => {
             const quadrasAtual = quadrasData ? (Array.isArray(quadrasData) ? quadrasData : Object.values(quadrasData).filter(i => i !== null)) : [];
             const filaAtual = filaData ? (Array.isArray(filaData) ? filaData : Object.values(filaData).filter(i => i !== null)) : [];
+            
             const novaChave = gerarChaveJogo(nomes, qls);
             const estaJogando = quadrasAtual.some(q => {
                 if (!q.ocupada || !q.rodando || !q.jogo) return false;
@@ -815,27 +1924,42 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                 const chaveItem = gerarChaveJogo(item.jogadores || [], item.qls || []);
                 return chaveItem === novaChave;
             });
+            
             if (estaJogando) {
-                mostrarToast(`⚠️ Jogadores já estão em quadra. Aguarde o término.`, '#ef4444');
+                const nomesStr = nomes.join(' e ');
+                const qlStr = qls.join('/');
+                mostrarToast(`⚠️ "${nomesStr} (${qlStr})" já estão jogando. Aguarde o término.`, '#ef4444');
                 return;
             }
             if (estaNaFila) {
-                mostrarToast(`⚠️ Esta dupla/equipe já está na fila.`, '#f59e0b');
+                const nomesStr = nomes.join(' e ');
+                const qlStr = qls.join('/');
+                mostrarToast(`⚠️ "${nomesStr} (${qlStr})" já estão na fila.`, '#f59e0b');
                 return;
             }
+            
             const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid };
             push(ref(db, 'fila'), novoJogo).then(() => {
                 mostrarToast('✅ Inscrição confirmada!', '#10b981');
                 cancelarEdicao();
-            });
+                const j4ql = document.getElementById('j4_ql');
+                if (j4ql) { j4ql.dataset.required = 'false'; j4ql.placeholder = 'Q/L (opcional)'; }
+            }).catch(e => { mostrarToast('❌ Erro ao inscrever. Tente novamente.', '#ef4444'); });
         });
     }
     
+    // Sincroniza fila com Firebase
     onValue(ref(db, 'fila'), (snapshot) => {
         carregandoFila = false;
         const d = snapshot.val();
-        if (!d) { fila = []; filaKeys = []; }
-        else { const entries = Object.entries(d); fila = entries.map(([key, value]) => ({ ...value, id: value.id })); filaKeys = entries.map(([key]) => key); }
+        if (!d) {
+            fila = [];
+            filaKeys = [];
+        } else {
+            const entries = Object.entries(d);
+            fila = entries.map(([key, value]) => ({ ...value, id: value.id }));
+            filaKeys = entries.map(([key]) => key);
+        }
         renderFila();
     });
     
@@ -870,6 +1994,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 <script>
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js?v=1.3");
+
     navigator.serviceWorker.addEventListener("controllerchange", () => {
         if (!sessionStorage.getItem("swAtualizado")) {
             sessionStorage.setItem("swAtualizado", "sim");
@@ -877,6 +2002,49 @@ if ("serviceWorker" in navigator) {
         }
     });
 }
+</script>
+
+
+
+<script>
+/* ===== Troca de 20 layouts - não altera Firebase nem funções do app ===== */
+(function() {
+    const TOTAL_LAYOUTS = 20;
+    const classes = Array.from({length: TOTAL_LAYOUTS}, (_, i) => `layout-${String(i + 1).padStart(2, '0')}`);
+
+    function aplicarLayout(n) {
+        const idx = Math.min(Math.max(Number(n) || 1, 1), TOTAL_LAYOUTS);
+        document.body.classList.remove('dark', ...classes);
+        document.body.classList.add(`layout-${String(idx).padStart(2, '0')}`);
+        localStorage.setItem('layoutVisualLaranjeiras', String(idx));
+        localStorage.removeItem('tema');
+        const btn = document.getElementById('themeToggle');
+        if (btn) {
+            btn.innerHTML = `<span class="material-icons-outlined">palette</span>${idx}/${TOTAL_LAYOUTS}`;
+            btn.setAttribute('aria-label', `Mudar visual ${idx} de ${TOTAL_LAYOUTS}`);
+            btn.title = `Visual ${idx}/${TOTAL_LAYOUTS}`;
+        }
+        const metaTheme = document.querySelector('meta[name="theme-color"]');
+        if (metaTheme) {
+            const darks = [2,3,7,12,18];
+            metaTheme.setAttribute('content', darks.includes(idx) ? '#020617' : '#f8fafc');
+        }
+    }
+
+    window.aplicarLayoutLaranjeiras = aplicarLayout;
+    window.toggleTema = function() {
+        const atual = Number(localStorage.getItem('layoutVisualLaranjeiras') || '1');
+        const proximo = atual >= TOTAL_LAYOUTS ? 1 : atual + 1;
+        aplicarLayout(proximo);
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        aplicarLayout(localStorage.getItem('layoutVisualLaranjeiras') || 1);
+    });
+    setTimeout(function() {
+        aplicarLayout(localStorage.getItem('layoutVisualLaranjeiras') || 1);
+    }, 0);
+})();
 </script>
 
 </body>
