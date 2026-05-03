@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Totem Laranjeiras</title>
+    <title>Lista Laranjeiras</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
@@ -1136,7 +1136,7 @@ body.dark input.error {
 
 </style>
 
-<style id="layout-totem_chamada">
+<style id="layout-lista_operacional">
 
 /* reset visual da camada antiga, mantendo IDs e JS */
 body { min-height:100vh; }
@@ -1150,41 +1150,39 @@ body input, body select { box-shadow:none !important; }
 body .theme-fab { right:20px !important; left:auto !important; bottom:20px !important; border-radius:999px !important; }
 @media(max-width:760px){ body { padding:12px !important; } }
 
-body.layout-totem { font-family:'JetBrains Mono', monospace !important; background:#050505 !important; color:#f6f3e9 !important; padding:14px !important; }
-.layout-totem .container { max-width:1040px !important; }
-.layout-totem .app-header { background:#f6f3e9 !important; color:#050505 !important; border-radius:0 !important; padding:24px 28px !important; min-height:0 !important; display:grid !important; grid-template-columns:auto 1fr auto !important; align-items:center !important; text-align:left !important; border-bottom:8px solid #d7ff46 !important; }
-.layout-totem .app-header:after { content:'AO VIVO'; background:#d7ff46; color:#050505; padding:9px 14px; font-weight:900; letter-spacing:.12em; }
-.layout-totem .app-title { color:#050505 !important; font-size:2.4rem !important; font-weight:900 !important; text-transform:uppercase !important; text-align:left !important; }
-.layout-totem .app-subtitle { color:#050505 !important; text-align:left !important; font-weight:800 !important; }
-.layout-totem .app-logo .material-icons-outlined { color:#050505 !important; }
-.layout-totem .quadras-wrapper { display:grid !important; grid-template-columns:1fr !important; gap:10px !important; margin:18px 0 !important; }
-.layout-totem .quadra-card { display:grid !important; grid-template-columns:120px 1fr 190px !important; gap:18px !important; align-items:center !important; background:#111 !important; border:2px solid #2e2e2e !important; border-radius:0 !important; padding:18px !important; min-height:116px !important; }
-.layout-totem .quadra-card::before { display:none !important; }
-.layout-totem .quadra-status { width:82px !important; height:82px !important; border-radius:0 !important; background:#d7ff46 !important; color:#050505 !important; border:0 !important; }
-.layout-totem .quadra-card.ocupada .quadra-status { background:#ff4040 !important; color:#fff !important; }
-.layout-totem .quadra-numero { font-size:1.05rem !important; color:#d7ff46 !important; letter-spacing:.18em !important; }
-.layout-totem .quadra-card.ocupada .quadra-numero { color:#ff6969 !important; }
-.layout-totem .quadra-jogadores { font-size:2rem !important; color:#fff !important; line-height:1 !important; font-weight:900 !important; text-transform:uppercase !important; }
-.layout-totem .quadra-jogadores.livre { color:#d7ff46 !important; }
-.layout-totem .quadra-tempo { color:#aaa !important; font-size:.95rem !important; }
-.layout-totem .quadra-timer { background:#000 !important; color:#fff !important; border:2px solid #3d3d3d !important; border-radius:0 !important; text-align:center !important; padding:16px 10px !important; font-size:2.25rem !important; }
-.layout-totem .fila-section { background:#f6f3e9 !important; color:#050505 !important; border-radius:0 !important; border:0 !important; padding:0 !important; margin-bottom:16px !important; }
-.layout-totem .fila-header { background:#d7ff46 !important; padding:14px 18px !important; margin:0 !important; }
-.layout-totem .fila-title { color:#050505 !important; font-size:1.2rem !important; }
-.layout-totem .fila-count { background:#050505 !important; color:#d7ff46 !important; border-radius:0 !important; }
-.layout-totem #corpoFila { padding:10px !important; }
-.layout-totem .fila-item { background:#fff !important; color:#050505 !important; border:2px solid #050505 !important; border-radius:0 !important; padding:14px !important; }
-.layout-totem .fila-posicao { color:#050505 !important; font-size:1.65rem !important; }
-.layout-totem .fila-nomes { color:#050505 !important; font-weight:900 !important; text-transform:uppercase !important; }
-.layout-totem .fila-detalhes { color:#333 !important; }
-.layout-totem .fila-previsao { background:#050505 !important; border-radius:0 !important; border:0 !important; }
-.layout-totem .fila-previsao * { color:#fff !important; }
-.layout-totem .form-card { background:#111 !important; border:2px solid #2e2e2e !important; border-radius:0 !important; padding:18px !important; }
-.layout-totem .form-title { color:#d7ff46 !important; }
-.layout-totem input, .layout-totem select { background:#000 !important; border:2px solid #333 !important; color:#fff !important; border-radius:0 !important; font-family:'JetBrains Mono', monospace !important; }
-.layout-totem .btn { background:#d7ff46 !important; color:#050505 !important; border-radius:0 !important; text-transform:uppercase !important; }
-.layout-totem .app-footer { color:#777 !important; }
-@media(max-width:700px){ .layout-totem .quadra-card{grid-template-columns:64px 1fr !important;} .layout-totem .quadra-timer{grid-column:1/-1 !important; font-size:1.8rem !important;} .layout-totem .quadra-jogadores{font-size:1.35rem !important;} }
+body.layout-lista { font-family: system-ui, -apple-system, sans-serif !important; background:#f7f7f5 !important; color:#161616 !important; padding:0 !important; }
+.layout-lista .container { max-width:860px !important; padding:0 14px 28px !important; }
+.layout-lista .app-header { position:sticky !important; top:0 !important; z-index:10 !important; min-height:0 !important; padding:16px 0 !important; background:#f7f7f5 !important; border-bottom:1px solid #111 !important; display:flex !important; justify-content:space-between !important; align-items:flex-end !important; text-align:left !important; }
+.layout-lista .app-logo { display:none !important; }
+.layout-lista .app-title { font-size:1.15rem !important; color:#161616 !important; font-weight:800 !important; text-align:left !important; }
+.layout-lista .app-subtitle { color:#444 !important; text-align:right !important; font-size:.72rem !important; }
+.layout-lista .quadras-wrapper { display:block !important; margin:12px 0 22px !important; border-top:1px solid #d7d7d0 !important; }
+.layout-lista .quadra-card { display:grid !important; grid-template-columns:34px 1fr 82px !important; gap:10px !important; align-items:center !important; min-height:0 !important; padding:12px 0 !important; background:transparent !important; border:0 !important; border-bottom:1px solid #d7d7d0 !important; border-radius:0 !important; box-shadow:none !important; }
+.layout-lista .quadra-card::before { display:none !important; }
+.layout-lista .quadra-status { width:22px !important; height:22px !important; border-radius:50% !important; background:#111 !important; color:#fff !important; }
+.layout-lista .quadra-card.ocupada .quadra-status { background:#b42318 !important; }
+.layout-lista .quadra-status .material-icons-outlined { font-size:15px !important; }
+.layout-lista .quadra-info { display:grid !important; grid-template-columns:86px 1fr !important; gap:8px !important; align-items:center !important; }
+.layout-lista .quadra-numero { color:#161616 !important; font-size:.8rem !important; letter-spacing:0 !important; text-transform:none !important; }
+.layout-lista .quadra-jogadores { color:#161616 !important; font-size:.95rem !important; font-weight:750 !important; }
+.layout-lista .quadra-tempo { color:#555 !important; font-size:.75rem !important; grid-column:2 !important; }
+.layout-lista .quadra-timer { background:transparent !important; border:0 !important; color:#111 !important; padding:0 !important; text-align:right !important; font-size:1rem !important; min-width:0 !important; }
+.layout-lista .fila-section, .layout-lista .form-card { background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important; padding:0 !important; margin:24px 0 !important; }
+.layout-lista .fila-header { border-bottom:2px solid #111 !important; padding-bottom:8px !important; }
+.layout-lista .fila-title, .layout-lista .form-title { color:#111 !important; font-size:.9rem !important; letter-spacing:.08em !important; }
+.layout-lista .fila-count { background:#111 !important; color:#fff !important; border-radius:2px !important; }
+.layout-lista .fila-item { display:grid !important; grid-template-columns:44px 1fr auto !important; background:transparent !important; border:0 !important; border-bottom:1px solid #d7d7d0 !important; border-radius:0 !important; padding:12px 0 !important; margin:0 !important; }
+.layout-lista .fila-posicao { color:#111 !important; font-size:.95rem !important; }
+.layout-lista .fila-nomes { color:#111 !important; font-size:.92rem !important; }
+.layout-lista .fila-detalhes { color:#555 !important; }
+.layout-lista .fila-previsao { background:transparent !important; border:1px solid #111 !important; border-radius:4px !important; padding:5px 8px !important; }
+.layout-lista .fila-previsao .quadra-tag, .layout-lista .fila-previsao .hora { color:#111 !important; }
+.layout-lista .input-group { grid-template-columns:1fr 120px !important; gap:8px !important; }
+.layout-lista input, .layout-lista select { background:#fff !important; border:1px solid #111 !important; color:#111 !important; border-radius:4px !important; padding:12px !important; }
+.layout-lista .btn { background:#111 !important; color:#fff !important; border-radius:4px !important; padding:13px !important; }
+.layout-lista .theme-fab { border:1px solid #111 !important; background:#fff !important; color:#111 !important; }
+.layout-lista .app-footer { border-top:1px solid #d7d7d0; margin:10px auto; max-width:860px; }
+@media(max-width:520px){ .layout-lista .quadra-info{grid-template-columns:1fr !important;} .layout-lista .quadra-tempo{grid-column:1 !important;} .layout-lista .input-group{grid-template-columns:1fr 1fr !important;} }
 
 </style>
 </head>
@@ -1234,8 +1232,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         <div class="app-logo">
             <span class="material-icons-outlined">sports_tennis</span>
         </div>
-        <div class="app-title">Totem Laranjeiras</div>
-        <div class="app-subtitle">Chamadas e ocupação</div>
+        <div class="app-title">Lista Laranjeiras</div>
+        <div class="app-subtitle">Operação das quadras</div>
     </header>
 
     <div id="meuStatus" class="meu-status-card"></div>
@@ -1771,9 +1769,9 @@ if ("serviceWorker" in navigator) {
 </script>
 
 
-<script id="layout-hook-totem_chamada">
+<script id="layout-hook-lista_operacional">
 (function(){
-  document.body.classList.add('layout-totem_chamada');
+  document.body.classList.add('layout-lista_operacional');
   window.addEventListener('DOMContentLoaded', function(){
     const formTitle = document.getElementById('formTitle');
     if(formTitle && !formTitle.dataset.layoutName){ formTitle.dataset.layoutName='1'; formTitle.innerHTML = formTitle.innerHTML.replace('Inscrever-se na Fila', 'Adicionar na fila'); }
