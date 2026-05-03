@@ -488,8 +488,8 @@
     
 
 /* =========================================================
-   05 USER - MATCHDAY NEON REFINADO
-   Claro = limpo esportivo | Escuro = neon moderado
+   05 USER - MATCHDAY VERDE SUAVE
+   Claro = limpo esportivo | Escuro = verde escuro suave
    Mantém toda a lógica original. Só altera aparência.
    ========================================================= */
 
@@ -501,7 +501,7 @@
     --text-secondary: #64748b;
     --green: #059669;
     --red: #e11d48;
-    --primary: #0891b2;
+    --primary: #2f8f5b;
     --warning: #d97706;
     --pause: #2563eb;
     --shadow: 0 10px 28px rgba(15, 23, 42, .08);
@@ -512,29 +512,29 @@
 
 body {
     background:
-        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
+        radial-gradient(circle at top right, rgba(47,143,91,.13), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(63,127,85,.08), transparent 32%),
         linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
     color: var(--text) !important;
 }
 
 body.dark {
-    --bg: #050816;
+    --bg: #0f1712;
     --card-bg: rgba(11, 16, 36, .94);
     --card-border: rgba(34, 211, 238, .20);
     --text: #f8fafc;
     --text-secondary: #9aa8bd;
-    --green: #39ff88;
+    --green: #6fbf8e;
     --red: #ff3b6b;
-    --primary: #22d3ee;
+    --primary: #6fbf8e;
     --warning: #facc15;
-    --pause: #818cf8;
+    --pause: #8eb59a;
     --shadow: 0 14px 34px rgba(0,0,0,.32);
     --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
     background:
-        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
-        #050816 !important;
+        radial-gradient(circle at top right, rgba(111,191,142,.18), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(63,127,85,.14), transparent 32%),
+        #0f1712 !important;
     color: var(--text) !important;
 }
 
@@ -542,26 +542,26 @@ body.dark {
 
 .app-logo {
     left: 14px;
-    background: rgba(8,145,178,.08) !important;
-    border: 1px solid rgba(8,145,178,.22) !important;
+    background: rgba(47,143,91,.08) !important;
+    border: 1px solid rgba(47,143,91,.22) !important;
     box-shadow: none !important;
     border-radius: 16px !important;
 }
 body.dark .app-logo {
-    background: rgba(34,211,238,.08) !important;
-    border-color: rgba(34,211,238,.30) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+    background: rgba(111,191,142,.08) !important;
+    border-color: rgba(111,191,142,.30) !important;
+    box-shadow: 0 8px 18px rgba(111,191,142,.12) !important;
 }
 .app-logo .material-icons-outlined { color: var(--primary) !important; }
 
 .app-title {
-    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
+    background: linear-gradient(135deg, #0f172a, #2f8f5b) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
 }
 body.dark .app-title {
-    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
+    background: linear-gradient(135deg, #6fbf8e, #9bc8aa) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
@@ -577,16 +577,16 @@ body.dark .app-title {
 }
 body.dark .quadra-card {
     background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
-    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
+    box-shadow: 0 0 0 1px rgba(111,191,142,.03), 0 16px 34px rgba(0,0,0,.34) !important;
 }
 .quadra-card::before {
     background: var(--green) !important;
     width: 5px !important;
     box-shadow: none !important;
 }
-body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
+body.dark .quadra-card::before { box-shadow: 0 6px 12px var(--green) !important; }
 .quadra-card.ocupada::before { background: var(--red) !important; }
-body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+body.dark .quadra-card.ocupada::before { box-shadow: 0 6px 12px var(--red) !important; }
 
 .quadra-status {
     background: rgba(5,150,105,.10) !important;
@@ -600,8 +600,8 @@ body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !import
     border-color: rgba(225,29,72,.18) !important;
 }
 body.dark .quadra-status {
-    background: rgba(57,255,136,.10) !important;
-    border-color: rgba(57,255,136,.20) !important;
+    background: rgba(111,191,142,.10) !important;
+    border-color: rgba(111,191,142,.20) !important;
 }
 body.dark .quadra-card.ocupada .quadra-status {
     background: rgba(255,59,107,.10) !important;
@@ -612,19 +612,19 @@ body.dark .quadra-card.ocupada .quadra-status {
 .quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
 .quadra-tempo { color: var(--text-secondary) !important; }
 .quadra-timer {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
+    background: #f0f6f1 !important;
+    border: 1px solid #d7e6d9 !important;
     border-radius: 14px !important;
     padding: 8px 10px !important;
-    color: #0e7490 !important;
+    color: #276b45 !important;
     text-align: center !important;
     box-shadow: none !important;
 }
 body.dark .quadra-timer {
     background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.24) !important;
-    color: #67e8f9 !important;
-    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
+    border-color: rgba(111,191,142,.24) !important;
+    color: #cfe6d6 !important;
+    box-shadow: 0 8px 14px rgba(111,191,142,.10) !important;
 }
 .quadra-timer.warning {
     color: var(--red) !important;
@@ -646,14 +646,14 @@ body.dark .form-card {
 .fila-title,
 .form-title { color: var(--text) !important; }
 .fila-count {
-    background: #e0f7fe !important;
-    color: #0e7490 !important;
-    border: 1px solid #bae6fd !important;
+    background: #eef7ef !important;
+    color: #276b45 !important;
+    border: 1px solid #cfe1d2 !important;
 }
 body.dark .fila-count {
-    background: rgba(34,211,238,.12) !important;
-    color: #67e8f9 !important;
-    border-color: rgba(34,211,238,.26) !important;
+    background: rgba(111,191,142,.12) !important;
+    color: #cfe6d6 !important;
+    border-color: rgba(111,191,142,.26) !important;
 }
 .fila-item {
     background: #f8fafc !important;
@@ -672,14 +672,14 @@ body.dark .fila-item {
 .fila-nomes { color: var(--text) !important; }
 .fila-detalhes { color: var(--text-secondary) !important; }
 .fila-previsao {
-    background: #eef7fb !important;
-    border: 1px solid #cde7f0 !important;
+    background: #f0f6f1 !important;
+    border: 1px solid #d7e6d9 !important;
     border-radius: 12px !important;
     padding: 7px 9px !important;
 }
 body.dark .fila-previsao {
     background: rgba(2,6,23,.62) !important;
-    border-color: rgba(34,211,238,.18) !important;
+    border-color: rgba(111,191,142,.18) !important;
 }
 .fila-previsao .quadra-tag { color: var(--primary) !important; }
 .fila-previsao .hora { color: var(--text) !important; }
@@ -695,33 +695,33 @@ input::placeholder { color: #94a3b8 !important; }
 body.dark input,
 body.dark select {
     background: rgba(2,6,23,.55) !important;
-    border-color: rgba(34,211,238,.18) !important;
+    border-color: rgba(111,191,142,.18) !important;
     color: #fff !important;
 }
 body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
 input:focus,
 select:focus {
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
+    box-shadow: 0 0 0 3px rgba(47,143,91,.12) !important;
 }
 body.dark input:focus,
 body.dark select:focus {
-    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+    box-shadow: 0 0 0 3px rgba(111,191,142,.12) !important;
 }
 
 .btn,
 .btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
-    border: 1px solid rgba(8,145,178,.20) !important;
+    background: linear-gradient(135deg, #2f8f5b, #2563eb) !important;
+    border: 1px solid rgba(47,143,91,.20) !important;
     border-radius: 14px !important;
-    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
+    box-shadow: 0 10px 22px rgba(47,143,91,.16) !important;
     color: #ffffff !important;
 }
 body.dark .btn,
 body.dark .btn-aceitar {
-    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
-    border-color: rgba(34,211,238,.22) !important;
-    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
+    background: linear-gradient(135deg, #2f8f5b, #3f7f55) !important;
+    border-color: rgba(111,191,142,.22) !important;
+    box-shadow: 0 8px 18px rgba(111,191,142,.14) !important;
 }
 .btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
 .btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
@@ -785,11 +785,11 @@ body.dark .shimmer::after {
 
 .meu-status-card {
     display: none;
-    margin: 0 0 12px;
+    margin: 0 6px 12px;
     padding: 13px 14px;
     border-radius: 16px;
-    background: rgba(8,145,178,.10);
-    border: 1px solid rgba(8,145,178,.26);
+    background: rgba(47,143,91,.10);
+    border: 1px solid rgba(47,143,91,.26);
     box-shadow: var(--shadow);
     text-align: center;
     font-weight: 850;
@@ -812,8 +812,8 @@ body.dark .shimmer::after {
     border-color: rgba(245,158,11,.38) !important;
 }
 body.dark .meu-status-card {
-    background: rgba(34,211,238,.10);
-    border-color: rgba(34,211,238,.26);
+    background: rgba(111,191,142,.10);
+    border-color: rgba(111,191,142,.26);
 }
 
 .fila-item.fila-top1 {
@@ -846,12 +846,12 @@ body.dark .fila-item.minha-inscricao {
 
 /* ===== ajuste: status e inscrição do usuário ===== */
 .meu-status-card.status-proximo {
-    background: rgba(8,145,178,.10) !important;
-    border-color: rgba(8,145,178,.28) !important;
+    background: rgba(47,143,91,.10) !important;
+    border-color: rgba(47,143,91,.28) !important;
 }
 body.dark .meu-status-card.status-proximo {
-    background: rgba(34,211,238,.10) !important;
-    border-color: rgba(34,211,238,.28) !important;
+    background: rgba(111,191,142,.10) !important;
+    border-color: rgba(111,191,142,.28) !important;
 }
 
 .fila-acoes-minha {
@@ -1134,6 +1134,254 @@ body.dark input.error {
     white-space: nowrap;
 }
 
+
+
+/* =========================================================
+   AJUSTE FINAL - PALETA BRANCO/VERDE SEM NEON
+   Mantém a estrutura e a lógica. Só suaviza a aparência.
+   ========================================================= */
+:root {
+    --bg: #f4f7f3;
+    --card-bg: #ffffff;
+    --card-border: #dbe7dc;
+    --text: #17231c;
+    --text-secondary: #637267;
+    --green: #2f8f5b;
+    --red: #c2414b;
+    --primary: #2f8f5b;
+    --warning: #b7791f;
+    --pause: #4f7f62;
+    --shadow: 0 8px 22px rgba(23, 35, 28, .07);
+    --shadow-lg: 0 14px 34px rgba(23, 35, 28, .11);
+}
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(47,143,91,.10), transparent 34%),
+        linear-gradient(135deg, #fbfdfb 0%, #f2f7f1 52%, #eaf2ea 100%) !important;
+    color: var(--text) !important;
+}
+
+body.dark {
+    --bg: #0f1712;
+    --card-bg: #172119;
+    --card-border: #26352b;
+    --text: #eef5ef;
+    --text-secondary: #a9b7ad;
+    --green: #6fbf8e;
+    --red: #e06b74;
+    --primary: #6fbf8e;
+    --warning: #d6a144;
+    --pause: #8eb59a;
+    --shadow: 0 10px 24px rgba(0,0,0,.26);
+    --shadow-lg: 0 16px 36px rgba(0,0,0,.34);
+    background:
+        radial-gradient(circle at top right, rgba(111,191,142,.10), transparent 32%),
+        linear-gradient(135deg, #0b120e 0%, #101a13 55%, #08100b 100%) !important;
+    color: var(--text) !important;
+}
+
+.app-logo {
+    background: rgba(47,143,91,.08) !important;
+    border-color: rgba(47,143,91,.20) !important;
+    box-shadow: none !important;
+}
+body.dark .app-logo {
+    background: rgba(111,191,142,.10) !important;
+    border-color: rgba(111,191,142,.22) !important;
+    box-shadow: none !important;
+}
+.app-logo .material-icons-outlined { color: var(--primary) !important; }
+
+.app-title,
+body.dark .app-title {
+    background: linear-gradient(135deg, var(--text), var(--primary)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+.quadra-card,
+.fila-section,
+.form-card,
+.popup-card,
+.theme-fab {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .quadra-card,
+body.dark .fila-section,
+body.dark .form-card,
+body.dark .popup-card,
+body.dark .theme-fab {
+    background: var(--card-bg) !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.quadra-card::before,
+body.dark .quadra-card::before {
+    background: var(--green) !important;
+    box-shadow: none !important;
+}
+.quadra-card.ocupada::before,
+body.dark .quadra-card.ocupada::before {
+    background: var(--red) !important;
+    box-shadow: none !important;
+}
+
+.quadra-status,
+body.dark .quadra-status {
+    background: rgba(47,143,91,.11) !important;
+    color: var(--green) !important;
+    border: 1px solid rgba(47,143,91,.20) !important;
+    box-shadow: none !important;
+}
+.quadra-card.ocupada .quadra-status,
+body.dark .quadra-card.ocupada .quadra-status {
+    background: rgba(194,65,75,.11) !important;
+    color: var(--red) !important;
+    border-color: rgba(194,65,75,.22) !important;
+}
+
+.quadra-timer,
+.fila-previsao {
+    background: #f0f6f1 !important;
+    border: 1px solid #d7e6d9 !important;
+    color: #276b45 !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-timer,
+body.dark .fila-previsao {
+    background: #101a13 !important;
+    border-color: #2b3b30 !important;
+    color: #cfe6d6 !important;
+    box-shadow: none !important;
+}
+.quadra-timer.warning {
+    color: var(--red) !important;
+    background: rgba(194,65,75,.09) !important;
+    border-color: rgba(194,65,75,.24) !important;
+}
+
+.fila-count,
+body.dark .fila-count {
+    background: rgba(47,143,91,.13) !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(47,143,91,.24) !important;
+    box-shadow: none !important;
+}
+
+.fila-item,
+body.dark .fila-item {
+    background: rgba(47,143,91,.045) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: none !important;
+}
+.fila-item.fila-top1,
+body.dark .fila-item.fila-top1 {
+    border-left: 5px solid var(--green) !important;
+    box-shadow: none !important;
+}
+.fila-item.fila-top2,
+body.dark .fila-item.fila-top2 {
+    border-left: 5px solid var(--warning) !important;
+}
+.fila-item.minha-inscricao,
+body.dark .fila-item.minha-inscricao {
+    background: rgba(183,121,31,.11) !important;
+    border-color: rgba(183,121,31,.28) !important;
+    box-shadow: none !important;
+}
+
+.meu-status-card,
+.meu-status-card.status-proximo,
+body.dark .meu-status-card,
+body.dark .meu-status-card.status-proximo {
+    background: rgba(47,143,91,.10) !important;
+    border-color: rgba(47,143,91,.24) !important;
+    box-shadow: var(--shadow) !important;
+}
+.meu-status-card.status-agora {
+    background: rgba(47,143,91,.13) !important;
+    border-color: rgba(47,143,91,.30) !important;
+}
+
+input,
+select {
+    background: #fbfdfb !important;
+    border: 1px solid #dbe7dc !important;
+    color: #17231c !important;
+}
+body.dark input,
+body.dark select {
+    background: #111a14 !important;
+    border-color: #2b3b30 !important;
+    color: var(--text) !important;
+}
+input:focus,
+select:focus,
+body.dark input:focus,
+body.dark select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(47,143,91,.14) !important;
+}
+
+.btn,
+.btn-aceitar,
+body.dark .btn,
+body.dark .btn-aceitar {
+    background: linear-gradient(135deg, #2f8f5b, #3f7f55) !important;
+    border: 1px solid rgba(47,143,91,.22) !important;
+    box-shadow: 0 8px 18px rgba(47,143,91,.14) !important;
+    color: #ffffff !important;
+}
+.btn-editar { background: linear-gradient(135deg, #b7791f, #d1942f) !important; }
+.btn-sair-fila { background: linear-gradient(135deg, #b83a44, #c8505a) !important; }
+
+.btn-editar-fila {
+    background: rgba(183,121,31,.14) !important;
+    color: var(--warning) !important;
+}
+.btn-remover-fila {
+    background: rgba(194,65,75,.13) !important;
+    color: var(--red) !important;
+}
+
+.regulamento-texto h3,
+.fila-posicao,
+.fila-previsao .quadra-tag,
+.theme-fab {
+    color: var(--primary) !important;
+}
+
+.shimmer::after,
+body.dark .shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent) !important;
+}
+
+
+
+/* ===== ajuste: jogos simples em uma linha ===== */
+.fila-item.tipo-simples .fila-nomes {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.18 !important;
+}
+
+.fila-item.tipo-simples .nome-jogador,
+.fila-item.tipo-simples .separador {
+    display: inline !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+}
+
+.fila-item.tipo-dupla .fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+}
 </style>
 </head>
 <body>
@@ -1506,6 +1754,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         fila.forEach((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
             const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
+            const totalJogadores = (j.jogadores || []).filter(Boolean).length || ((j.nomes || '').split('•').map(n => n.trim()).filter(Boolean).length);
+            const tipoLinhaClass = totalJogadores <= 2 ? 'tipo-simples' : 'tipo-dupla';
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
             const qlHTML = formatarQLFila(j);
             
@@ -1515,7 +1765,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             let dp = new Date(agora + (esperaSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
             
-            corpo.innerHTML += `<div class="fila-item ${topClass} ${ehMinha ? 'minha-inscricao' : ''}">
+            corpo.innerHTML += `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}">
                                     <span class="fila-posicao">#${idx+1}</span>
                                     <div class="fila-info">
                                         <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
