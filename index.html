@@ -17,71 +17,1174 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* TEMA CLARO (padrão) */
+        :root {
+            --bg: #f0f2f5;
+            --card-bg: rgba(255,255,255,0.85);
+            --card-border: rgba(255,255,255,0.6);
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --green: #10b981;
+            --red: #ef4444;
+            --primary: #0f172a;
+            --warning: #f59e0b;
+            --pause: #3b82f6;
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --radius-sm: 14px;
+        }
+
+        /* TEMA ESCURO - ALL BLACK */
+        body.dark {
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --card-border: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --primary: #3b82f6;
+            --shadow: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+        }
+
+        body.dark .quadra-card .quadra-status {
+            background: rgba(255,255,255,0.08);
+        }
+
+        body.dark .form-card,
+        body.dark .fila-section,
+        body.dark .quadra-card,
+        body.dark .btn-historico,
+        body.dark .modal,
+        body.dark .popup-card {
+            background: var(--card-bg);
+            border-color: var(--card-border);
+        }
+
+        body.dark input, 
+        body.dark select {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        body.dark .fila-item {
+            background: rgba(255,255,255,0.03);
+            border-color: var(--card-border);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: linear-gradient(135deg, #e2e8f0 0%, #f0f2f5 50%, #e8ecf1 100%);
+            min-height: 100vh;
+            margin: 0; 
+            padding: 16px; 
+            color: var(--text);
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark {
+            background: #0a0a0a;
+        }
+        
+        .container { max-width: 640px; margin: 0 auto; }
+
+        /* CABEÇALHO - ÍCONE À ESQUERDA, TÍTULO CENTRALIZADO */
+        .app-header { 
+            position: relative;
+            text-align: center; 
+            padding: 12px 0 20px; 
+            width: 100%; 
+            min-height: 70px;
+        }
+        .app-logo { 
+            position: absolute;
+            left: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .app-logo .material-icons-outlined { 
+            font-size: 32px; 
+            color: var(--primary); 
+        }
+        .app-title { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            letter-spacing: -0.5px; 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+            text-align: center;
+        }
+        body.dark .app-title { 
+            background: none;
+            -webkit-text-fill-color: var(--text);
+            color: var(--text);
+        }
+        .app-subtitle { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            font-weight: 600; 
+            letter-spacing: 0.5px; 
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .quadras-wrapper { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+        .quadra-card { 
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body.dark .quadra-card {
+            backdrop-filter: none;
+        }
+
+        .quadra-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--green);
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s;
+        }
+
+        .quadra-card.ocupada::before { background: var(--red); }
+
+        .quadra-status {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .quadra-card.ocupada .quadra-status {
+            background: rgba(239,68,68,0.12);
+            color: var(--red);
+        }
+
+        .quadra-card:not(.ocupada) .quadra-status {
+            background: rgba(16,185,129,0.12);
+            color: var(--green);
+        }
+
+        .quadra-info { 
+            flex: 1; 
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .quadra-numero { 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: var(--text-secondary); 
+        }
+        
+        .quadra-jogadores { 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            color: var(--text);
+        }
+        
+        .quadra-jogadores.livre { 
+            color: var(--text-secondary); 
+        }
+        
+        .quadra-tempo { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+        }
+        
+        .quadra-timer { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 1.6rem;
+            font-weight: 700; 
+            color: var(--text); 
+            flex-shrink: 0; 
+            min-width: 70px; 
+            text-align: right; 
+            letter-spacing: 1px;
+        }
+        
+        .quadra-timer.warning { 
+            color: var(--red); 
+            animation: pulse 1s infinite; 
+        }
+
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+        .fila-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+        
+        body.dark .fila-section {
+            backdrop-filter: none;
+        }
+
+        .fila-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .fila-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fila-count {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .fila-item { 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        body.dark .fila-item {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .fila-item.minha-inscricao {
+            background: rgba(245,158,11,0.08);
+            border-color: rgba(245,158,11,0.3);
+        }
+
+        .fila-posicao {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary);
+            min-width: 28px;
+        }
+
+        .fila-info { flex: 1; min-width: 0; }
+        .fila-nomes { font-weight: 600; font-size: 0.85rem; }
+        .fila-detalhes { font-size: 0.7rem; color: var(--text-secondary); display: flex; gap: 10px; flex-wrap: wrap; }
+        .fila-previsao { margin-left: auto; text-align: right; flex-shrink: 0; }
+        .fila-previsao .quadra-tag { font-size: 0.7rem; font-weight: 700; color: var(--primary); }
+        .fila-previsao .hora { font-size: 0.8rem; font-weight: 600; }
+
+        .btn-editar-fila, .btn-remover-fila {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 4px;
+            border: none;
+        }
+        .btn-editar-fila {
+            background: rgba(245,158,11,0.15);
+            color: #f59e0b;
+        }
+        .btn-remover-fila {
+            background: rgba(239,68,68,0.15);
+            color: #ef4444;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        body.dark .form-card {
+            backdrop-filter: none;
+        }
+
+        .form-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        input, select { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: var(--radius-sm); 
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: #1e293b;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        body.dark input, 
+        body.dark select {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        body.dark input::placeholder,
+        body.dark select::placeholder {
+            color: #888888;
+        }
+
+        input:focus, select:focus { border-color: var(--primary); }
+        input.error { border-color: var(--red) !important; }
+
+        .full-width { grid-column: span 2; }
+
+        .btn { 
+            border: none; 
+            padding: 16px; 
+            border-radius: 40px;
+            color: white; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            background: var(--primary);
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn-inscrever { width: 100%; margin-top: 14px; }
+        .btn-editar { width: 100%; margin-top: 8px; background: #f59e0b; }
+        .btn-sair-fila { width: 100%; margin-top: 8px; background: var(--red); }
+
+        .theme-fab {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+        
+        body.dark .theme-fab {
+            backdrop-filter: none;
+            background: var(--card-bg);
+        }
+        
+        .theme-fab:active { transform: scale(0.95); }
+
+        .app-footer {
+            margin-top: 28px;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .vazio-state { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 0.85rem; }
+        
+        .alerta-edicao {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #f59e0b;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+        .popup-card{background:var(--card-bg);border-radius:24px;max-width:480px;width:100%;max-height:80vh;box-shadow:0 16px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--card-border)}
+        .popup-header{padding:18px 20px 12px;border-bottom:1px solid rgba(0,0,0,.06);text-align:center}
+        .popup-title{font-size:1.2rem;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px}
+        .popup-content{padding:16px 20px;overflow-y:auto;flex:1;text-align:left}
+        .regulamento-texto{font-size:.78rem;line-height:1.5;color:var(--text)}
+        .regulamento-texto h3{font-size:.82rem;font-weight:700;margin:10px 0 4px;color:var(--primary);text-align:left}
+        .regulamento-texto ul{margin:4px 0;padding-left:16px;text-align:left}.regulamento-texto li{margin:2px 0}
+        .popup-footer{padding:12px 20px 16px;border-top:1px solid rgba(0,0,0,.06);text-align:center}
+        .checkbox-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+        .checkbox-wrapper input[type="checkbox"]{width:20px;height:20px;accent-color:var(--primary);cursor:pointer;margin:0}
+        .checkbox-wrapper label{font-size:.85rem;color:var(--text);cursor:pointer}
+        .btn-aceitar{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:40px;font-size:.9rem;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
+        .btn-aceitar.active{opacity:1}.btn-aceitar:disabled{cursor:not-allowed}
+
+        @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    
+
+/* =========================================================
+   05 USER - MATCHDAY NEON REFINADO
+   Claro = limpo esportivo | Escuro = neon moderado
+   Mantém toda a lógica original. Só altera aparência.
+   ========================================================= */
+
 :root {
-    --bg: #f3efe7;
-    --bg-soft: #fbf8f2;
-    --card-bg: rgba(255, 252, 247, 0.92);
-    --card-solid: #fffdf9;
-    --card-border: rgba(62, 92, 80, 0.14);
-    --line: rgba(62, 92, 80, 0.10);
-    --text: #243129;
-    --text-secondary: #6f7d73;
-    --primary: #355f4f;
-    --primary-strong: #27483c;
-    --green: #3f8b67;
-    --red: #c4574f;
-    --warning: #c79341;
-    --pause: #5a86c8;
-    --shadow: 0 12px 28px rgba(50, 60, 54, 0.08);
-    --shadow-lg: 0 18px 42px rgba(50, 60, 54, 0.11);
-    --radius: 24px;
-    --radius-sm: 16px;
+    --bg: #f5f8fc;
+    --card-bg: #ffffff;
+    --card-border: #d8e4f0;
+    --text: #0f172a;
+    --text-secondary: #64748b;
+    --green: #059669;
+    --red: #e11d48;
+    --primary: #0891b2;
+    --warning: #d97706;
+    --pause: #2563eb;
+    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
+    --radius: 20px;
+    --radius-sm: 14px;
+}
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(8,145,178,.13), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 32%),
+        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
+    color: var(--text) !important;
 }
 
 body.dark {
-    --bg: #101713;
-    --bg-soft: #15201a;
-    --card-bg: rgba(20, 30, 25, 0.92);
-    --card-solid: #1a271f;
-    --card-border: rgba(167, 198, 178, 0.12);
-    --line: rgba(167, 198, 178, 0.10);
-    --text: #f3f7f1;
-    --text-secondary: #a2b0a6;
-    --primary: #9fd1b2;
-    --primary-strong: #c9ead4;
-    --green: #65c38f;
-    --red: #f07d72;
-    --warning: #e3b45c;
-    --pause: #8ab5ff;
-    --shadow: 0 12px 28px rgba(0,0,0,0.28);
-    --shadow-lg: 0 20px 44px rgba(0,0,0,0.36);
+    --bg: #050816;
+    --card-bg: rgba(11, 16, 36, .94);
+    --card-border: rgba(34, 211, 238, .20);
+    --text: #f8fafc;
+    --text-secondary: #9aa8bd;
+    --green: #39ff88;
+    --red: #ff3b6b;
+    --primary: #22d3ee;
+    --warning: #facc15;
+    --pause: #818cf8;
+    --shadow: 0 14px 34px rgba(0,0,0,.32);
+    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
+    background:
+        radial-gradient(circle at top right, rgba(34,211,238,.18), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,.14), transparent 32%),
+        #050816 !important;
+    color: var(--text) !important;
 }
 
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    margin: 0;
-    padding: 0;
+.container { max-width: 660px; }
+
+.app-logo {
+    left: 14px;
+    background: rgba(8,145,178,.08) !important;
+    border: 1px solid rgba(8,145,178,.22) !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+}
+body.dark .app-logo {
+    background: rgba(34,211,238,.08) !important;
+    border-color: rgba(34,211,238,.30) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.12) !important;
+}
+.app-logo .material-icons-outlined { color: var(--primary) !important; }
+
+.app-title {
+    background: linear-gradient(135deg, #0f172a, #0891b2) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+body.dark .app-title {
+    background: linear-gradient(135deg, #22d3ee, #a78bfa) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+.app-subtitle { color: var(--text-secondary) !important; }
+
+.quadra-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    padding: 15px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .quadra-card {
+    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
+    box-shadow: 0 0 0 1px rgba(34,211,238,.03), 0 16px 34px rgba(0,0,0,.34) !important;
+}
+.quadra-card::before {
+    background: var(--green) !important;
+    width: 5px !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-card::before { box-shadow: 0 0 12px var(--green) !important; }
+.quadra-card.ocupada::before { background: var(--red) !important; }
+body.dark .quadra-card.ocupada::before { box-shadow: 0 0 12px var(--red) !important; }
+
+.quadra-status {
+    background: rgba(5,150,105,.10) !important;
+    color: var(--green) !important;
+    border: 1px solid rgba(5,150,105,.18) !important;
+    border-radius: 14px !important;
+}
+.quadra-card.ocupada .quadra-status {
+    background: rgba(225,29,72,.10) !important;
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.18) !important;
+}
+body.dark .quadra-status {
+    background: rgba(57,255,136,.10) !important;
+    border-color: rgba(57,255,136,.20) !important;
+}
+body.dark .quadra-card.ocupada .quadra-status {
+    background: rgba(255,59,107,.10) !important;
+    border-color: rgba(255,59,107,.22) !important;
 }
 
-html, body { min-height: 100%; }
+.quadra-numero { color: var(--text-secondary) !important; }
+.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
+.quadra-tempo { color: var(--text-secondary) !important; }
+.quadra-timer {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 14px !important;
+    padding: 8px 10px !important;
+    color: #0e7490 !important;
+    text-align: center !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-timer {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.24) !important;
+    color: #67e8f9 !important;
+    box-shadow: 0 0 14px rgba(34,211,238,.10) !important;
+}
+.quadra-timer.warning {
+    color: var(--red) !important;
+    border-color: rgba(225,29,72,.28) !important;
+    background: rgba(225,29,72,.08) !important;
+}
+
+.fila-section,
+.form-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--shadow) !important;
+}
+body.dark .fila-section,
+body.dark .form-card {
+    background: rgba(11,16,36,.92) !important;
+}
+.fila-title,
+.form-title { color: var(--text) !important; }
+.fila-count {
+    background: #e0f7fe !important;
+    color: #0e7490 !important;
+    border: 1px solid #bae6fd !important;
+}
+body.dark .fila-count {
+    background: rgba(34,211,238,.12) !important;
+    color: #67e8f9 !important;
+    border-color: rgba(34,211,238,.26) !important;
+}
+.fila-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+}
+body.dark .fila-item {
+    background: rgba(2,6,23,.46) !important;
+    border-color: rgba(148,163,184,.14) !important;
+}
+.fila-item.minha-inscricao {
+    background: rgba(245,158,11,.10) !important;
+    border-color: rgba(245,158,11,.30) !important;
+}
+.fila-posicao { color: var(--primary) !important; }
+.fila-nomes { color: var(--text) !important; }
+.fila-detalhes { color: var(--text-secondary) !important; }
+.fila-previsao {
+    background: #eef7fb !important;
+    border: 1px solid #cde7f0 !important;
+    border-radius: 12px !important;
+    padding: 7px 9px !important;
+}
+body.dark .fila-previsao {
+    background: rgba(2,6,23,.62) !important;
+    border-color: rgba(34,211,238,.18) !important;
+}
+.fila-previsao .quadra-tag { color: var(--primary) !important; }
+.fila-previsao .hora { color: var(--text) !important; }
+
+input,
+select {
+    background: #f8fafc !important;
+    border: 1px solid #dbe5f2 !important;
+    border-radius: 14px !important;
+    color: #0f172a !important;
+}
+input::placeholder { color: #94a3b8 !important; }
+body.dark input,
+body.dark select {
+    background: rgba(2,6,23,.55) !important;
+    border-color: rgba(34,211,238,.18) !important;
+    color: #fff !important;
+}
+body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
+input:focus,
+select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(8,145,178,.12) !important;
+}
+body.dark input:focus,
+body.dark select:focus {
+    box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+}
+
+.btn,
+.btn-aceitar {
+    background: linear-gradient(135deg, #0891b2, #2563eb) !important;
+    border: 1px solid rgba(8,145,178,.20) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 10px 22px rgba(8,145,178,.16) !important;
+    color: #ffffff !important;
+}
+body.dark .btn,
+body.dark .btn-aceitar {
+    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
+    border-color: rgba(34,211,238,.22) !important;
+    box-shadow: 0 0 18px rgba(34,211,238,.14) !important;
+}
+.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
+.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
+
+.popup-card {
+    background: var(--card-bg) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--card-border) !important;
+}
+.regulamento-texto { color: var(--text) !important; }
+.regulamento-texto h3 { color: var(--primary) !important; }
+.checkbox-wrapper label { color: var(--text) !important; }
+
+.theme-fab {
+    background: var(--card-bg) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item {
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
+    }
+    .fila-previsao {
+        margin-left: 0 !important;
+    }
+    .quadra-card {
+        gap: 10px !important;
+        padding: 13px !important;
+    }
+    .quadra-timer {
+        font-size: 1.15rem !important;
+        min-width: 68px !important;
+    }
+}
+
+
+/* ===== USER: shimmer + status de posição ===== */
+.shimmer {
+    position: relative !important;
+    overflow: hidden !important;
+    background: rgba(148,163,184,0.16) !important;
+    border-color: rgba(148,163,184,0.18) !important;
+}
+.shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+    animation: shimmerMoveUser 1.15s infinite;
+}
+body.dark .shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+}
+@keyframes shimmerMoveUser {
+    100% { transform: translateX(100%); }
+}
+
+.meu-status-card {
+    display: none;
+    margin: 0 0 12px;
+    padding: 13px 14px;
+    border-radius: 16px;
+    background: rgba(8,145,178,.10);
+    border: 1px solid rgba(8,145,178,.26);
+    box-shadow: var(--shadow);
+    text-align: center;
+    font-weight: 850;
+    color: var(--text);
+    line-height: 1.25;
+}
+.meu-status-card .status-sub {
+    display: block;
+    margin-top: 3px;
+    font-size: .72rem;
+    font-weight: 650;
+    color: var(--text-secondary);
+}
+.meu-status-card.status-agora {
+    background: rgba(5,150,105,.12) !important;
+    border-color: rgba(5,150,105,.36) !important;
+}
+.meu-status-card.status-proximo {
+    background: rgba(245,158,11,.13) !important;
+    border-color: rgba(245,158,11,.38) !important;
+}
+body.dark .meu-status-card {
+    background: rgba(34,211,238,.10);
+    border-color: rgba(34,211,238,.26);
+}
+
+.fila-item.fila-top1 {
+    border-left: 5px solid var(--green) !important;
+    box-shadow: 0 10px 24px rgba(5,150,105,.10) !important;
+}
+.fila-item.fila-top2 {
+    border-left: 5px solid var(--warning) !important;
+}
+.fila-item.minha-inscricao {
+    background: rgba(245,158,11,.14) !important;
+    border-color: rgba(245,158,11,.45) !important;
+    box-shadow: 0 10px 24px rgba(245,158,11,.10) !important;
+}
+body.dark .fila-item.minha-inscricao {
+    background: rgba(245,158,11,.14) !important;
+}
+.voce-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(245,158,11,.16);
+    color: var(--warning);
+    font-size: .62rem;
+    font-weight: 900;
+}
+
+
+/* ===== ajuste: status e inscrição do usuário ===== */
+.meu-status-card.status-proximo {
+    background: rgba(8,145,178,.10) !important;
+    border-color: rgba(8,145,178,.28) !important;
+}
+body.dark .meu-status-card.status-proximo {
+    background: rgba(34,211,238,.10) !important;
+    border-color: rgba(34,211,238,.28) !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-basis: 100%;
+    margin-left: 0 !important;
+    padding-top: 6px;
+    border-top: 1px solid rgba(148,163,184,.18);
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    flex: 1;
+    margin-left: 0 !important;
+    padding: 8px 0 !important;
+    border-radius: 12px !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    flex: 1 1 135px;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.2;
+}
+
+
+/* ===== ajuste final fila user: ações abaixo da previsão ===== */
+.fila-lateral {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.fila-lateral .fila-previsao {
+    margin-left: 0 !important;
+}
+
+.fila-acoes-minha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.fila-acoes-minha .btn-editar-fila,
+.fila-acoes-minha .btn-remover-fila {
+    margin-left: 0 !important;
+    width: 36px;
+    height: 30px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    gap: 8px !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        display: grid !important;
+        grid-template-columns: 52px minmax(0, 1fr) auto;
+        align-items: center !important;
+        column-gap: 10px !important;
+        row-gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-posicao {
+        min-width: 42px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        align-self: center;
+        margin-left: 0;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.68rem !important;
+        line-height: 1.2;
+    }
+}
+
+
+/* ===== ajuste final: minha inscrição compacta + erro Q/L no dark ===== */
+.voce-badge { display: none !important; }
+
+.fila-item.minha-inscricao {
+    display: grid !important;
+    grid-template-columns: 52px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    row-gap: 4px !important;
+    padding: 10px 12px !important;
+    min-height: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0 !important;
+    flex: initial !important;
+}
+
+.fila-item.minha-inscricao .fila-nomes {
+    line-height: 1.12 !important;
+    margin-bottom: 2px !important;
+}
+
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.minha-inscricao .fila-lateral {
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao {
+    flex-shrink: 0 !important;
+    padding: 6px 8px !important;
+    min-width: 64px !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .quadra-tag {
+    font-size: 0.68rem !important;
+}
+
+.fila-item.minha-inscricao .fila-previsao .hora {
+    font-size: 0.88rem !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    flex-basis: auto !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+    width: 32px !important;
+    height: 30px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 11px !important;
+    font-size: 0.72rem !important;
+}
+
+input.error,
+body.dark input.error {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,.18) !important;
+}
+
+body.dark input.error {
+    border-color: #ff3b6b !important;
+    box-shadow: 0 0 0 3px rgba(255,59,107,.22) !important;
+}
+
+@media (max-width: 430px) {
+    .fila-item.minha-inscricao {
+        grid-template-columns: 42px minmax(0, 1fr) auto !important;
+        column-gap: 8px !important;
+        padding: 9px 10px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: 0.66rem !important;
+        gap: 6px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-lateral {
+        gap: 5px !important;
+    }
+
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+    .fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+    }
+}
+
+
+/* ===== ajuste final: nomes e Q/L completos na fila ===== */
+.fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.linha-dupla {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    line-height: 1.15 !important;
+}
+
+.nome-jogador {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.separador {
+    white-space: nowrap !important;
+    margin: 0 4px !important;
+    opacity: .7 !important;
+}
+
+.fila-item .fila-detalhes,
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 5px 9px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+}
+
+.fila-item .fila-detalhes span,
+.fila-item.minha-inscricao .fila-detalhes span {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.fila-item.minha-inscricao {
+    align-items: center !important;
+}
+.secao-geral {
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    margin: 14px 0 10px;
+}
+
+/* ===== tempo relativo da fila ===== */
+.fila-previsao .tempo-relativo {
+    margin-top: 2px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PALETA VERDE LARANJEIRAS
+   mantém estrutura original, muda só a identidade visual
+   ========================================================= */
+:root {
+    --bg: #f3efe7 !important;
+    --card-bg: rgba(255, 252, 247, 0.92) !important;
+    --card-border: rgba(62, 92, 80, 0.14) !important;
+    --text: #243129 !important;
+    --text-secondary: #6f7d73 !important;
+    --green: #3f8b67 !important;
+    --red: #c4574f !important;
+    --primary: #355f4f !important;
+    --warning: #c79341 !important;
+    --pause: #5a86c8 !important;
+    --shadow: 0 12px 28px rgba(50, 60, 54, 0.08) !important;
+    --shadow-lg: 0 18px 42px rgba(50, 60, 54, 0.11) !important;
+    --radius: 24px !important;
+    --radius-sm: 16px !important;
+}
+
+body.dark {
+    --bg: #101713 !important;
+    --card-bg: rgba(20, 30, 25, 0.92) !important;
+    --card-border: rgba(167, 198, 178, 0.12) !important;
+    --text: #f3f7f1 !important;
+    --text-secondary: #a2b0a6 !important;
+    --primary: #9fd1b2 !important;
+    --green: #65c38f !important;
+    --red: #f07d72 !important;
+    --warning: #e3b45c !important;
+    --pause: #8ab5ff !important;
+    --shadow: 0 12px 28px rgba(0,0,0,0.28) !important;
+    --shadow-lg: 0 20px 44px rgba(0,0,0,0.36) !important;
+}
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
     background:
         radial-gradient(circle at top right, rgba(63,139,103,.10), transparent 28%),
         radial-gradient(circle at bottom left, rgba(199,147,65,.10), transparent 26%),
-        linear-gradient(180deg, #f8f4ec 0%, var(--bg) 100%);
-    color: var(--text);
-    padding: 16px;
-    transition: background .3s, color .3s;
+        linear-gradient(180deg, #f8f4ec 0%, var(--bg) 100%) !important;
+    color: var(--text) !important;
 }
 
 body.dark {
     background:
         radial-gradient(circle at top right, rgba(101,195,143,.10), transparent 24%),
         radial-gradient(circle at bottom left, rgba(227,180,92,.08), transparent 24%),
-        linear-gradient(180deg, #0b110d 0%, var(--bg) 100%);
+        linear-gradient(180deg, #0b110d 0%, var(--bg) 100%) !important;
 }
 
 body::before {
@@ -97,664 +1200,282 @@ body.dark::before {
     border-color: rgba(159,209,178,.08);
 }
 
-.container {
-    max-width: 680px;
-    margin: 0 auto;
-}
+.container { max-width: 700px !important; }
 
 .app-header {
-    position: relative;
-    text-align: center;
-    padding: 12px 0 22px;
-    width: 100%;
-    min-height: 78px;
+    position: relative !important;
+    text-align: center !important;
+    padding: 12px 0 22px !important;
+    min-height: 78px !important;
 }
 
 .app-logo {
-    position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, rgba(53,95,79,.12), rgba(53,95,79,.05));
-    border: 1px solid rgba(53,95,79,.16);
-    box-shadow: var(--shadow);
-}
-
-.app-logo .material-icons-outlined {
-    font-size: 28px;
-    color: var(--primary);
+    left: 6px !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(180deg, rgba(53,95,79,.12), rgba(53,95,79,.05)) !important;
+    border: 1px solid rgba(53,95,79,.16) !important;
+    box-shadow: var(--shadow) !important;
 }
 
 body.dark .app-logo {
-    background: linear-gradient(180deg, rgba(159,209,178,.12), rgba(159,209,178,.04));
-    border-color: rgba(159,209,178,.16);
+    background: linear-gradient(180deg, rgba(159,209,178,.12), rgba(159,209,178,.04)) !important;
+    border-color: rgba(159,209,178,.16) !important;
+}
+
+.app-logo .material-icons-outlined {
+    color: var(--primary) !important;
 }
 
 .app-title {
-    font-size: 1.85rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--primary-strong);
-    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.04em !important;
+    color: var(--primary) !important;
+    font-family: Georgia, 'Times New Roman', serif !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+}
+
+body.dark .app-title {
+    color: var(--primary) !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
 }
 
 .app-subtitle {
-    margin-top: 5px;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    margin-top: 5px !important;
+    font-size: 0.78rem !important;
+    color: var(--text-secondary) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
 }
 
-#meuStatus,
-.fila-section,
 .form-card,
+.fila-section,
 .quadra-card,
+.btn-historico,
+#lista-historico,
+.modal,
 .popup-card,
-.theme-fab {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    box-shadow: var(--shadow);
+.theme-fab,
+.layout-loading-card,
+.blue-summary,
+.blue-panel {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
-.quadras-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.quadra-card {
-    border-radius: var(--radius);
-    padding: 18px 18px 18px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: relative;
-    overflow: hidden;
-}
-
-.quadra-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 12px;
-    bottom: 12px;
-    width: 5px;
-    border-radius: 0 6px 6px 0;
-    background: var(--green);
-}
-
-.quadra-card.ocupada::before { background: var(--red); }
-
-.quadra-status {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    background: rgba(63,139,103,.12);
-    color: var(--green);
-}
-
-.quadra-card.ocupada .quadra-status {
-    background: rgba(196,87,79,.12);
-    color: var(--red);
-}
-
-body.dark .quadra-status {
-    background: rgba(101,195,143,.12);
-}
-
-body.dark .quadra-card.ocupada .quadra-status {
-    background: rgba(240,125,114,.12);
-}
-
-.quadra-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.quadra-numero {
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-secondary);
-}
-
-.quadra-jogadores {
-    font-weight: 700;
-    font-size: 0.98rem;
-    color: var(--text);
-    line-height: 1.2;
-}
-
-.quadra-jogadores.livre { color: var(--text-secondary); }
-
-.quadra-tempo {
-    font-size: 0.76rem;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.quadra-timer {
-    flex-shrink: 0;
-    min-width: 84px;
-    text-align: center;
-    padding: 10px 12px;
-    border-radius: 16px;
-    background: var(--card-solid);
-    border: 1px solid var(--line);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.38rem;
-    font-weight: 800;
-    letter-spacing: .03em;
-    color: var(--primary-strong);
-}
-
-.quadra-timer.warning {
-    color: var(--red);
-    border-color: rgba(196,87,79,.22);
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: .58; }
-}
-
-.fila-section,
 .form-card,
+.fila-section,
+.quadra-card,
+.btn-historico,
+#lista-historico,
+.modal,
 .popup-card,
-#meuStatus {
-    border-radius: var(--radius);
+.layout-loading-card,
+.blue-summary,
+.blue-panel {
+    border-radius: var(--radius) !important;
 }
 
-#meuStatus {
-    display: none;
-    margin: 0 0 14px;
-    padding: 14px 16px;
-    background: linear-gradient(90deg, rgba(199,147,65,.14), rgba(199,147,65,.06));
-    border-color: rgba(199,147,65,.20);
-    font-weight: 800;
-}
-
-#meuStatus .status-sub {
-    display: block;
-    margin-top: 4px;
-    font-size: .76rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-
-.meu-status-card.status-proximo,
-.meu-status-card.status-agora {
-    display: block;
-}
-
-.fila-section {
-    padding: 18px;
-    margin-bottom: 16px;
-}
-
-.fila-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-}
-
+.form-title,
 .fila-title,
-.form-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--text);
-    text-transform: uppercase;
-    letter-spacing: .08em;
+.historico-header strong,
+.modal-title,
+.popup-title,
+.blue-title,
+.blue-players,
+.quadra-jogadores,
+.fila-nomes,
+.historico-jogo-nomes {
+    color: var(--text) !important;
 }
 
-.fila-count {
-    min-width: 34px;
-    height: 34px;
-    padding: 0 12px;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(53,95,79,.10);
-    color: var(--primary);
-    border: 1px solid rgba(53,95,79,.14);
-    font-size: .78rem;
-    font-weight: 800;
+.blue-sub,
+.blue-meta,
+.app-footer,
+.fila-detalhes,
+.quadra-tempo,
+.quadra-tempo-info,
+.historico-jogo-horario,
+.historico-dia-resumo,
+.checkbox-wrapper label,
+.modal-input label,
+.regulamento-texto,
+.vazio-state {
+    color: var(--text-secondary) !important;
 }
 
-body.dark .fila-count {
-    background: rgba(159,209,178,.10);
-    color: var(--primary);
-    border-color: rgba(159,209,178,.18);
+.fila-count,
+.badge-qtd,
+.historico-jogo-quadra {
+    background: rgba(53,95,79,.12) !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(53,95,79,.14) !important;
 }
 
-.fila-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 14px;
-    border-radius: 18px;
-    margin-bottom: 9px;
-    background: var(--card-solid);
-    border: 1px solid var(--line);
+.fila-item,
+.historico-dia {
+    background: rgba(255,253,249,.82) !important;
+    border: 1px solid var(--card-border) !important;
 }
 
-.fila-item.fila-top1 { border-left: 4px solid var(--green); }
-.fila-item.fila-top2 { border-left: 4px solid var(--warning); }
-.fila-item.minha-inscricao {
-    background: rgba(199,147,65,.08);
-    border-color: rgba(199,147,65,.24);
-}
-
-.fila-posicao {
-    font-weight: 900;
-    font-size: 1.05rem;
-    color: var(--primary);
-    min-width: 34px;
-}
-
-.fila-info { flex: 1; min-width: 0; }
-.fila-nomes {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--text);
-    line-height: 1.2;
-}
-
-.fila-detalhes {
-    margin-top: 4px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 10px;
-    font-size: .72rem;
-    color: var(--text-secondary);
-}
-
-.fila-previsao {
-    margin-left: auto;
-    min-width: 78px;
-    text-align: center;
-    padding: 8px 9px;
-    border-radius: 14px;
-    background: rgba(53,95,79,.06);
-    border: 1px solid rgba(53,95,79,.12);
-}
-
-.fila-previsao .quadra-tag {
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: 0.08em;
-}
-
-.fila-previsao .hora {
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--text);
-}
-
-.fila-previsao .tempo-relativo {
-    margin-top: 2px;
-    font-size: 0.67rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-}
-
-.fila-lateral {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.fila-acoes-minha {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-}
-
-.btn-editar-fila,
-.btn-remover-fila {
-    width: 34px;
-    height: 30px;
-    padding: 0;
-    border-radius: 10px;
-    font-size: .75rem;
-    font-weight: 800;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-editar-fila {
-    background: rgba(199,147,65,.16);
-    color: #9d6e22;
-}
-
-.btn-remover-fila {
-    background: rgba(196,87,79,.16);
-    color: var(--red);
-}
-
-.form-card {
-    padding: 18px;
-}
-
-.form-title { margin-bottom: 16px; }
-
-.input-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+body.dark .fila-item,
+body.dark .historico-dia {
+    background: rgba(24,36,30,.84) !important;
 }
 
 input,
-select {
-    width: 100%;
-    padding: 14px 15px;
-    border: 1px solid rgba(62,92,80,.14);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    background: var(--card-solid);
-    color: var(--text);
-    transition: border-color .2s, box-shadow .2s, background .2s;
-    outline: none;
+select,
+.exportar-container select {
+    background: #fffdf9 !important;
+    border: 1px solid rgba(53,95,79,.14) !important;
+    color: var(--text) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.75) !important;
 }
 
-input::placeholder { color: #94a197; }
-
 body.dark input,
-body.dark select {
-    background: rgba(255,255,255,.03);
-    border-color: rgba(167,198,178,.12);
-    color: var(--text);
+body.dark select,
+body.dark .exportar-container select {
+    background: rgba(26,39,31,.96) !important;
+    border-color: rgba(159,209,178,.12) !important;
+    box-shadow: none !important;
+}
+
+input::placeholder,
+select::placeholder {
+    color: var(--text-secondary) !important;
 }
 
 input:focus,
 select:focus {
-    border-color: rgba(53,95,79,.44);
-    box-shadow: 0 0 0 3px rgba(53,95,79,.08);
-}
-
-input.error,
-body.dark input.error {
-    border-color: var(--red) !important;
-    box-shadow: 0 0 0 3px rgba(196,87,79,.14) !important;
-}
-
-.full-width { grid-column: span 2; }
-
-.alerta-edicao {
-    background: rgba(199,147,65,.10);
-    border: 1px solid rgba(199,147,65,.24);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    margin-bottom: 14px;
-    text-align: center;
-    color: #9d6e22;
-    font-weight: 600;
-    font-size: .82rem;
+    border-color: rgba(53,95,79,.38) !important;
+    box-shadow: 0 0 0 4px rgba(53,95,79,.08) !important;
 }
 
 .btn {
-    width: 100%;
-    border: none;
-    padding: 15px 16px;
-    border-radius: 18px;
-    color: white;
-    cursor: pointer;
-    font-size: .92rem;
-    font-weight: 800;
-    background: linear-gradient(180deg, var(--primary), var(--primary-strong));
-    transition: transform .15s ease, opacity .2s;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+    font-weight: 700 !important;
 }
 
-.btn:active { transform: scale(.985); }
-.btn-inscrever { margin-top: 14px; }
-.btn-editar { background: linear-gradient(180deg, #c79341, #9d6e22); }
-.btn-sair-fila { margin-top: 8px; background: linear-gradient(180deg, #cf675d, #b34d44); }
+.btn-primary,
+.btn-inscrever,
+.btn-aceitar,
+.btn-call,
+.btn-exportar,
+.blue-free-btn {
+    background: var(--primary) !important;
+    color: #fff !important;
+}
 
-.vazio-state {
-    text-align: center;
-    padding: 24px 12px;
-    color: var(--text-secondary);
-    font-size: .86rem;
+.btn-warning,
+.btn-edit,
+.btn-editar,
+.btn-editar-fila {
+    background: var(--warning) !important;
+    color: #fff !important;
+}
+
+.btn-danger,
+.btn-remover,
+.btn-sair-fila,
+.btn-remover-fila {
+    background: var(--red) !important;
+    color: #fff !important;
+}
+
+.btn-secondary {
+    background: rgba(53,95,79,.16) !important;
+    color: var(--primary) !important;
+}
+
+body.dark .btn-secondary {
+    background: rgba(159,209,178,.16) !important;
+    color: var(--primary) !important;
+}
+
+.btn-pause { background: var(--pause) !important; color: #fff !important; }
+
+.btn-outline {
+    background: transparent !important;
+    border: 1px solid rgba(53,95,79,.18) !important;
+    color: var(--primary) !important;
+}
+
+body.dark .btn-outline {
+    border-color: rgba(159,209,178,.18) !important;
 }
 
 .theme-fab {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    width: 50px;
-    height: 50px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    cursor: pointer;
-    z-index: 1000;
+    color: var(--primary) !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 16px !important;
 }
 
-.app-footer {
-    margin-top: 26px;
-    padding: 12px 0 4px;
-    text-align: center;
-    font-size: .72rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-    letter-spacing: .06em;
+.layout-loading-card {
+    background: linear-gradient(90deg, rgba(245,240,232,.76), rgba(255,253,249,.98), rgba(245,240,232,.76)) !important;
+    background-size: 200% 100% !important;
 }
 
-.popup-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.52);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(4px);
+body.dark .layout-loading-card {
+    background: linear-gradient(90deg, rgba(26,39,31,.72), rgba(34,50,40,.94), rgba(26,39,31,.72)) !important;
+    background-size: 200% 100% !important;
 }
 
-.popup-card {
-    max-width: 500px;
-    width: 100%;
-    max-height: 82vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+.quadra-card::before { background: var(--green) !important; }
+.quadra-card.ocupada::before { background: var(--red) !important; }
+.quadra-status { background: rgba(63,139,103,.12) !important; color: var(--green) !important; }
+.quadra-card.ocupada .quadra-status { background: rgba(196,87,79,.12) !important; color: var(--red) !important; }
+body.dark .quadra-status { background: rgba(101,195,143,.12) !important; }
+body.dark .quadra-card.ocupada .quadra-status { background: rgba(240,125,114,.12) !important; }
+.quadra-timer {
+    background: rgba(53,95,79,.08) !important;
+    border: 1px solid rgba(53,95,79,.14) !important;
+    color: var(--primary) !important;
+    border-radius: 16px !important;
 }
-
-.popup-header {
-    padding: 18px 20px 12px;
-    border-bottom: 1px solid var(--line);
-    text-align: center;
+body.dark .quadra-timer {
+    background: rgba(159,209,178,.08) !important;
+    border-color: rgba(159,209,178,.12) !important;
 }
-
-.popup-title {
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    line-height: 1.25;
+.quadra-timer.warning { color: var(--red) !important; }
+.fila-item.minha-inscricao,
+.fila-item.fila-top1 { box-shadow: 0 16px 30px rgba(63,139,103,.10) !important; }
+.fila-item.fila-top2 { box-shadow: 0 14px 26px rgba(53,95,79,.06) !important; }
+.fila-posicao,
+.fila-previsao .quadra-tag,
+.fila-previsao .hora,
+.tempo-relativo,
+.app-footer strong { color: var(--primary) !important; }
+.fila-previsao {
+    background: rgba(53,95,79,.08) !important;
+    border: 1px solid rgba(53,95,79,.14) !important;
+    border-radius: 14px !important;
 }
-
-.popup-content {
-    padding: 16px 20px;
-    overflow-y: auto;
-    flex: 1;
+body.dark .fila-previsao {
+    background: rgba(159,209,178,.08) !important;
+    border-color: rgba(159,209,178,.12) !important;
 }
-
-.regulamento-texto {
-    font-size: .79rem;
-    line-height: 1.52;
-    color: var(--text);
+.alerta-edicao {
+    background: rgba(199,147,65,.12) !important;
+    border-color: rgba(199,147,65,.24) !important;
+    color: #9e6e22 !important;
 }
+.popup-header,
+.popup-footer,
+.historico-header { border-color: rgba(53,95,79,.10) !important; }
+.regulamento-texto h3 { color: var(--primary) !important; }
+.checkbox-wrapper input[type="checkbox"] { accent-color: var(--primary) !important; }
 
-.regulamento-texto h3 {
-    font-size: .82rem;
-    font-weight: 800;
-    margin: 10px 0 4px;
-    color: var(--primary);
-    text-align: left;
-}
-
-.regulamento-texto ul {
-    margin: 4px 0;
-    padding-left: 18px;
-}
-
-.regulamento-texto li { margin: 2px 0; }
-
-.popup-footer {
-    padding: 12px 20px 16px;
-    border-top: 1px solid var(--line);
-    text-align: center;
-}
-
-.checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 14px;
-}
-
-.checkbox-wrapper input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--primary);
-    cursor: pointer;
-    margin: 0;
-}
-
-.checkbox-wrapper label {
-    font-size: .85rem;
-    color: var(--text);
-    cursor: pointer;
-}
-
-.btn-aceitar {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(180deg, var(--primary), var(--primary-strong));
-    color: #fff;
-    border: none;
-    border-radius: 18px;
-    font-size: .9rem;
-    font-weight: 800;
-    cursor: pointer;
-    opacity: .5;
-    transition: opacity .2s;
-}
-
-.btn-aceitar.active { opacity: 1; }
-.btn-aceitar:disabled { cursor: not-allowed; }
-
-.shimmer {
-    position: relative !important;
-    overflow: hidden !important;
-    background: rgba(53,95,79,.05) !important;
-    border-color: rgba(53,95,79,.10) !important;
-}
-
-.shimmer::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
-    animation: shimmerMoveUser 1.15s infinite;
-}
-
-body.dark .shimmer::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
-}
-
-@keyframes shimmerMoveUser {
-    100% { transform: translateX(100%); }
-}
-
-.linha-dupla {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    line-height: 1.15 !important;
-}
-
-.nome-jogador,
-.fila-item .fila-detalhes span,
-.fila-item.minha-inscricao .fila-detalhes span {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-}
-
-.separador {
-    white-space: nowrap !important;
-    margin: 0 4px !important;
-    opacity: .7 !important;
-}
-
-.secao-geral {
-    text-align: center;
-    font-weight: 700;
-    letter-spacing: .08em;
-    margin: 14px 0 10px;
-}
-
-@media (max-width: 430px) {
-    body { padding: 12px; }
-    body::before { inset: 10px; border-radius: 22px; }
-    .app-logo { left: 0; width: 46px; height: 46px; }
-    .app-header { padding-top: 6px; }
-    .app-title { font-size: 1.65rem; }
-    .quadra-card { padding: 15px 14px 15px 18px; gap: 11px; }
-    .quadra-timer { min-width: 74px; font-size: 1.15rem; padding: 9px 8px; }
-    .fila-item { align-items: flex-start; flex-wrap: wrap; }
-    .fila-lateral { margin-left: 0; width: 100%; flex-direction: row; justify-content: space-between; }
-    .fila-previsao { margin-left: 0; }
-    .fila-item.minha-inscricao {
-        display: grid !important;
-        grid-template-columns: 42px minmax(0, 1fr);
-        column-gap: 8px;
-        row-gap: 8px;
-    }
-    .fila-item.minha-inscricao .fila-lateral { grid-column: 1 / -1; }
-    .input-group { grid-template-columns: 1fr; }
-    .full-width { grid-column: span 1; }
-}
 </style>
 </head>
 <body>
@@ -954,7 +1675,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     import { getDatabase, ref, set, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     
-    // Mesmo projeto/nós usados pelo admin: fila e quadras
     const firebaseConfig = { apiKey: "AIzaSyDum7FyxneVNe3JQkmxuTbxCMpJSJscwvM", authDomain: "controle-laranjeiras.firebaseapp.com", databaseURL: "https://controle-laranjeiras-default-rtdb.firebaseio.com", projectId: "controle-laranjeiras", storageBucket: "controle-laranjeiras.firebasestorage.app", messagingSenderId: "884128857219", appId: "1:884128857219:web:638a0a6836aa2563b9afb6" };
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
@@ -1037,55 +1757,6 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             }
         }
         return pares.sort().join('||');
-    }
-
-    function normalizarNome(nome = '') {
-        return String(nome).trim().toLowerCase();
-    }
-
-    function normalizarQL(ql = '') {
-        return String(ql).trim().toLowerCase();
-    }
-
-    function validarConflitosLocais(nomes = []) {
-        const vistos = new Set();
-        for (const nome of nomes) {
-            const chave = normalizarNome(nome);
-            if (!chave) continue;
-            if (vistos.has(chave)) return `⚠️ O nome "${nome}" está repetido na mesma inscrição.`;
-            vistos.add(chave);
-        }
-        return '';
-    }
-
-    function encontrarConflitoExterno(nomes = [], qls = [], quadrasAtual = [], filaAtual = []) {
-        const nomesNovos = nomes.map(normalizarNome).filter(Boolean);
-        const qlsNovos = qls.map(normalizarQL).filter(Boolean);
-
-        const ativos = [];
-        quadrasAtual.forEach(q => {
-            if (q?.ocupada && q?.rodando && q?.jogo) ativos.push({ origem: 'jogo', item: q.jogo });
-        });
-        filaAtual.forEach(item => ativos.push({ origem: 'fila', item }));
-
-        for (const ativo of ativos) {
-            const nomesAtivos = (ativo.item.jogadores || []).map(normalizarNome).filter(Boolean);
-            const qlsAtivos = (ativo.item.qls || []).map(normalizarQL).filter(Boolean);
-
-            for (const nome of nomesNovos) {
-                if (nomesAtivos.includes(nome)) {
-                    return { tipo: 'nome', valor: nome, origem: ativo.origem };
-                }
-            }
-
-            for (const ql of qlsNovos) {
-                if (qlsAtivos.includes(ql)) {
-                    return { tipo: 'ql', valor: ql, origem: ativo.origem };
-                }
-            }
-        }
-
-        return null;
     }
     
     function mostrarToast(mensagem, cor = '#f59e0b') {
@@ -1298,24 +1969,31 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         ]).then(([quadrasData, filaData]) => {
             const quadrasAtual = quadrasData ? (Array.isArray(quadrasData) ? quadrasData : Object.values(quadrasData).filter(i => i !== null)) : [];
             const filaAtual = filaData ? (Array.isArray(filaData) ? filaData : Object.values(filaData).filter(i => i !== null)) : [];
-
-            const conflitoLocal = validarConflitosLocais(nomes);
-            if (conflitoLocal) {
-                mostrarToast(conflitoLocal, '#ef4444');
+            
+            const novaChave = gerarChaveJogo(nomes, qls);
+            const estaJogando = quadrasAtual.some(q => {
+                if (!q.ocupada || !q.rodando || !q.jogo) return false;
+                const chaveJogo = gerarChaveJogo(q.jogo.jogadores || [], q.jogo.qls || []);
+                return chaveJogo === novaChave;
+            });
+            const estaNaFila = filaAtual.some(item => {
+                const chaveItem = gerarChaveJogo(item.jogadores || [], item.qls || []);
+                return chaveItem === novaChave;
+            });
+            
+            if (estaJogando) {
+                const nomesStr = nomes.join(' e ');
+                const qlStr = qls.join('/');
+                mostrarToast(`⚠️ "${nomesStr} (${qlStr})" já estão jogando. Aguarde o término.`, '#ef4444');
                 return;
             }
-
-            const conflito = encontrarConflitoExterno(nomes, qls, quadrasAtual, filaAtual);
-            if (conflito) {
-                const origem = conflito.origem === 'jogo' ? 'já está em jogo' : 'já está na fila';
-                if (conflito.tipo === 'nome') {
-                    mostrarToast(`⚠️ O jogador "${conflito.valor}" ${origem}.`, '#ef4444');
-                } else {
-                    mostrarToast(`⚠️ O Q/L "${conflito.valor.toUpperCase()}" ${origem}.`, '#ef4444');
-                }
+            if (estaNaFila) {
+                const nomesStr = nomes.join(' e ');
+                const qlStr = qls.join('/');
+                mostrarToast(`⚠️ "${nomesStr} (${qlStr})" já estão na fila.`, '#f59e0b');
                 return;
             }
-
+            
             const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid };
             push(ref(db, 'fila'), novoJogo).then(() => {
                 mostrarToast('✅ Inscrição confirmada!', '#10b981');
@@ -1371,7 +2049,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
 <script>
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js?v=1.4");
+    navigator.serviceWorker.register("sw.js?v=1.3");
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
         if (!sessionStorage.getItem("swAtualizado")) {
