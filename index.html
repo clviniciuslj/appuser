@@ -1557,6 +1557,217 @@ body.dark .popup-footer {
     border-color: #242424 !important;
 }
 
+
+
+/* =========================================================
+   AJUSTE USER: fila compacta + duplas sempre em 2 linhas
+   - Simples: dois nomes na mesma linha
+   - Duplas: dupla A na linha 1, dupla B na linha 2
+   - Cards menores no modo claro e no all black
+   ========================================================= */
+.fila-section {
+    padding: 14px 16px !important;
+}
+
+.fila-header {
+    margin-bottom: 10px !important;
+}
+
+.fila-item,
+.fila-item.minha-inscricao,
+body.dark .fila-item,
+body.dark .fila-item.minha-inscricao {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    row-gap: 4px !important;
+    padding: 10px 12px !important;
+    margin-bottom: 8px !important;
+    border-radius: 16px !important;
+    min-height: 0 !important;
+}
+
+.fila-posicao,
+.fila-item.minha-inscricao .fila-posicao {
+    min-width: 0 !important;
+    width: auto !important;
+    font-size: 1.18rem !important;
+    line-height: 1 !important;
+}
+
+.fila-info,
+.fila-item.minha-inscricao .fila-info {
+    min-width: 0 !important;
+    flex: initial !important;
+}
+
+.fila-nomes,
+.fila-item .fila-nomes,
+.fila-item.minha-inscricao .fila-nomes {
+    font-size: .98rem !important;
+    line-height: 1.14 !important;
+    font-weight: 850 !important;
+    gap: 1px !important;
+    margin: 0 0 4px 0 !important;
+    min-width: 0 !important;
+}
+
+.fila-item.tipo-simples .fila-nomes {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fila-item.tipo-simples .nome-jogador,
+.fila-item.tipo-simples .separador {
+    display: inline !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+}
+
+.fila-item.tipo-dupla .fila-nomes {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.fila-item.tipo-dupla .linha-dupla {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.14 !important;
+    min-width: 0 !important;
+}
+
+.fila-item.tipo-dupla .nome-jogador,
+.fila-item.tipo-dupla .separador {
+    display: inline !important;
+    white-space: nowrap !important;
+    overflow-wrap: normal !important;
+}
+
+.fila-detalhes,
+.fila-item .fila-detalhes,
+.fila-item.minha-inscricao .fila-detalhes {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px 8px !important;
+    font-size: .72rem !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+}
+
+.fila-lateral,
+.fila-item.minha-inscricao .fila-lateral {
+    margin-left: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+}
+
+.fila-previsao,
+.fila-lateral .fila-previsao,
+.fila-item.minha-inscricao .fila-previsao {
+    margin-left: 0 !important;
+    padding: 7px 9px !important;
+    min-width: 68px !important;
+    border-radius: 14px !important;
+    text-align: center !important;
+}
+
+.fila-previsao .quadra-tag,
+.fila-item.minha-inscricao .fila-previsao .quadra-tag {
+    font-size: .68rem !important;
+    line-height: 1.05 !important;
+    font-weight: 900 !important;
+}
+
+.fila-previsao .hora,
+.fila-item.minha-inscricao .fila-previsao .hora {
+    font-size: .92rem !important;
+    line-height: 1.05 !important;
+    font-weight: 900 !important;
+}
+
+.fila-previsao .tempo-relativo {
+    margin-top: 1px !important;
+    font-size: .66rem !important;
+    line-height: 1.05 !important;
+}
+
+.fila-acoes-minha,
+.fila-item.minha-inscricao .fila-acoes-minha {
+    width: auto !important;
+    flex-basis: auto !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+    gap: 5px !important;
+}
+
+.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
+.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    border-radius: 10px !important;
+    font-size: .68rem !important;
+}
+
+@media (max-width: 430px) {
+    .fila-section {
+        padding: 13px 14px !important;
+    }
+
+    .fila-item,
+    .fila-item.minha-inscricao,
+    body.dark .fila-item,
+    body.dark .fila-item.minha-inscricao {
+        grid-template-columns: 36px minmax(0, 1fr) auto !important;
+        column-gap: 8px !important;
+        padding: 9px 10px !important;
+    }
+
+    .fila-posicao,
+    .fila-item.minha-inscricao .fila-posicao {
+        font-size: 1.06rem !important;
+    }
+
+    .fila-nomes,
+    .fila-item .fila-nomes,
+    .fila-item.minha-inscricao .fila-nomes {
+        font-size: .92rem !important;
+        line-height: 1.12 !important;
+    }
+
+    .fila-detalhes,
+    .fila-item .fila-detalhes,
+    .fila-item.minha-inscricao .fila-detalhes {
+        font-size: .66rem !important;
+        gap: 3px 6px !important;
+    }
+
+    .fila-previsao,
+    .fila-lateral .fila-previsao,
+    .fila-item.minha-inscricao .fila-previsao {
+        min-width: 60px !important;
+        padding: 6px 7px !important;
+    }
+
+    .fila-previsao .hora,
+    .fila-item.minha-inscricao .fila-previsao .hora {
+        font-size: .84rem !important;
+    }
+
+    .fila-previsao .tempo-relativo {
+        font-size: .61rem !important;
+    }
+}
 </style>
 </head>
 <body>
