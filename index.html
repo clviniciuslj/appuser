@@ -2088,6 +2088,56 @@ body.dark .btn-whatsapp-nao {
     margin: 2px 0 10px;
 }
 
+
+/* ===== MODAL CUSTOMIZADO USER: substitui confirm/alert nativo do navegador ===== */
+.confirm-user-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    background: rgba(194,65,75,.10);
+    color: var(--red);
+    border: 1px solid rgba(194,65,75,.22);
+}
+.confirm-user-texto {
+    color: var(--text-secondary);
+    font-size: .86rem;
+    line-height: 1.35;
+    text-align: center;
+    margin: 0 0 14px;
+}
+.confirm-user-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.confirm-user-actions .btn {
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+}
+.btn-confirm-cancelar {
+    background: #e5e7eb !important;
+    color: #17231c !important;
+    border-color: #d1d5db !important;
+    box-shadow: none !important;
+}
+.btn-confirm-danger {
+    background: linear-gradient(135deg, #b83a44, #c8505a) !important;
+    color: #ffffff !important;
+}
+body.dark .btn-confirm-cancelar {
+    background: #1f1f1f !important;
+    color: #f5f5f5 !important;
+    border-color: #333333 !important;
+}
+body.dark .btn-confirm-danger {
+    background: #991b1b !important;
+    border-color: #991b1b !important;
+}
+
 </style>
 </head>
 <body>
@@ -2156,6 +2206,24 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         </div>
     </div>
 </div>
+
+<!-- MODAL DE CONFIRMAÇÃO USER -->
+<div class="popup-overlay" id="popupConfirmacaoUser">
+    <div class="popup-card">
+        <div class="popup-header">
+            <div class="confirm-user-icon"><span class="material-icons-outlined">warning</span></div>
+            <div class="popup-title" id="confirmUserTitulo">Confirmar ação</div>
+        </div>
+        <div class="popup-content">
+            <p class="confirm-user-texto" id="confirmUserTexto">Tem certeza?</p>
+            <div class="confirm-user-actions">
+                <button class="btn btn-confirm-cancelar" type="button" onclick="fecharConfirmacaoUser(false)">Cancelar</button>
+                <button class="btn btn-confirm-danger" type="button" id="confirmUserBtnOk" onclick="fecharConfirmacaoUser(true)">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <header class="app-header">
@@ -2676,18 +2744,47 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         document.getElementById('formCard').scrollIntoView({ behavior: 'smooth' });
     };
     
+
+
+    let confirmacaoUserCallback = null;
+
+    window.abrirConfirmacaoUser = function(titulo, texto, textoBotao, callback) {
+        confirmacaoUserCallback = typeof callback === 'function' ? callback : null;
+        const popup = document.getElementById('popupConfirmacaoUser');
+        const tituloEl = document.getElementById('confirmUserTitulo');
+        const textoEl = document.getElementById('confirmUserTexto');
+        const btnOk = document.getElementById('confirmUserBtnOk');
+        if (tituloEl) tituloEl.textContent = titulo || 'Confirmar ação';
+        if (textoEl) textoEl.textContent = texto || 'Tem certeza?';
+        if (btnOk) btnOk.textContent = textoBotao || 'Confirmar';
+        if (popup) popup.style.display = 'flex';
+    };
+
+    window.fecharConfirmacaoUser = function(confirmado) {
+        const popup = document.getElementById('popupConfirmacaoUser');
+        if (popup) popup.style.display = 'none';
+        const callback = confirmacaoUserCallback;
+        confirmacaoUserCallback = null;
+        if (confirmado && callback) callback();
+    };
+
     window.removerMinhaInscricao = function(id) {
-        if (!confirm("Remover sua inscrição da fila?")) return;
-        
-        const index = fila.findIndex(item => item.id === id);
-        if (index !== -1 && filaKeys[index]) {
-            remove(ref(db, `fila/${filaKeys[index]}`))
-                .then(() => {
-                    mostrarToast('✅ Inscrição removida!', '#10b981');
-                    if (editandoId === id) cancelarEdicao();
-                })
-                .catch(e => mostrarToast('❌ Erro ao remover', '#ef4444'));
-        }
+        abrirConfirmacaoUser(
+            'Remover inscrição?',
+            'Esta inscrição será retirada da fila. Você poderá se inscrever novamente se precisar.',
+            'Remover',
+            () => {
+                const index = fila.findIndex(item => item.id === id);
+                if (index !== -1 && filaKeys[index]) {
+                    remove(ref(db, `fila/${filaKeys[index]}`))
+                        .then(() => {
+                            mostrarToast('✅ Inscrição removida!', '#10b981');
+                            if (editandoId === id) cancelarEdicao();
+                        })
+                        .catch(e => mostrarToast('❌ Erro ao remover', '#ef4444'));
+                }
+            }
+        );
     };
     
     window.inscreverNaFila = function() {
