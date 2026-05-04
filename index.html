@@ -2326,6 +2326,14 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let carregandoFila = true;
     let tempoMinimoShimmer = true;
     let whatsappAvisoAtivo = true;
+    let configQuadras = {};
+    const CONFIG_QUADRAS_PADRAO = {
+        1: { ativa: true, nome: 'Quadra 1' },
+        2: { ativa: true, nome: 'Quadra 2' },
+        3: { ativa: true, nome: 'Quadra 3' },
+        4: { ativa: false, nome: 'Quadra 4' },
+        5: { ativa: false, nome: 'Quadra 5' }
+    };
     let inscricaoPendenteWhatsapp = null;
 
     setTimeout(() => {
@@ -2342,6 +2350,41 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         })
         .catch((error) => console.error("❌ Erro autenticação:", error));
     
+
+
+    function montarConfigQuadras(valor) {
+        const base = JSON.parse(JSON.stringify(CONFIG_QUADRAS_PADRAO));
+        if (valor && typeof valor === 'object') {
+            Object.keys(valor).forEach(id => {
+                base[id] = { ...base[id], ...valor[id] };
+                if (typeof base[id].ativa !== 'boolean') base[id].ativa = Number(id) <= 3;
+                if (!base[id].nome) base[id].nome = `Quadra ${id}`;
+            });
+        }
+        return base;
+    }
+
+    function normalizarQuadras(lista) {
+        const existentes = Array.isArray(lista) ? lista.filter(Boolean) : Object.values(lista || {}).filter(Boolean);
+        const mapa = {};
+        existentes.forEach(q => { if (q && q.id) mapa[q.id] = q; });
+        for (let id = 1; id <= 5; id++) {
+            if (!mapa[id]) {
+                mapa[id] = { id, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 };
+            }
+        }
+        return Object.values(mapa).sort((a, b) => a.id - b.id);
+    }
+
+    function quadraAtiva(id) {
+        const cfg = configQuadras?.[id] || CONFIG_QUADRAS_PADRAO[id];
+        return cfg?.ativa !== false;
+    }
+
+    function getQuadrasAtivas() {
+        return (quadras || []).filter(q => q && quadraAtiva(q.id));
+    }
+
     function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
     function formatarHora(d) { return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
     function formatarChegada(d) { return new Date(d).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}); }
@@ -2420,7 +2463,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             return;
         }
 
-        c.innerHTML = quadras.map(q => {
+        const quadrasVisiveis = getQuadrasAtivas();
+        c.innerHTML = quadrasVisiveis.map(q => {
             return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
                         <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
                         <div class="quadra-info">
@@ -2482,7 +2526,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             return;
         }
         
-        let ts = quadras.map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
+        let ts = getQuadrasAtivas().map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
         let agora = Date.now();
         
         fila.forEach((j, idx) => {
@@ -2694,7 +2738,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             new Promise(resolve => onValue(ref(db, 'quadras'), snapshot => resolve(snapshot.val()), { onlyOnce: true })),
             new Promise(resolve => onValue(ref(db, 'fila'), snapshot => resolve(snapshot.val()), { onlyOnce: true }))
         ]).then(([quadrasData, filaData]) => {
-            const quadrasAtual = quadrasData ? (Array.isArray(quadrasData) ? quadrasData : Object.values(quadrasData).filter(i => i !== null)) : [];
+            const quadrasAtual = quadrasData ? normalizarQuadras(quadrasData) : [];
             const filaAtual = filaData ? (Array.isArray(filaData) ? filaData : Object.values(filaData).filter(i => i !== null)) : [];
             
             const novaChave = gerarChaveJogo(nomes, qls);
@@ -2732,6 +2776,12 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     }
     
 
+    onValue(ref(db, 'config/quadras'), (snapshot) => {
+        configQuadras = montarConfigQuadras(snapshot.exists() ? snapshot.val() : CONFIG_QUADRAS_PADRAO);
+        renderQuadras();
+        renderFila();
+    });
+
     onValue(ref(db, 'config/whatsappAvisoAtivo'), (snapshot) => {
         whatsappAvisoAtivo = snapshot.exists() ? snapshot.val() !== false : true;
     });
@@ -2754,14 +2804,13 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     onValue(ref(db, 'quadras'), (snapshot) => {
         carregandoQuadras = false;
         if (!snapshot.exists()) {
-            set(ref(db, 'quadras'), [
-                { id: 1, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
-                { id: 2, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 },
-                { id: 3, ocupada: false, rodando: false, pausada: false, tempoRestante: 0, jogo: null, hEntrada: '', hSaida: '', horaTerminoAbsoluta: 0 }
-            ]);
+            const base = normalizarQuadras([]);
+            quadras = base;
+            set(ref(db, 'quadras'), base);
+        } else {
+            const d = snapshot.val();
+            quadras = normalizarQuadras(d);
         }
-        const d = snapshot.val();
-        if (d) quadras = Array.isArray(d) ? d : Object.values(d).filter(i => i !== null);
         renderQuadras();
         renderFila();
     });
