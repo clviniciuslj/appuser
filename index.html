@@ -2012,6 +2012,82 @@ body.dark .fila-previsao {
     }
 }
 
+
+
+/* =========================================================
+   WHATSAPP OPCIONAL - USER
+   Controlado por config/whatsappAvisoAtivo no Firebase.
+   ========================================================= */
+.whatsapp-popup .popup-card {
+    max-width: 420px;
+}
+.whatsapp-popup .popup-content {
+    text-align: center;
+}
+.whatsapp-texto {
+    font-size: .95rem;
+    line-height: 1.35;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+.whatsapp-subtexto {
+    display: block;
+    margin-top: 6px;
+    font-size: .78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.whatsapp-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+}
+.whatsapp-actions .btn {
+    padding: 12px 10px !important;
+    border-radius: 14px !important;
+}
+.btn-whatsapp-nao {
+    background: #e5e7eb !important;
+    color: #17231c !important;
+    border-color: #d1d5db !important;
+    box-shadow: none !important;
+}
+body.dark .btn-whatsapp-nao {
+    background: #1f1f1f !important;
+    color: #f5f5f5 !important;
+    border-color: #333333 !important;
+}
+.whatsapp-input-box {
+    display: none;
+    margin-top: 4px;
+    text-align: left;
+}
+.whatsapp-input-box label {
+    display: block;
+    font-size: .78rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+.whatsapp-input-box input {
+    margin-bottom: 6px;
+}
+.whatsapp-privacidade {
+    font-size: .68rem;
+    color: var(--text-secondary);
+    line-height: 1.25;
+    margin: 2px 0 10px;
+}
+.whatsapp-erro {
+    display: none;
+    color: var(--red);
+    font-size: .72rem;
+    font-weight: 700;
+    margin: 2px 0 10px;
+}
+
 </style>
 </head>
 <body>
@@ -2051,6 +2127,32 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         <div class="popup-footer">
             <div class="checkbox-wrapper"><input type="checkbox" id="naoMostrarNovamente" onchange="toggleBotaoAceitar()"><label for="naoMostrarNovamente">Li e concordo com o regulamento</label></div>
             <button class="btn-aceitar" id="btnAceitar" onclick="aceitarRegulamento()" disabled>Aceitar e Continuar</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- POP-UP WHATSAPP OPCIONAL -->
+<div class="popup-overlay whatsapp-popup" id="popupWhatsappAviso">
+    <div class="popup-card">
+        <div class="popup-header">
+            <div class="popup-title"><span class="material-icons-outlined">chat</span> Quer receber um aviso?</div>
+        </div>
+        <div class="popup-content">
+            <p class="whatsapp-texto">
+                Podemos te avisar pelo WhatsApp quando sua vez estiver chegando.
+            </p>
+            <div class="whatsapp-actions" id="whatsappEscolhaBox">
+                <button class="btn btn-whatsapp-nao" type="button" onclick="responderAvisoWhatsapp(false)">Não, obrigado</button>
+                <button class="btn" type="button" onclick="responderAvisoWhatsapp(true)">Sim, quero ser avisado</button>
+            </div>
+            <div class="whatsapp-input-box" id="whatsappInputBox">
+                <label for="whatsappNumero">Informe seu WhatsApp</label>
+                <input type="tel" id="whatsappNumero" placeholder="WhatsApp com DDD" inputmode="numeric" autocomplete="tel">
+                <div class="whatsapp-privacidade">Usaremos esse número apenas para avisar sobre sua vez nesta fila.</div>
+                <div class="whatsapp-erro" id="whatsappErro">Informe um número válido com DDD.</div>
+                <button class="btn" type="button" style="width:100%;padding:12px" onclick="confirmarNumeroWhatsapp()">Confirmar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -2223,6 +2325,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let carregandoQuadras = true;
     let carregandoFila = true;
     let tempoMinimoShimmer = true;
+    let whatsappAvisoAtivo = true;
+    let inscricaoPendenteWhatsapp = null;
 
     setTimeout(() => {
         tempoMinimoShimmer = false;
@@ -2427,6 +2531,85 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         });
     }
     
+
+    function abrirPopupWhatsapp(dadosInscricao) {
+        inscricaoPendenteWhatsapp = dadosInscricao;
+        const popup = document.getElementById('popupWhatsappAviso');
+        const escolha = document.getElementById('whatsappEscolhaBox');
+        const inputBox = document.getElementById('whatsappInputBox');
+        const input = document.getElementById('whatsappNumero');
+        const erro = document.getElementById('whatsappErro');
+        if (escolha) escolha.style.display = 'grid';
+        if (inputBox) inputBox.style.display = 'none';
+        if (input) {
+            input.value = '';
+            input.classList.remove('error');
+        }
+        if (erro) erro.style.display = 'none';
+        if (popup) popup.style.display = 'flex';
+    }
+
+    function fecharPopupWhatsapp() {
+        const popup = document.getElementById('popupWhatsappAviso');
+        if (popup) popup.style.display = 'none';
+    }
+
+    function normalizarWhatsapp(valor) {
+        let n = String(valor || '').replace(/\D/g, '');
+        if (n.length === 10 || n.length === 11) n = '55' + n;
+        return n;
+    }
+    window.normalizarWhatsapp = normalizarWhatsapp;
+
+    function finalizarInscricaoComWhatsapp(desejaWhatsapp, numeroWhatsapp) {
+        const dados = inscricaoPendenteWhatsapp;
+        inscricaoPendenteWhatsapp = null;
+        fecharPopupWhatsapp();
+        if (!dados) return;
+        criarNovaInscricao(dados.nomes, dados.qls, dados.tipoJogo, dados.isDupla, {
+            desejaWhatsapp: !!desejaWhatsapp,
+            whatsapp: numeroWhatsapp || ''
+        });
+    }
+
+    function iniciarFluxoAvisoOuSalvar(dadosInscricao) {
+        if (whatsappAvisoAtivo) {
+            abrirPopupWhatsapp(dadosInscricao);
+            return;
+        }
+        criarNovaInscricao(dadosInscricao.nomes, dadosInscricao.qls, dadosInscricao.tipoJogo, dadosInscricao.isDupla, {
+            desejaWhatsapp: false,
+            whatsapp: ''
+        });
+    }
+
+    window.responderAvisoWhatsapp = function(deseja) {
+        if (!deseja) {
+            finalizarInscricaoComWhatsapp(false, '');
+            return;
+        }
+        const escolha = document.getElementById('whatsappEscolhaBox');
+        const inputBox = document.getElementById('whatsappInputBox');
+        const input = document.getElementById('whatsappNumero');
+        if (escolha) escolha.style.display = 'none';
+        if (inputBox) inputBox.style.display = 'block';
+        if (input) setTimeout(() => input.focus(), 80);
+    };
+
+    window.confirmarNumeroWhatsapp = function() {
+        const input = document.getElementById('whatsappNumero');
+        const erro = document.getElementById('whatsappErro');
+        const numero = normalizarWhatsapp(input ? input.value : '');
+        if (!(numero.length === 12 || numero.length === 13) || !numero.startsWith('55')) {
+            if (erro) erro.style.display = 'block';
+            if (input) input.classList.add('error');
+            return;
+        }
+        if (erro) erro.style.display = 'none';
+        if (input) input.classList.remove('error');
+        finalizarInscricaoComWhatsapp(true, numero);
+    };
+
     window.editarMeuItem = function(id) {
         const item = fila.find(j => j.id === id);
         if (!item) return;
@@ -2498,15 +2681,15 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                     editandoId = null;
                     cancelarEdicao();
                     // Continua para criar nova inscrição após remover a antiga
-                    criarNovaInscricao(nomes, qls, tipoJogo, isDupla);
+                    iniciarFluxoAvisoOuSalvar({ nomes, qls, tipoJogo, isDupla });
                 });
                 return;
             }
         }
-        criarNovaInscricao(nomes, qls, tipoJogo, isDupla);
+        iniciarFluxoAvisoOuSalvar({ nomes, qls, tipoJogo, isDupla });
     };
     
-    function criarNovaInscricao(nomes, qls, tipoJogo, isDupla) {
+    function criarNovaInscricao(nomes, qls, tipoJogo, isDupla, avisoConfig = { desejaWhatsapp: false, whatsapp: '' }) {
         Promise.all([
             new Promise(resolve => onValue(ref(db, 'quadras'), snapshot => resolve(snapshot.val()), { onlyOnce: true })),
             new Promise(resolve => onValue(ref(db, 'fila'), snapshot => resolve(snapshot.val()), { onlyOnce: true }))
@@ -2538,7 +2721,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                 return;
             }
             
-            const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid };
+            const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid, origem: 'usuario', desejaWhatsapp: !!avisoConfig.desejaWhatsapp, whatsapp: avisoConfig.desejaWhatsapp ? normalizarWhatsapp(avisoConfig.whatsapp) : '' };
             push(ref(db, 'fila'), novoJogo).then(() => {
                 mostrarToast('✅ Inscrição confirmada!', '#10b981');
                 cancelarEdicao();
@@ -2548,6 +2731,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         });
     }
     
+
+    onValue(ref(db, 'config/whatsappAvisoAtivo'), (snapshot) => {
+        whatsappAvisoAtivo = snapshot.exists() ? snapshot.val() !== false : true;
+    });
+
     // Sincroniza fila com Firebase
     onValue(ref(db, 'fila'), (snapshot) => {
         carregandoFila = false;
