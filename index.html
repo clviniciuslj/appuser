@@ -2138,6 +2138,29 @@ body.dark .btn-confirm-danger {
     border-color: #991b1b !important;
 }
 
+/* ===== melhorias: inscrição online, privacidade Q/L e previsão ===== */
+.inscricoes-fechadas-card {
+    text-align: center;
+    padding: 18px 16px !important;
+}
+.inscricoes-fechadas-title {
+    font-size: .92rem;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.inscricoes-fechadas-text {
+    font-size: .78rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+}
+.previsao-incerta {
+    font-size: .68rem !important;
+    font-weight: 900 !important;
+    color: var(--warning) !important;
+    line-height: 1.15 !important;
+}
+
 </style>
 </head>
 <body>
@@ -2244,6 +2267,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             <span class="fila-count" id="fila-count">0</span>
         </div>
         <div id="corpoFila"></div>
+    </div>
+
+    <div class="form-card inscricoes-fechadas-card" id="inscricoesFechadasCard" style="display:none;">
+        <div class="inscricoes-fechadas-title">Inscrições online fechadas</div>
+        <div class="inscricoes-fechadas-text">Acompanhe a fila normalmente. Para entrar na fila neste momento, procure o fiscal.</div>
     </div>
 
     <div class="form-card" id="formCard">
@@ -2394,6 +2422,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let carregandoFila = true;
     let tempoMinimoShimmer = true;
     let whatsappAvisoAtivo = true;
+    let inscricoesOnlineAtivas = true;
     let configQuadras = {};
     const CONFIG_QUADRAS_PADRAO = {
         1: { ativa: true, nome: 'Quadra 1' },
@@ -2451,6 +2480,29 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
     function getQuadrasAtivas() {
         return (quadras || []).filter(q => q && quadraAtiva(q.id));
+    }
+
+    function getTempoQuadraParaPrevisao(q) {
+        if (!q || !q.ocupada) return { id: q?.id || '-', tempoSeg: 0, incerta: false };
+        if (q.rodando && !q.pausada) {
+            return { id: q.id, tempoSeg: Math.max(0, q.tempoRestante || 0), incerta: false };
+        }
+        if (q.pausada) {
+            return { id: q.id, tempoSeg: Math.max(0, q.tempoRestante || 0), incerta: true, motivo: 'pausada' };
+        }
+        return {
+            id: q.id,
+            tempoSeg: Math.max(0, q.tempoRestante || ((q.jogo?.duracao || 45) * 60)),
+            incerta: true,
+            motivo: 'aguardando início'
+        };
+    }
+
+    function atualizarControleInscricoesOnline() {
+        const form = document.getElementById('formCard');
+        const aviso = document.getElementById('inscricoesFechadasCard');
+        if (form) form.style.display = inscricoesOnlineAtivas ? 'block' : 'none';
+        if (aviso) aviso.style.display = inscricoesOnlineAtivas ? 'none' : 'block';
     }
 
     function formatarTimer(s) { return `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`; }
@@ -2594,7 +2646,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             return;
         }
         
-        let ts = getQuadrasAtivas().map(q => ({ id: q.id, tempoSeg: q.pausada ? 999999 : (q.tempoRestante || 0) }));
+        let ts = getQuadrasAtivas().map(q => getTempoQuadraParaPrevisao(q));
         let agora = Date.now();
         
         fila.forEach((j, idx) => {
@@ -2603,7 +2655,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             const totalJogadores = (j.jogadores || []).filter(Boolean).length || ((j.nomes || '').split('•').map(n => n.trim()).filter(Boolean).length);
             const tipoLinhaClass = totalJogadores <= 2 ? 'tipo-simples' : 'tipo-dupla';
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
-            const qlHTML = formatarQLFila(j);
+            const qlHTML = ehMinha ? formatarQLFila(j) : '';
             
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
@@ -2613,7 +2665,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             
             const tipoTexto = tipoLinhaClass === 'tipo-dupla' ? 'Duplas' : 'Simples';
             const chegada = j.chegada ? formatarChegada(j.chegada) : '--:--';
-            const previsaoHtml = `<span class="quadra-tag">Q${qE.id}</span><span class="hora">${formatarHora(dp)}</span><span class="meta-separador">·</span><span class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</span>`;
+            const avisoPrevisao = qE.incerta ? `<span class="meta-separador">·</span><span class="previsao-incerta">⚠️ sujeita a alteração</span>` : '';
+            const previsaoHtml = `<span class="quadra-tag">Q${qE.id}</span><span class="hora">${formatarHora(dp)}</span><span class="meta-separador">·</span><span class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</span>${avisoPrevisao}`;
 
             corpo.innerHTML += `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}">
                                     <div class="fila-topo-card">
@@ -2628,8 +2681,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                                             ${previsaoHtml}
                                             <span class="meta-separador">·</span>
                                             <span class="fila-chegada">🕐 ${chegada}</span>
-                                            <span class="meta-separador">·</span>
-                                            <span class="fila-ql">🎫 ${qlHTML}</span>
+                                            ${ehMinha ? `<span class="meta-separador">·</span><span class="fila-ql">🎫 ${qlHTML}</span>` : ''}
                                         </div>
                                     </div>
 
@@ -2788,6 +2840,10 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     };
     
     window.inscreverNaFila = function() {
+        if (!inscricoesOnlineAtivas) {
+            mostrarToast('⚠️ Inscrições online fechadas. Procure o fiscal.', '#f59e0b');
+            return;
+        }
         if (!meuUid) {
             mostrarToast("⚠️ Aguarde autenticação...", '#f59e0b');
             return;
@@ -2881,6 +2937,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
     onValue(ref(db, 'config/whatsappAvisoAtivo'), (snapshot) => {
         whatsappAvisoAtivo = snapshot.exists() ? snapshot.val() !== false : true;
+    });
+
+    onValue(ref(db, 'config/inscricoesOnlineAtivas'), (snapshot) => {
+        inscricoesOnlineAtivas = snapshot.exists() ? snapshot.val() !== false : true;
+        atualizarControleInscricoesOnline();
     });
 
     // Sincroniza fila com Firebase
