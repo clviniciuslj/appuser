@@ -2918,7 +2918,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                 return;
             }
             
-            const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid, origem: 'usuario', desejaWhatsapp: !!avisoConfig.desejaWhatsapp, whatsapp: avisoConfig.desejaWhatsapp ? normalizarWhatsapp(avisoConfig.whatsapp) : '' };
+            const novoJogo = { id: Date.now(), nomes: nomes.join(" • "), detalhes: qls.join(", "), duracao: parseInt(tipoJogo), chegada: new Date().toISOString(), jogadores: nomes, qls: qls, deviceId: meuUid, criadoPorUid: meuUid, origem: 'usuario', desejaWhatsapp: !!avisoConfig.desejaWhatsapp, whatsapp: avisoConfig.desejaWhatsapp ? normalizarWhatsapp(avisoConfig.whatsapp) : '' };
             push(ref(db, 'fila'), novoJogo).then(() => {
                 mostrarToast('✅ Inscrição confirmada!', '#10b981');
                 cancelarEdicao();
