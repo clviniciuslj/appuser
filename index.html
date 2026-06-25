@@ -6,7 +6,7 @@
     <title>Condomínio Laranjeiras - Quadras</title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#18181b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,2217 +15,7 @@
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* TEMA CLARO (padrão) */
-        :root {
-            --bg: #f0f2f5;
-            --card-bg: rgba(255,255,255,0.85);
-            --card-border: rgba(255,255,255,0.6);
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --green: #10b981;
-            --red: #ef4444;
-            --primary: #0f172a;
-            --warning: #f59e0b;
-            --pause: #3b82f6;
-            --shadow: 0 4px 24px rgba(0,0,0,0.06);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
-            --radius: 20px;
-            --radius-sm: 14px;
-        }
-
-        /* TEMA ESCURO - ALL BLACK */
-        body.dark {
-            --bg: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --card-border: #2a2a2a;
-            --text: #ffffff;
-            --text-secondary: #a0a0a0;
-            --primary: #3b82f6;
-            --shadow: 0 1px 2px rgba(0,0,0,0.3);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
-        }
-
-        body.dark .quadra-card .quadra-status {
-            background: rgba(255,255,255,0.08);
-        }
-
-        body.dark .form-card,
-        body.dark .fila-section,
-        body.dark .quadra-card,
-        body.dark .btn-historico,
-        body.dark .modal,
-        body.dark .popup-card {
-            background: var(--card-bg);
-            border-color: var(--card-border);
-        }
-
-        body.dark input, 
-        body.dark select {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
-            color: #ffffff;
-        }
-
-        body.dark .fila-item {
-            background: rgba(255,255,255,0.03);
-            border-color: var(--card-border);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background: linear-gradient(135deg, #e2e8f0 0%, #f0f2f5 50%, #e8ecf1 100%);
-            min-height: 100vh;
-            margin: 0; 
-            padding: 16px; 
-            color: var(--text);
-            transition: background 0.3s, color 0.3s;
-        }
-        
-        body.dark {
-            background: #0a0a0a;
-        }
-        
-        .container { max-width: 640px; margin: 0 auto; }
-
-        /* CABEÇALHO - ÍCONE À ESQUERDA, TÍTULO CENTRALIZADO */
-        .app-header { 
-            position: relative;
-            text-align: center; 
-            padding: 12px 0 20px; 
-            width: 100%; 
-            min-height: 70px;
-        }
-        .app-logo { 
-            position: absolute;
-            left: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .app-logo .material-icons-outlined { 
-            font-size: 32px; 
-            color: var(--primary); 
-        }
-        .app-title { 
-            font-size: 1.5rem; 
-            font-weight: 800; 
-            letter-spacing: -0.5px; 
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            background-clip: text;
-            text-align: center;
-        }
-        body.dark .app-title { 
-            background: none;
-            -webkit-text-fill-color: var(--text);
-            color: var(--text);
-        }
-        .app-subtitle { 
-            font-size: 0.75rem; 
-            color: var(--text-secondary); 
-            font-weight: 600; 
-            letter-spacing: 0.5px; 
-            text-align: center;
-            margin-top: 4px;
-        }
-
-        .quadras-wrapper { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-
-        .quadra-card { 
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 18px 20px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        body.dark .quadra-card {
-            backdrop-filter: none;
-        }
-
-        .quadra-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--green);
-            border-radius: 0 4px 4px 0;
-            transition: background 0.3s;
-        }
-
-        .quadra-card.ocupada::before { background: var(--red); }
-
-        .quadra-status {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .quadra-card.ocupada .quadra-status {
-            background: rgba(239,68,68,0.12);
-            color: var(--red);
-        }
-
-        .quadra-card:not(.ocupada) .quadra-status {
-            background: rgba(16,185,129,0.12);
-            color: var(--green);
-        }
-
-        .quadra-info { 
-            flex: 1; 
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .quadra-numero { 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            color: var(--text-secondary); 
-        }
-        
-        .quadra-jogadores { 
-            font-weight: 600; 
-            font-size: 0.95rem; 
-            color: var(--text);
-        }
-        
-        .quadra-jogadores.livre { 
-            color: var(--text-secondary); 
-        }
-        
-        .quadra-tempo { 
-            font-size: 0.75rem; 
-            color: var(--text-secondary); 
-            display: flex; 
-            align-items: center; 
-            gap: 4px; 
-        }
-        
-        .quadra-timer { 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 1.6rem;
-            font-weight: 700; 
-            color: var(--text); 
-            flex-shrink: 0; 
-            min-width: 70px; 
-            text-align: right; 
-            letter-spacing: 1px;
-        }
-        
-        .quadra-timer.warning { 
-            color: var(--red); 
-            animation: pulse 1s infinite; 
-        }
-
-        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
-
-        .fila-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 18px 20px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-        }
-        
-        body.dark .fila-section {
-            backdrop-filter: none;
-        }
-
-        .fila-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-
-        .fila-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .fila-count {
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .fila-item { 
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-            background: rgba(0,0,0,0.02);
-            border: 1px solid transparent;
-            transition: all 0.2s;
-        }
-
-        body.dark .fila-item {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .fila-item.minha-inscricao {
-            background: rgba(245,158,11,0.08);
-            border-color: rgba(245,158,11,0.3);
-        }
-
-        .fila-posicao {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: var(--primary);
-            min-width: 28px;
-        }
-
-        .fila-info { flex: 1; min-width: 0; }
-        .fila-nomes { font-weight: 600; font-size: 0.85rem; }
-        .fila-detalhes { font-size: 0.7rem; color: var(--text-secondary); display: flex; gap: 10px; flex-wrap: wrap; }
-        .fila-previsao { margin-left: auto; text-align: right; flex-shrink: 0; }
-        .fila-previsao .quadra-tag { font-size: 0.7rem; font-weight: 700; color: var(--primary); }
-        .fila-previsao .hora { font-size: 0.8rem; font-weight: 600; }
-
-        .btn-editar-fila, .btn-remover-fila {
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 4px;
-            border: none;
-        }
-        .btn-editar-fila {
-            background: rgba(245,158,11,0.15);
-            color: #f59e0b;
-        }
-        .btn-remover-fila {
-            background: rgba(239,68,68,0.15);
-            color: #ef4444;
-        }
-
-        .form-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        body.dark .form-card {
-            backdrop-filter: none;
-        }
-
-        .form-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-        input, select { 
-            width: 100%; 
-            padding: 14px 16px; 
-            border: 1.5px solid #e2e8f0; 
-            border-radius: var(--radius-sm); 
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            background: white;
-            color: #1e293b;
-            transition: border-color 0.2s;
-            outline: none;
-        }
-
-        body.dark input, 
-        body.dark select {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
-            color: #ffffff;
-        }
-
-        body.dark input::placeholder,
-        body.dark select::placeholder {
-            color: #888888;
-        }
-
-        input:focus, select:focus { border-color: var(--primary); }
-        input.error { border-color: var(--red) !important; }
-
-        .full-width { grid-column: span 2; }
-
-        .btn { 
-            border: none; 
-            padding: 16px; 
-            border-radius: 40px;
-            color: white; 
-            cursor: pointer; 
-            font-size: 0.9rem; 
-            font-weight: 700; 
-            background: var(--primary);
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
-        }
-
-        .btn:active { transform: scale(0.98); }
-        .btn-inscrever { width: 100%; margin-top: 14px; }
-        .btn-editar { width: 100%; margin-top: 8px; background: #f59e0b; }
-        .btn-sair-fila { width: 100%; margin-top: 8px; background: var(--red); }
-
-        .theme-fab {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            color: var(--text);
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            z-index: 1000;
-            transition: all 0.2s;
-        }
-        
-        body.dark .theme-fab {
-            backdrop-filter: none;
-            background: var(--card-bg);
-        }
-        
-        .theme-fab:active { transform: scale(0.95); }
-
-        .app-footer {
-            margin-top: 28px;
-            padding: 16px 0;
-            text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .vazio-state { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 0.85rem; }
-        
-        .alerta-edicao {
-            background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: var(--radius-sm);
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            text-align: center;
-            color: #f59e0b;
-            font-weight: 500;
-            font-size: 0.8rem;
-        }
-
-        .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-        .popup-card{background:var(--card-bg);border-radius:24px;max-width:480px;width:100%;max-height:80vh;box-shadow:0 16px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--card-border)}
-        .popup-header{padding:18px 20px 12px;border-bottom:1px solid rgba(0,0,0,.06);text-align:center}
-        .popup-title{font-size:1.2rem;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center;gap:8px}
-        .popup-content{padding:16px 20px;overflow-y:auto;flex:1;text-align:left}
-        .regulamento-texto{font-size:.78rem;line-height:1.5;color:var(--text)}
-        .regulamento-texto h3{font-size:.82rem;font-weight:700;margin:10px 0 4px;color:var(--primary);text-align:left}
-        .regulamento-texto ul{margin:4px 0;padding-left:16px;text-align:left}.regulamento-texto li{margin:2px 0}
-        .popup-footer{padding:12px 20px 16px;border-top:1px solid rgba(0,0,0,.06);text-align:center}
-        .checkbox-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
-        .checkbox-wrapper input[type="checkbox"]{width:20px;height:20px;accent-color:var(--primary);cursor:pointer;margin:0}
-        .checkbox-wrapper label{font-size:.85rem;color:var(--text);cursor:pointer}
-        .btn-aceitar{width:100%;padding:14px;background:var(--primary);color:#fff;border:none;border-radius:40px;font-size:.9rem;font-weight:700;cursor:pointer;opacity:.5;transition:opacity .2s}
-        .btn-aceitar.active{opacity:1}.btn-aceitar:disabled{cursor:not-allowed}
-
-        @keyframes toastFadeIn { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
-    
-
-/* =========================================================
-   05 USER - MATCHDAY VERDE SUAVE
-   Claro = limpo esportivo | Escuro = verde escuro suave
-   Mantém toda a lógica original. Só altera aparência.
-   ========================================================= */
-
-:root {
-    --bg: #f5f8fc;
-    --card-bg: #ffffff;
-    --card-border: #d8e4f0;
-    --text: #0f172a;
-    --text-secondary: #64748b;
-    --green: #059669;
-    --red: #e11d48;
-    --primary: #2f8f5b;
-    --warning: #d97706;
-    --pause: #2563eb;
-    --shadow: 0 10px 28px rgba(15, 23, 42, .08);
-    --shadow-lg: 0 18px 42px rgba(15, 23, 42, .12);
-    --radius: 20px;
-    --radius-sm: 14px;
-}
-
-body {
-    background:
-        radial-gradient(circle at top right, rgba(47,143,91,.13), transparent 34%),
-        radial-gradient(circle at bottom left, rgba(63,127,85,.08), transparent 32%),
-        linear-gradient(135deg, #f8fafc 0%, #eef6fb 55%, #e8edf7 100%) !important;
-    color: var(--text) !important;
-}
-
-body.dark {
-    --bg: #0f1712;
-    --card-bg: rgba(11, 16, 36, .94);
-    --card-border: rgba(34, 211, 238, .20);
-    --text: #f8fafc;
-    --text-secondary: #9aa8bd;
-    --green: #6fbf8e;
-    --red: #ff3b6b;
-    --primary: #6fbf8e;
-    --warning: #facc15;
-    --pause: #8eb59a;
-    --shadow: 0 14px 34px rgba(0,0,0,.32);
-    --shadow-lg: 0 20px 46px rgba(0,0,0,.42);
-    background:
-        radial-gradient(circle at top right, rgba(111,191,142,.18), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(63,127,85,.14), transparent 32%),
-        #0f1712 !important;
-    color: var(--text) !important;
-}
-
-.container { max-width: 660px; }
-
-.app-logo {
-    left: 14px;
-    background: rgba(47,143,91,.08) !important;
-    border: 1px solid rgba(47,143,91,.22) !important;
-    box-shadow: none !important;
-    border-radius: 16px !important;
-}
-body.dark .app-logo {
-    background: rgba(111,191,142,.08) !important;
-    border-color: rgba(111,191,142,.30) !important;
-    box-shadow: 0 8px 18px rgba(111,191,142,.12) !important;
-}
-.app-logo .material-icons-outlined { color: var(--primary) !important; }
-
-.app-title {
-    background: linear-gradient(135deg, #0f172a, #2f8f5b) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-}
-body.dark .app-title {
-    background: linear-gradient(135deg, #6fbf8e, #9bc8aa) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-}
-.app-subtitle { color: var(--text-secondary) !important; }
-
-.quadra-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 20px !important;
-    padding: 15px !important;
-    box-shadow: var(--shadow) !important;
-}
-body.dark .quadra-card {
-    background: linear-gradient(135deg, rgba(11,16,36,.96), rgba(17,24,39,.88)) !important;
-    box-shadow: 0 0 0 1px rgba(111,191,142,.03), 0 16px 34px rgba(0,0,0,.34) !important;
-}
-.quadra-card::before {
-    background: var(--green) !important;
-    width: 5px !important;
-    box-shadow: none !important;
-}
-body.dark .quadra-card::before { box-shadow: 0 6px 12px var(--green) !important; }
-.quadra-card.ocupada::before { background: var(--red) !important; }
-body.dark .quadra-card.ocupada::before { box-shadow: 0 6px 12px var(--red) !important; }
-
-.quadra-status {
-    background: rgba(5,150,105,.10) !important;
-    color: var(--green) !important;
-    border: 1px solid rgba(5,150,105,.18) !important;
-    border-radius: 14px !important;
-}
-.quadra-card.ocupada .quadra-status {
-    background: rgba(225,29,72,.10) !important;
-    color: var(--red) !important;
-    border-color: rgba(225,29,72,.18) !important;
-}
-body.dark .quadra-status {
-    background: rgba(111,191,142,.10) !important;
-    border-color: rgba(111,191,142,.20) !important;
-}
-body.dark .quadra-card.ocupada .quadra-status {
-    background: rgba(255,59,107,.10) !important;
-    border-color: rgba(255,59,107,.22) !important;
-}
-
-.quadra-numero { color: var(--text-secondary) !important; }
-.quadra-jogadores { color: var(--text) !important; font-weight: 850 !important; }
-.quadra-tempo { color: var(--text-secondary) !important; }
-.quadra-timer {
-    background: #f0f6f1 !important;
-    border: 1px solid #d7e6d9 !important;
-    border-radius: 14px !important;
-    padding: 8px 10px !important;
-    color: #276b45 !important;
-    text-align: center !important;
-    box-shadow: none !important;
-}
-body.dark .quadra-timer {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(111,191,142,.24) !important;
-    color: #cfe6d6 !important;
-    box-shadow: 0 8px 14px rgba(111,191,142,.10) !important;
-}
-.quadra-timer.warning {
-    color: var(--red) !important;
-    border-color: rgba(225,29,72,.28) !important;
-    background: rgba(225,29,72,.08) !important;
-}
-
-.fila-section,
-.form-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    border-radius: 20px !important;
-    box-shadow: var(--shadow) !important;
-}
-body.dark .fila-section,
-body.dark .form-card {
-    background: rgba(11,16,36,.92) !important;
-}
-.fila-title,
-.form-title { color: var(--text) !important; }
-.fila-count {
-    background: #eef7ef !important;
-    color: #276b45 !important;
-    border: 1px solid #cfe1d2 !important;
-}
-body.dark .fila-count {
-    background: rgba(111,191,142,.12) !important;
-    color: #cfe6d6 !important;
-    border-color: rgba(111,191,142,.26) !important;
-}
-.fila-item {
-    background: #f8fafc !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-}
-body.dark .fila-item {
-    background: rgba(2,6,23,.46) !important;
-    border-color: rgba(148,163,184,.14) !important;
-}
-.fila-item.minha-inscricao {
-    background: rgba(245,158,11,.10) !important;
-    border-color: rgba(245,158,11,.30) !important;
-}
-.fila-posicao { color: var(--primary) !important; }
-.fila-nomes { color: var(--text) !important; }
-.fila-detalhes { color: var(--text-secondary) !important; }
-.fila-previsao {
-    background: #f0f6f1 !important;
-    border: 1px solid #d7e6d9 !important;
-    border-radius: 12px !important;
-    padding: 7px 9px !important;
-}
-body.dark .fila-previsao {
-    background: rgba(2,6,23,.62) !important;
-    border-color: rgba(111,191,142,.18) !important;
-}
-.fila-previsao .quadra-tag { color: var(--primary) !important; }
-.fila-previsao .hora { color: var(--text) !important; }
-
-input,
-select {
-    background: #f8fafc !important;
-    border: 1px solid #dbe5f2 !important;
-    border-radius: 14px !important;
-    color: #0f172a !important;
-}
-input::placeholder { color: #94a3b8 !important; }
-body.dark input,
-body.dark select {
-    background: rgba(2,6,23,.55) !important;
-    border-color: rgba(111,191,142,.18) !important;
-    color: #fff !important;
-}
-body.dark input::placeholder { color: rgba(203,213,225,.66) !important; }
-input:focus,
-select:focus {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(47,143,91,.12) !important;
-}
-body.dark input:focus,
-body.dark select:focus {
-    box-shadow: 0 0 0 3px rgba(111,191,142,.12) !important;
-}
-
-.btn,
-.btn-aceitar {
-    background: linear-gradient(135deg, #2f8f5b, #2563eb) !important;
-    border: 1px solid rgba(47,143,91,.20) !important;
-    border-radius: 14px !important;
-    box-shadow: 0 10px 22px rgba(47,143,91,.16) !important;
-    color: #ffffff !important;
-}
-body.dark .btn,
-body.dark .btn-aceitar {
-    background: linear-gradient(135deg, #2f8f5b, #3f7f55) !important;
-    border-color: rgba(111,191,142,.22) !important;
-    box-shadow: 0 8px 18px rgba(111,191,142,.14) !important;
-}
-.btn-editar { background: linear-gradient(135deg, #d97706, #f59e0b) !important; }
-.btn-sair-fila { background: linear-gradient(135deg, #dc2626, #ef4444) !important; }
-
-.popup-card {
-    background: var(--card-bg) !important;
-    color: var(--text) !important;
-    border: 1px solid var(--card-border) !important;
-}
-.regulamento-texto { color: var(--text) !important; }
-.regulamento-texto h3 { color: var(--primary) !important; }
-.checkbox-wrapper label { color: var(--text) !important; }
-
-.theme-fab {
-    background: var(--card-bg) !important;
-    color: var(--primary) !important;
-    border: 1px solid var(--card-border) !important;
-    box-shadow: var(--shadow-lg) !important;
-}
-
-@media (max-width: 430px) {
-    .fila-item {
-        align-items: flex-start !important;
-        flex-wrap: wrap !important;
-    }
-    .fila-previsao {
-        margin-left: 0 !important;
-    }
-    .quadra-card {
-        gap: 10px !important;
-        padding: 13px !important;
-    }
-    .quadra-timer {
-        font-size: 1.15rem !important;
-        min-width: 68px !important;
-    }
-}
-
-
-/* ===== USER: shimmer + status de posição ===== */
-.shimmer {
-    position: relative !important;
-    overflow: hidden !important;
-    background: rgba(148,163,184,0.16) !important;
-    border-color: rgba(148,163,184,0.18) !important;
-}
-.shimmer::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-    animation: shimmerMoveUser 1.15s infinite;
-}
-body.dark .shimmer::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-}
-@keyframes shimmerMoveUser {
-    100% { transform: translateX(100%); }
-}
-
-.meu-status-card {
-    display: none;
-    margin: 0 6px 12px;
-    padding: 13px 14px;
-    border-radius: 16px;
-    background: rgba(47,143,91,.10);
-    border: 1px solid rgba(47,143,91,.26);
-    box-shadow: var(--shadow);
-    text-align: center;
-    font-weight: 850;
-    color: var(--text);
-    line-height: 1.25;
-}
-.meu-status-card .status-sub {
-    display: block;
-    margin-top: 3px;
-    font-size: .72rem;
-    font-weight: 650;
-    color: var(--text-secondary);
-}
-.meu-status-card.status-agora {
-    background: rgba(5,150,105,.12) !important;
-    border-color: rgba(5,150,105,.36) !important;
-}
-.meu-status-card.status-proximo {
-    background: rgba(245,158,11,.13) !important;
-    border-color: rgba(245,158,11,.38) !important;
-}
-body.dark .meu-status-card {
-    background: rgba(111,191,142,.10);
-    border-color: rgba(111,191,142,.26);
-}
-
-.fila-item.fila-top1 {
-    border-left: 5px solid var(--green) !important;
-    box-shadow: 0 10px 24px rgba(5,150,105,.10) !important;
-}
-.fila-item.fila-top2 {
-    border-left: 5px solid var(--warning) !important;
-}
-.fila-item.minha-inscricao {
-    background: rgba(245,158,11,.14) !important;
-    border-color: rgba(245,158,11,.45) !important;
-    box-shadow: 0 10px 24px rgba(245,158,11,.10) !important;
-}
-body.dark .fila-item.minha-inscricao {
-    background: rgba(245,158,11,.14) !important;
-}
-.voce-badge {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 5px;
-    padding: 2px 6px;
-    border-radius: 999px;
-    background: rgba(245,158,11,.16);
-    color: var(--warning);
-    font-size: .62rem;
-    font-weight: 900;
-}
-
-
-/* ===== ajuste: status e inscrição do usuário ===== */
-.meu-status-card.status-proximo {
-    background: rgba(47,143,91,.10) !important;
-    border-color: rgba(47,143,91,.28) !important;
-}
-body.dark .meu-status-card.status-proximo {
-    background: rgba(111,191,142,.10) !important;
-    border-color: rgba(111,191,142,.28) !important;
-}
-
-.fila-acoes-minha {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    flex-basis: 100%;
-    margin-left: 0 !important;
-    padding-top: 6px;
-    border-top: 1px solid rgba(148,163,184,.18);
-}
-
-.fila-acoes-minha .btn-editar-fila,
-.fila-acoes-minha .btn-remover-fila {
-    flex: 1;
-    margin-left: 0 !important;
-    padding: 8px 0 !important;
-    border-radius: 12px !important;
-}
-
-.fila-item.minha-inscricao {
-    align-items: flex-start !important;
-    flex-wrap: wrap !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    flex: 1 1 135px;
-}
-
-.fila-item.minha-inscricao .fila-nomes {
-    line-height: 1.2;
-}
-
-
-/* ===== ajuste final fila user: ações abaixo da previsão ===== */
-.fila-lateral {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    flex-shrink: 0;
-}
-
-.fila-lateral .fila-previsao {
-    margin-left: 0 !important;
-}
-
-.fila-acoes-minha {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-}
-
-.fila-acoes-minha .btn-editar-fila,
-.fila-acoes-minha .btn-remover-fila {
-    margin-left: 0 !important;
-    width: 36px;
-    height: 30px;
-    padding: 0 !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.fila-item.minha-inscricao {
-    align-items: center !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    min-width: 0;
-}
-
-.fila-item.minha-inscricao .fila-detalhes {
-    gap: 8px !important;
-}
-
-@media (max-width: 430px) {
-    .fila-item.minha-inscricao {
-        display: grid !important;
-        grid-template-columns: 52px minmax(0, 1fr) auto;
-        align-items: center !important;
-        column-gap: 10px !important;
-        row-gap: 6px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-posicao {
-        min-width: 42px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-lateral {
-        align-self: center;
-        margin-left: 0;
-    }
-
-    .fila-item.minha-inscricao .fila-detalhes {
-        font-size: 0.68rem !important;
-        line-height: 1.2;
-    }
-}
-
-
-/* ===== ajuste final: minha inscrição compacta + erro Q/L no dark ===== */
-.voce-badge { display: none !important; }
-
-.fila-item.minha-inscricao {
-    display: grid !important;
-    grid-template-columns: 52px minmax(0, 1fr) auto !important;
-    align-items: center !important;
-    column-gap: 10px !important;
-    row-gap: 4px !important;
-    padding: 10px 12px !important;
-    min-height: 0 !important;
-}
-
-.fila-item.minha-inscricao .fila-info {
-    min-width: 0 !important;
-    flex: initial !important;
-}
-
-.fila-item.minha-inscricao .fila-nomes {
-    line-height: 1.12 !important;
-    margin-bottom: 2px !important;
-}
-
-.fila-item.minha-inscricao .fila-detalhes {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    gap: 8px !important;
-    font-size: 0.72rem !important;
-    line-height: 1.1 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.fila-item.minha-inscricao .fila-lateral {
-    margin-left: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 7px !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao {
-    flex-shrink: 0 !important;
-    padding: 6px 8px !important;
-    min-width: 64px !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao .quadra-tag {
-    font-size: 0.68rem !important;
-}
-
-.fila-item.minha-inscricao .fila-previsao .hora {
-    font-size: 0.88rem !important;
-}
-
-.fila-item.minha-inscricao .fila-acoes-minha {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    width: auto !important;
-    flex-basis: auto !important;
-    padding-top: 0 !important;
-    border-top: 0 !important;
-}
-
-.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
-.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
-    width: 32px !important;
-    height: 30px !important;
-    min-width: 32px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 11px !important;
-    font-size: 0.72rem !important;
-}
-
-input.error,
-body.dark input.error {
-    border-color: var(--red) !important;
-    box-shadow: 0 0 0 3px rgba(225,29,72,.18) !important;
-}
-
-body.dark input.error {
-    border-color: #ff3b6b !important;
-    box-shadow: 0 0 0 3px rgba(255,59,107,.22) !important;
-}
-
-@media (max-width: 430px) {
-    .fila-item.minha-inscricao {
-        grid-template-columns: 42px minmax(0, 1fr) auto !important;
-        column-gap: 8px !important;
-        padding: 9px 10px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-detalhes {
-        font-size: 0.66rem !important;
-        gap: 6px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-lateral {
-        gap: 5px !important;
-    }
-
-    .fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
-    .fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-    }
-}
-
-
-/* ===== ajuste final: nomes e Q/L completos na fila ===== */
-.fila-nomes {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1px !important;
-}
-
-.linha-dupla {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    line-height: 1.15 !important;
-}
-
-.nome-jogador {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-}
-
-.separador {
-    white-space: nowrap !important;
-    margin: 0 4px !important;
-    opacity: .7 !important;
-}
-
-.fila-item .fila-detalhes,
-.fila-item.minha-inscricao .fila-detalhes {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 5px 9px !important;
-    white-space: normal !important;
-    overflow: visible !important;
-    text-overflow: initial !important;
-}
-
-.fila-item .fila-detalhes span,
-.fila-item.minha-inscricao .fila-detalhes span {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-}
-
-.fila-item.minha-inscricao {
-    align-items: center !important;
-}
-.secao-geral {
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    margin: 14px 0 10px;
-}
-
-/* ===== tempo relativo da fila ===== */
-.fila-previsao .tempo-relativo {
-    margin-top: 2px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    white-space: nowrap;
-}
-
-
-
-/* =========================================================
-   AJUSTE FINAL - PALETA BRANCO/VERDE SEM NEON
-   Mantém a estrutura e a lógica. Só suaviza a aparência.
-   ========================================================= */
-:root {
-    --bg: #f4f7f3;
-    --card-bg: #ffffff;
-    --card-border: #dbe7dc;
-    --text: #17231c;
-    --text-secondary: #637267;
-    --green: #2f8f5b;
-    --red: #c2414b;
-    --primary: #2f8f5b;
-    --warning: #b7791f;
-    --pause: #4f7f62;
-    --shadow: 0 8px 22px rgba(23, 35, 28, .07);
-    --shadow-lg: 0 14px 34px rgba(23, 35, 28, .11);
-}
-
-body {
-    background:
-        radial-gradient(circle at top right, rgba(47,143,91,.10), transparent 34%),
-        linear-gradient(135deg, #fbfdfb 0%, #f2f7f1 52%, #eaf2ea 100%) !important;
-    color: var(--text) !important;
-}
-
-body.dark {
-    --bg: #0f1712;
-    --card-bg: #172119;
-    --card-border: #26352b;
-    --text: #eef5ef;
-    --text-secondary: #a9b7ad;
-    --green: #6fbf8e;
-    --red: #e06b74;
-    --primary: #6fbf8e;
-    --warning: #d6a144;
-    --pause: #8eb59a;
-    --shadow: 0 10px 24px rgba(0,0,0,.26);
-    --shadow-lg: 0 16px 36px rgba(0,0,0,.34);
-    background:
-        radial-gradient(circle at top right, rgba(111,191,142,.10), transparent 32%),
-        linear-gradient(135deg, #0b120e 0%, #101a13 55%, #08100b 100%) !important;
-    color: var(--text) !important;
-}
-
-.app-logo {
-    background: rgba(47,143,91,.08) !important;
-    border-color: rgba(47,143,91,.20) !important;
-    box-shadow: none !important;
-}
-body.dark .app-logo {
-    background: rgba(111,191,142,.10) !important;
-    border-color: rgba(111,191,142,.22) !important;
-    box-shadow: none !important;
-}
-.app-logo .material-icons-outlined { color: var(--primary) !important; }
-
-.app-title,
-body.dark .app-title {
-    background: linear-gradient(135deg, var(--text), var(--primary)) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-}
-
-.quadra-card,
-.fila-section,
-.form-card,
-.popup-card,
-.theme-fab {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--card-border) !important;
-    box-shadow: var(--shadow) !important;
-}
-body.dark .quadra-card,
-body.dark .fila-section,
-body.dark .form-card,
-body.dark .popup-card,
-body.dark .theme-fab {
-    background: var(--card-bg) !important;
-    box-shadow: var(--shadow) !important;
-}
-
-.quadra-card::before,
-body.dark .quadra-card::before {
-    background: var(--green) !important;
-    box-shadow: none !important;
-}
-.quadra-card.ocupada::before,
-body.dark .quadra-card.ocupada::before {
-    background: var(--red) !important;
-    box-shadow: none !important;
-}
-
-.quadra-status,
-body.dark .quadra-status {
-    background: rgba(47,143,91,.11) !important;
-    color: var(--green) !important;
-    border: 1px solid rgba(47,143,91,.20) !important;
-    box-shadow: none !important;
-}
-.quadra-card.ocupada .quadra-status,
-body.dark .quadra-card.ocupada .quadra-status {
-    background: rgba(194,65,75,.11) !important;
-    color: var(--red) !important;
-    border-color: rgba(194,65,75,.22) !important;
-}
-
-.quadra-timer,
-.fila-previsao {
-    background: #f0f6f1 !important;
-    border: 1px solid #d7e6d9 !important;
-    color: #276b45 !important;
-    box-shadow: none !important;
-}
-body.dark .quadra-timer,
-body.dark .fila-previsao {
-    background: #101a13 !important;
-    border-color: #2b3b30 !important;
-    color: #cfe6d6 !important;
-    box-shadow: none !important;
-}
-.quadra-timer.warning {
-    color: var(--red) !important;
-    background: rgba(194,65,75,.09) !important;
-    border-color: rgba(194,65,75,.24) !important;
-}
-
-.fila-count,
-body.dark .fila-count {
-    background: rgba(47,143,91,.13) !important;
-    color: var(--primary) !important;
-    border: 1px solid rgba(47,143,91,.24) !important;
-    box-shadow: none !important;
-}
-
-.fila-item,
-body.dark .fila-item {
-    background: rgba(47,143,91,.045) !important;
-    border: 1px solid var(--card-border) !important;
-    box-shadow: none !important;
-}
-.fila-item.fila-top1,
-body.dark .fila-item.fila-top1 {
-    border-left: 5px solid var(--green) !important;
-    box-shadow: none !important;
-}
-.fila-item.fila-top2,
-body.dark .fila-item.fila-top2 {
-    border-left: 5px solid var(--warning) !important;
-}
-.fila-item.minha-inscricao,
-body.dark .fila-item.minha-inscricao {
-    background: rgba(183,121,31,.11) !important;
-    border-color: rgba(183,121,31,.28) !important;
-    box-shadow: none !important;
-}
-
-.meu-status-card,
-.meu-status-card.status-proximo,
-body.dark .meu-status-card,
-body.dark .meu-status-card.status-proximo {
-    background: rgba(47,143,91,.10) !important;
-    border-color: rgba(47,143,91,.24) !important;
-    box-shadow: var(--shadow) !important;
-}
-.meu-status-card.status-agora {
-    background: rgba(47,143,91,.13) !important;
-    border-color: rgba(47,143,91,.30) !important;
-}
-
-input,
-select {
-    background: #fbfdfb !important;
-    border: 1px solid #dbe7dc !important;
-    color: #17231c !important;
-}
-body.dark input,
-body.dark select {
-    background: #111a14 !important;
-    border-color: #2b3b30 !important;
-    color: var(--text) !important;
-}
-input:focus,
-select:focus,
-body.dark input:focus,
-body.dark select:focus {
-    border-color: var(--primary) !important;
-    box-shadow: 0 0 0 3px rgba(47,143,91,.14) !important;
-}
-
-.btn,
-.btn-aceitar,
-body.dark .btn,
-body.dark .btn-aceitar {
-    background: linear-gradient(135deg, #2f8f5b, #3f7f55) !important;
-    border: 1px solid rgba(47,143,91,.22) !important;
-    box-shadow: 0 8px 18px rgba(47,143,91,.14) !important;
-    color: #ffffff !important;
-}
-.btn-editar { background: linear-gradient(135deg, #b7791f, #d1942f) !important; }
-.btn-sair-fila { background: linear-gradient(135deg, #b83a44, #c8505a) !important; }
-
-.btn-editar-fila {
-    background: rgba(183,121,31,.14) !important;
-    color: var(--warning) !important;
-}
-.btn-remover-fila {
-    background: rgba(194,65,75,.13) !important;
-    color: var(--red) !important;
-}
-
-.regulamento-texto h3,
-.fila-posicao,
-.fila-previsao .quadra-tag,
-.theme-fab {
-    color: var(--primary) !important;
-}
-
-.shimmer::after,
-body.dark .shimmer::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent) !important;
-}
-
-
-
-/* ===== ajuste: jogos simples em uma linha ===== */
-.fila-item.tipo-simples .fila-nomes {
-    display: block !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    line-height: 1.18 !important;
-}
-
-.fila-item.tipo-simples .nome-jogador,
-.fila-item.tipo-simples .separador {
-    display: inline !important;
-    white-space: nowrap !important;
-    overflow-wrap: normal !important;
-}
-
-.fila-item.tipo-dupla .fila-nomes {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-
-/* =========================================================
-   AJUSTE FINAL: MODO ESCURO ALL BLACK
-   Mantém o modo claro branco/verde. No escuro, remove o
-   fundo verde e deixa preto fosco com acentos discretos.
-   ========================================================= */
-body.dark {
-    --bg: #000000;
-    --card-bg: #101010;
-    --card-border: #242424;
-    --text: #f5f5f5;
-    --text-secondary: #a3a3a3;
-    --green: #22c55e;
-    --red: #ef4444;
-    --primary: #e5e5e5;
-    --warning: #f59e0b;
-    --pause: #737373;
-    --shadow: 0 10px 26px rgba(0,0,0,.45);
-    --shadow-lg: 0 16px 38px rgba(0,0,0,.55);
-    background: #000000 !important;
-    color: var(--text) !important;
-}
-
-body.dark .app-logo {
-    background: #111111 !important;
-    border-color: #2a2a2a !important;
-    box-shadow: none !important;
-}
-
-body.dark .app-logo .material-icons-outlined {
-    color: #e5e5e5 !important;
-}
-
-body.dark .app-title {
-    background: none !important;
-    -webkit-text-fill-color: #f5f5f5 !important;
-    color: #f5f5f5 !important;
-}
-
-body.dark .quadra-card,
-body.dark .fila-section,
-body.dark .form-card,
-body.dark .popup-card,
-body.dark .theme-fab,
-body.dark .meu-status-card {
-    background: #101010 !important;
-    border-color: #242424 !important;
-    box-shadow: 0 10px 26px rgba(0,0,0,.45) !important;
-}
-
-body.dark .quadra-card::before {
-    box-shadow: none !important;
-}
-
-body.dark .quadra-card.ocupada::before {
-    box-shadow: none !important;
-}
-
-body.dark .quadra-status,
-body.dark .quadra-card.ocupada .quadra-status {
-    background: #171717 !important;
-    border-color: #2a2a2a !important;
-}
-
-body.dark .quadra-status {
-    color: #22c55e !important;
-}
-
-body.dark .quadra-card.ocupada .quadra-status {
-    color: #ef4444 !important;
-}
-
-body.dark .quadra-timer,
-body.dark .fila-previsao,
-body.dark input,
-body.dark select {
-    background: #090909 !important;
-    border-color: #2a2a2a !important;
-    box-shadow: none !important;
-    color: #f5f5f5 !important;
-}
-
-body.dark input::placeholder {
-    color: #737373 !important;
-}
-
-body.dark input:focus,
-body.dark select:focus {
-    border-color: #525252 !important;
-    box-shadow: 0 0 0 3px rgba(255,255,255,.08) !important;
-}
-
-body.dark .fila-item {
-    background: #0b0b0b !important;
-    border-color: #242424 !important;
-}
-
-body.dark .fila-item.fila-top1 {
-    border-left-color: #22c55e !important;
-    box-shadow: none !important;
-}
-
-body.dark .fila-item.fila-top2 {
-    border-left-color: #f59e0b !important;
-}
-
-body.dark .fila-count {
-    background: #181818 !important;
-    color: #e5e5e5 !important;
-    border-color: #2a2a2a !important;
-}
-
-body.dark .fila-posicao,
-body.dark .fila-previsao .quadra-tag,
-body.dark .theme-fab,
-body.dark .regulamento-texto h3 {
-    color: #e5e5e5 !important;
-}
-
-body.dark .btn,
-body.dark .btn-aceitar {
-    background: #1f1f1f !important;
-    border-color: #333333 !important;
-    box-shadow: none !important;
-    color: #ffffff !important;
-}
-
-body.dark .btn-inscrever,
-body.dark .btn-aceitar.active {
-    background: #166534 !important;
-    border-color: #166534 !important;
-}
-
-body.dark .btn-editar {
-    background: #b45309 !important;
-    border-color: #b45309 !important;
-}
-
-body.dark .btn-sair-fila {
-    background: #991b1b !important;
-    border-color: #991b1b !important;
-}
-
-body.dark .btn-editar-fila {
-    background: #2a2113 !important;
-    color: #f59e0b !important;
-}
-
-body.dark .btn-remover-fila {
-    background: #2a1515 !important;
-    color: #ef4444 !important;
-}
-
-body.dark .meu-status-card,
-body.dark .meu-status-card.status-proximo {
-    background: #101010 !important;
-    border-color: #2a2a2a !important;
-}
-
-body.dark .fila-item.minha-inscricao {
-    background: #14110a !important;
-    border-color: #3f2f12 !important;
-    box-shadow: none !important;
-}
-
-body.dark .popup-overlay {
-    background: rgba(0,0,0,.78) !important;
-}
-
-body.dark .popup-header,
-body.dark .popup-footer {
-    border-color: #242424 !important;
-}
-
-
-
-/* =========================================================
-   AJUSTE USER: fila compacta + duplas sempre em 2 linhas
-   - Simples: dois nomes na mesma linha
-   - Duplas: dupla A na linha 1, dupla B na linha 2
-   - Cards menores no modo claro e no all black
-   ========================================================= */
-.fila-section {
-    padding: 14px 16px !important;
-}
-
-.fila-header {
-    margin-bottom: 10px !important;
-}
-
-.fila-item,
-.fila-item.minha-inscricao,
-body.dark .fila-item,
-body.dark .fila-item.minha-inscricao {
-    display: grid !important;
-    grid-template-columns: 42px minmax(0, 1fr) auto !important;
-    align-items: center !important;
-    column-gap: 10px !important;
-    row-gap: 4px !important;
-    padding: 10px 12px !important;
-    margin-bottom: 8px !important;
-    border-radius: 16px !important;
-    min-height: 0 !important;
-}
-
-.fila-posicao,
-.fila-item.minha-inscricao .fila-posicao {
-    min-width: 0 !important;
-    width: auto !important;
-    font-size: 1.18rem !important;
-    line-height: 1 !important;
-}
-
-.fila-info,
-.fila-item.minha-inscricao .fila-info {
-    min-width: 0 !important;
-    flex: initial !important;
-}
-
-.fila-nomes,
-.fila-item .fila-nomes,
-.fila-item.minha-inscricao .fila-nomes {
-    font-size: .98rem !important;
-    line-height: 1.14 !important;
-    font-weight: 850 !important;
-    gap: 1px !important;
-    margin: 0 0 4px 0 !important;
-    min-width: 0 !important;
-}
-
-.fila-item.tipo-simples .fila-nomes {
-    display: block !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.fila-item.tipo-simples .nome-jogador,
-.fila-item.tipo-simples .separador {
-    display: inline !important;
-    white-space: nowrap !important;
-    overflow-wrap: normal !important;
-}
-
-.fila-item.tipo-dupla .fila-nomes {
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-.fila-item.tipo-dupla .linha-dupla {
-    display: block !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    line-height: 1.14 !important;
-    min-width: 0 !important;
-}
-
-.fila-item.tipo-dupla .nome-jogador,
-.fila-item.tipo-dupla .separador {
-    display: inline !important;
-    white-space: nowrap !important;
-    overflow-wrap: normal !important;
-}
-
-.fila-detalhes,
-.fila-item .fila-detalhes,
-.fila-item.minha-inscricao .fila-detalhes {
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-    gap: 4px 8px !important;
-    font-size: .72rem !important;
-    line-height: 1.15 !important;
-    margin: 0 !important;
-}
-
-.fila-lateral,
-.fila-item.minha-inscricao .fila-lateral {
-    margin-left: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 6px !important;
-    min-width: 0 !important;
-}
-
-.fila-previsao,
-.fila-lateral .fila-previsao,
-.fila-item.minha-inscricao .fila-previsao {
-    margin-left: 0 !important;
-    padding: 7px 9px !important;
-    min-width: 68px !important;
-    border-radius: 14px !important;
-    text-align: center !important;
-}
-
-.fila-previsao .quadra-tag,
-.fila-item.minha-inscricao .fila-previsao .quadra-tag {
-    font-size: .68rem !important;
-    line-height: 1.05 !important;
-    font-weight: 900 !important;
-}
-
-.fila-previsao .hora,
-.fila-item.minha-inscricao .fila-previsao .hora {
-    font-size: .92rem !important;
-    line-height: 1.05 !important;
-    font-weight: 900 !important;
-}
-
-.fila-previsao .tempo-relativo {
-    margin-top: 1px !important;
-    font-size: .66rem !important;
-    line-height: 1.05 !important;
-}
-
-.fila-acoes-minha,
-.fila-item.minha-inscricao .fila-acoes-minha {
-    width: auto !important;
-    flex-basis: auto !important;
-    padding-top: 0 !important;
-    border-top: 0 !important;
-    gap: 5px !important;
-}
-
-.fila-item.minha-inscricao .fila-acoes-minha .btn-editar-fila,
-.fila-item.minha-inscricao .fila-acoes-minha .btn-remover-fila {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    border-radius: 10px !important;
-    font-size: .68rem !important;
-}
-
-@media (max-width: 430px) {
-    .fila-section {
-        padding: 13px 14px !important;
-    }
-
-    .fila-item,
-    .fila-item.minha-inscricao,
-    body.dark .fila-item,
-    body.dark .fila-item.minha-inscricao {
-        grid-template-columns: 36px minmax(0, 1fr) auto !important;
-        column-gap: 8px !important;
-        padding: 9px 10px !important;
-    }
-
-    .fila-posicao,
-    .fila-item.minha-inscricao .fila-posicao {
-        font-size: 1.06rem !important;
-    }
-
-    .fila-nomes,
-    .fila-item .fila-nomes,
-    .fila-item.minha-inscricao .fila-nomes {
-        font-size: .92rem !important;
-        line-height: 1.12 !important;
-    }
-
-    .fila-detalhes,
-    .fila-item .fila-detalhes,
-    .fila-item.minha-inscricao .fila-detalhes {
-        font-size: .66rem !important;
-        gap: 3px 6px !important;
-    }
-
-    .fila-previsao,
-    .fila-lateral .fila-previsao,
-    .fila-item.minha-inscricao .fila-previsao {
-        min-width: 60px !important;
-        padding: 6px 7px !important;
-    }
-
-    .fila-previsao .hora,
-    .fila-item.minha-inscricao .fila-previsao .hora {
-        font-size: .84rem !important;
-    }
-
-    .fila-previsao .tempo-relativo {
-        font-size: .61rem !important;
-    }
-}
-
-
-/* =========================================================
-   FILA USER IGUAL À DISPOSIÇÃO DO ADMIN
-   - Card vertical
-   - Badge no topo
-   - Nomes no meio
-   - Previsão/chegada/Q-L embaixo dos nomes
-   - Simples em 1 linha, duplas em 2 linhas
-   ========================================================= */
-.fila-section {
-    padding: 13px !important;
-}
-
-.fila-header {
-    margin-bottom: 12px !important;
-}
-
-.fila-item,
-.fila-item.minha-inscricao,
-body.dark .fila-item,
-body.dark .fila-item.minha-inscricao {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 6px !important;
-    padding: 10px 12px !important;
-    margin-bottom: 8px !important;
-    border-radius: 14px !important;
-    min-height: 0 !important;
-}
-
-.fila-topo-card {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 10px !important;
-    min-width: 0 !important;
-}
-
-.fila-topo-card .fila-posicao,
-.fila-item.minha-inscricao .fila-topo-card .fila-posicao {
-    width: auto !important;
-    min-width: 0 !important;
-    font-size: 1rem !important;
-    line-height: 1.1 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    color: var(--primary) !important;
-}
-
-.tipo-jogo-badge {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 3px 8px !important;
-    border-radius: 999px !important;
-    font-size: .62rem !important;
-    font-weight: 900 !important;
-    line-height: 1 !important;
-    text-transform: uppercase !important;
-    letter-spacing: .25px !important;
-    white-space: nowrap !important;
-}
-
-.tipo-jogo-badge.simples {
-    background: rgba(47,143,91,.12) !important;
-    color: #2f8f5b !important;
-}
-
-.tipo-jogo-badge.dupla {
-    background: rgba(124,58,237,.10) !important;
-    color: #6d28d9 !important;
-}
-
-body.dark .tipo-jogo-badge.simples {
-    background: #181818 !important;
-    color: #e5e5e5 !important;
-    border: 1px solid #2a2a2a !important;
-}
-
-body.dark .tipo-jogo-badge.dupla {
-    background: #181818 !important;
-    color: #e5e5e5 !important;
-    border: 1px solid #2a2a2a !important;
-}
-
-.fila-item .fila-nomes,
-.fila-item.minha-inscricao .fila-nomes {
-    color: var(--text) !important;
-    font-size: .92rem !important;
-    font-weight: 850 !important;
-    line-height: 1.18 !important;
-    margin: 0 !important;
-    min-width: 0 !important;
-}
-
-.fila-item.tipo-simples .fila-nomes {
-    display: block !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.fila-item.tipo-simples .nome-jogador,
-.fila-item.tipo-simples .separador {
-    display: inline !important;
-    white-space: nowrap !important;
-    overflow-wrap: normal !important;
-}
-
-.fila-item.tipo-dupla .fila-nomes {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1px !important;
-}
-
-.fila-item.tipo-dupla .linha-dupla {
-    display: block !important;
-    min-width: 0 !important;
-    line-height: 1.18 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-}
-
-.fila-item.tipo-dupla .nome-jogador,
-.fila-item.tipo-dupla .separador {
-    display: inline !important;
-    white-space: nowrap !important;
-    overflow-wrap: normal !important;
-}
-
-.fila-item .separador {
-    margin: 0 4px !important;
-    opacity: .7 !important;
-}
-
-.fila-meta-row.linha-unica {
-    display: flex !important;
-    align-items: center !important;
-    width: 100% !important;
-    min-width: 0 !important;
-}
-
-.fila-meta-row.linha-unica .fila-previsao,
-.fila-item.minha-inscricao .fila-meta-row.linha-unica .fila-previsao {
-    width: 100% !important;
-    margin-left: 0 !important;
-    padding: 5px 8px !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-    gap: 3px 6px !important;
-    text-align: left !important;
-    line-height: 1.15 !important;
-}
-
-.fila-meta-row.linha-unica .quadra-tag,
-.fila-meta-row.linha-unica .hora,
-.fila-meta-row.linha-unica .tempo-relativo,
-.fila-meta-row.linha-unica .fila-chegada,
-.fila-meta-row.linha-unica .fila-ql,
-.fila-meta-row.linha-unica .meta-separador {
-    display: inline !important;
-    font-size: .68rem !important;
-    line-height: 1.15 !important;
-    white-space: nowrap !important;
-}
-
-.fila-meta-row.linha-unica .quadra-tag,
-.fila-meta-row.linha-unica .hora {
-    font-weight: 900 !important;
-}
-
-.fila-meta-row.linha-unica .tempo-relativo {
-    margin-top: 0 !important;
-    font-weight: 800 !important;
-    color: var(--text-secondary) !important;
-}
-
-.fila-meta-row.linha-unica .fila-ql {
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    color: var(--text-secondary) !important;
-}
-
-.fila-meta-row.linha-unica .fila-chegada,
-.fila-meta-row.linha-unica .meta-separador {
-    color: var(--text-secondary) !important;
-}
-
-.fila-actions-user {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 6px !important;
-    margin-top: 2px !important;
-}
-
-.fila-actions-user .btn-editar-fila,
-.fila-actions-user .btn-remover-fila {
-    width: 100% !important;
-    min-height: 28px !important;
-    padding: 4px 0 !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-    font-size: .66rem !important;
-}
-
-body.dark .fila-previsao {
-    background: #090909 !important;
-    border-color: #2a2a2a !important;
-}
-
-@media (max-width: 430px) {
-    .fila-section {
-        padding: 12px !important;
-    }
-
-    .fila-item,
-    .fila-item.minha-inscricao,
-    body.dark .fila-item,
-    body.dark .fila-item.minha-inscricao {
-        padding: 9px 10px !important;
-        gap: 5px !important;
-    }
-
-    .fila-item .fila-nomes,
-    .fila-item.minha-inscricao .fila-nomes {
-        font-size: .88rem !important;
-        line-height: 1.16 !important;
-    }
-
-    .fila-meta-row.linha-unica .quadra-tag,
-    .fila-meta-row.linha-unica .hora,
-    .fila-meta-row.linha-unica .tempo-relativo,
-    .fila-meta-row.linha-unica .fila-chegada,
-    .fila-meta-row.linha-unica .fila-ql,
-    .fila-meta-row.linha-unica .meta-separador {
-        font-size: .64rem !important;
-    }
-}
-
-
-
-/* =========================================================
-   WHATSAPP OPCIONAL - USER
-   Controlado por config/whatsappAvisoAtivo no Firebase.
-   ========================================================= */
-.whatsapp-popup .popup-card {
-    max-width: 420px;
-}
-.whatsapp-popup .popup-content {
-    text-align: center;
-}
-.whatsapp-texto {
-    font-size: .95rem;
-    line-height: 1.35;
-    color: var(--text);
-    font-weight: 700;
-    margin-bottom: 14px;
-}
-.whatsapp-subtexto {
-    display: block;
-    margin-top: 6px;
-    font-size: .78rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-}
-.whatsapp-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-}
-.whatsapp-actions .btn {
-    padding: 12px 10px !important;
-    border-radius: 14px !important;
-}
-.btn-whatsapp-nao {
-    background: #e5e7eb !important;
-    color: #17231c !important;
-    border-color: #d1d5db !important;
-    box-shadow: none !important;
-}
-body.dark .btn-whatsapp-nao {
-    background: #1f1f1f !important;
-    color: #f5f5f5 !important;
-    border-color: #333333 !important;
-}
-.whatsapp-input-box {
-    display: none;
-    margin-top: 4px;
-    text-align: left;
-}
-.whatsapp-input-box label {
-    display: block;
-    font-size: .78rem;
-    font-weight: 800;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-}
-.whatsapp-input-box input {
-    margin-bottom: 6px;
-}
-.whatsapp-privacidade {
-    font-size: .68rem;
-    color: var(--text-secondary);
-    line-height: 1.25;
-    margin: 2px 0 10px;
-}
-.whatsapp-erro {
-    display: none;
-    color: var(--red);
-    font-size: .72rem;
-    font-weight: 700;
-    margin: 2px 0 10px;
-}
-
-
-/* ===== MODAL CUSTOMIZADO USER: substitui confirm/alert nativo do navegador ===== */
-.confirm-user-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-    background: rgba(194,65,75,.10);
-    color: var(--red);
-    border: 1px solid rgba(194,65,75,.22);
-}
-.confirm-user-texto {
-    color: var(--text-secondary);
-    font-size: .86rem;
-    line-height: 1.35;
-    text-align: center;
-    margin: 0 0 14px;
-}
-.confirm-user-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-.confirm-user-actions .btn {
-    padding: 12px 10px !important;
-    border-radius: 14px !important;
-}
-.btn-confirm-cancelar {
-    background: #e5e7eb !important;
-    color: #17231c !important;
-    border-color: #d1d5db !important;
-    box-shadow: none !important;
-}
-.btn-confirm-danger {
-    background: linear-gradient(135deg, #b83a44, #c8505a) !important;
-    color: #ffffff !important;
-}
-body.dark .btn-confirm-cancelar {
-    background: #1f1f1f !important;
-    color: #f5f5f5 !important;
-    border-color: #333333 !important;
-}
-body.dark .btn-confirm-danger {
-    background: #991b1b !important;
-    border-color: #991b1b !important;
-}
-
-/* ===== melhorias: inscrição online, privacidade Q/L e previsão ===== */
-.inscricoes-fechadas-card {
-    text-align: center;
-    padding: 18px 16px !important;
-}
-.inscricoes-fechadas-title {
-    font-size: .92rem;
-    font-weight: 900;
-    color: var(--text);
-    margin-bottom: 6px;
-}
-.inscricoes-fechadas-text {
-    font-size: .78rem;
-    color: var(--text-secondary);
-    line-height: 1.35;
-}
-.previsao-incerta {
-    font-size: .68rem !important;
-    font-weight: 900 !important;
-    color: var(--warning) !important;
-    line-height: 1.15 !important;
-}
-
-
-
-/* ===== TERMOS DE USO E AVISO DE PRIVACIDADE ===== */
-.privacidade-resumo {
-    margin-top: 14px;
-    padding: 12px 13px;
-    border-radius: 14px;
-    background: rgba(47,143,91,.08);
-    border: 1px solid rgba(47,143,91,.20);
-}
-.privacidade-resumo p {
-    margin: 5px 0;
-    font-size: .76rem;
-    line-height: 1.42;
-    color: var(--text);
-}
-.privacidade-resumo strong { color: var(--primary); }
-.termos-link {
-    border: none;
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    color: var(--primary);
-    font: inherit;
-    font-weight: 900;
-    text-decoration: underline;
-    cursor: pointer;
-}
-.checkbox-wrapper.termos-checkbox {
-    align-items: flex-start;
-    text-align: left;
-}
-.checkbox-wrapper.termos-checkbox label {
-    line-height: 1.32;
-}
-.termos-completos-texto {
-    font-size: .8rem;
-    line-height: 1.5;
-    color: var(--text);
-}
-.termos-completos-texto h3 {
-    font-size: .86rem;
-    font-weight: 900;
-    color: var(--primary);
-    margin: 13px 0 5px;
-}
-.termos-completos-texto p,
-.termos-completos-texto li {
-    margin: 4px 0;
-}
-.termos-completos-texto ul {
-    padding-left: 18px;
-    margin: 4px 0 8px;
-}
-.footer-termos {
-    margin-left: 6px;
-    font-size: .7rem;
-    text-transform: uppercase;
-}
-body.dark .privacidade-resumo {
-    background: rgba(255,255,255,.04);
-    border-color: #2a2a2a;
-}
-
-</style>
+    <link rel="stylesheet" href="style.css?v=2.0">
 </head>
 <body>
 <script>
@@ -2407,6 +197,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             <span class="fila-count" id="fila-count">0</span>
         </div>
         <div id="corpoFila"></div>
+        <div class="fila-scroll-shadow" id="filaScrollShadow" aria-hidden="true"></div>
     </div>
 
     <div class="form-card inscricoes-fechadas-card" id="inscricoesFechadasCard" style="display:none;">
@@ -2586,6 +377,10 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         5: { ativa: false, nome: 'Quadra 5' }
     };
     let inscricaoPendenteWhatsapp = null;
+    let filaRenderInicializada = false;
+    let ultimaMinhaPosicao = null;
+    let ultimoPrimeiroFilaId = null;
+    let snackbarTimer = null;
 
     setTimeout(() => {
         tempoMinimoShimmer = false;
@@ -2716,14 +511,171 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         return pares.sort().join('||');
     }
     
-    function mostrarToast(mensagem, cor = '#f59e0b') {
-        const t = document.createElement('div');
-        t.innerHTML = mensagem;
-        t.style.cssText = `position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${cor};color:#fff;padding:14px 20px;border-radius:24px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:toastFadeIn 0.3s ease-out;font-family:Inter,sans-serif;font-size:.9rem;text-align:center;line-height:1.4;max-width:90%;`;
-        document.body.appendChild(t);
-        setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 4000);
+    function mostrarToast(mensagem, tipo = 'info') {
+        const tipoNormalizado = normalizarTipoSnackbar(tipo);
+        let snackbar = document.getElementById('snackbarUser');
+
+        if (!snackbar) {
+            snackbar = document.createElement('div');
+            snackbar.id = 'snackbarUser';
+            snackbar.className = 'snackbar-user';
+            snackbar.innerHTML = `<span class="snackbar-icon">i</span><span class="snackbar-text"></span>`;
+            document.body.appendChild(snackbar);
+        }
+
+        const icon = snackbar.querySelector('.snackbar-icon');
+        const text = snackbar.querySelector('.snackbar-text');
+
+        snackbar.className = `snackbar-user ${tipoNormalizado}`;
+        if (icon) icon.textContent = iconeSnackbar(tipoNormalizado);
+        if (text) text.innerHTML = mensagem;
+
+        snackbar.classList.add('show');
+        clearTimeout(snackbarTimer);
+        snackbarTimer = setTimeout(() => snackbar.classList.remove('show'), 3600);
     }
-    
+
+    function normalizarTipoSnackbar(valor) {
+        const v = String(valor || '').toLowerCase();
+        if (v.includes('ef4444') || v.includes('dc2626') || v.includes('red') || v.includes('erro')) return 'error';
+        if (v.includes('f59e0b') || v.includes('d97706') || v.includes('warn') || v.includes('aten')) return 'warning';
+        if (v.includes('10b981') || v.includes('16a34a') || v.includes('22c55e') || v.includes('success') || v.includes('sucesso')) return 'success';
+        if (['success', 'error', 'warning', 'info'].includes(v)) return v;
+        return 'info';
+    }
+
+    function iconeSnackbar(tipo) {
+        if (tipo === 'success') return '✓';
+        if (tipo === 'error') return '!';
+        if (tipo === 'warning') return '⚠';
+        return 'i';
+    }
+
+    function porcentagemProgressoQuadra(q) {
+        if (!q || !q.ocupada) return 0;
+        const duracaoTotal = Math.max(1, Number(q.jogo?.duracao || q.duracao || 45) * 60);
+        const restante = Math.max(0, Math.min(duracaoTotal, Number(q.tempoRestante || duracaoTotal)));
+        return Math.round((restante / duracaoTotal) * 100);
+    }
+
+    function classeProgressoQuadra(q) {
+        if (!q || !q.ocupada) return '';
+        const restante = Number(q.tempoRestante || 0);
+        if (restante <= 0) return 'fim';
+        if (restante <= 300) return 'baixo';
+        return '';
+    }
+
+    function idFilaRender(jogo, idx) {
+        return String(jogo?.id || jogo?.chegada || `idx-${idx}`);
+    }
+
+    function capturarPosicoesFila(corpo) {
+        const mapa = new Map();
+        if (!corpo) return mapa;
+        corpo.querySelectorAll('.fila-item[data-fila-id]').forEach(el => {
+            mapa.set(el.dataset.filaId, el.getBoundingClientRect());
+        });
+        return mapa;
+    }
+
+    function prepararCloneDispatch(corpo, idsAtuais) {
+        if (!corpo || !filaRenderInicializada) return null;
+        const primeiroAntes = corpo.querySelector('.fila-item[data-fila-id]');
+        if (!primeiroAntes) return null;
+
+        const idAntes = primeiroAntes.dataset.filaId;
+        if (!idAntes || idsAtuais.has(idAntes)) return null;
+
+        const rect = primeiroAntes.getBoundingClientRect();
+        const clone = primeiroAntes.cloneNode(true);
+        clone.classList.add('fila-dispatch-clone');
+        clone.style.left = `${rect.left}px`;
+        clone.style.top = `${rect.top}px`;
+        clone.style.width = `${rect.width}px`;
+        clone.style.height = `${rect.height}px`;
+        document.body.appendChild(clone);
+        setTimeout(() => clone.remove(), 700);
+        return clone;
+    }
+
+    function animarReordenacaoFila(corpo, posicoesAntes) {
+        if (!corpo || !posicoesAntes || !posicoesAntes.size) return;
+
+        corpo.querySelectorAll('.fila-item[data-fila-id]').forEach(el => {
+            const anterior = posicoesAntes.get(el.dataset.filaId);
+            if (!anterior) return;
+
+            const atual = el.getBoundingClientRect();
+            const dx = anterior.left - atual.left;
+            const dy = anterior.top - atual.top;
+
+            if (!dx && !dy) return;
+
+            el.style.transition = 'none';
+            el.style.transform = `translate(${dx}px, ${dy}px)`;
+
+            requestAnimationFrame(() => {
+                el.style.transition = '';
+                el.style.transform = '';
+            });
+        });
+    }
+
+    function atualizarScrollShadow() {
+        const corpo = document.getElementById('corpoFila');
+        const shadow = document.getElementById('filaScrollShadow');
+        if (!corpo || !shadow) return;
+
+        const temScroll = corpo.scrollHeight > corpo.clientHeight + 8;
+        const chegouFim = corpo.scrollTop + corpo.clientHeight >= corpo.scrollHeight - 8;
+        shadow.classList.toggle('show', temScroll && !chegouFim);
+    }
+
+    function notificarMudancaDaMinhaPosicao(novaPosicao, meuItem) {
+        if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) return;
+
+        if (!filaRenderInicializada) {
+            ultimaMinhaPosicao = novaPosicao;
+            ultimoPrimeiroFilaId = fila[0]?.id || null;
+            filaRenderInicializada = true;
+            return;
+        }
+
+        const posicaoAnterior = ultimaMinhaPosicao;
+        ultimaMinhaPosicao = novaPosicao;
+
+        if (novaPosicao === -1 || !meuItem) return;
+
+        if (posicaoAnterior !== null && posicaoAnterior !== -1 && novaPosicao < posicaoAnterior) {
+            if (novaPosicao === 0) {
+                mostrarToast('🎾 A fila andou. Você agora é o próximo da fila.', 'success');
+            } else {
+                mostrarToast(`A fila andou. Você agora é o ${novaPosicao + 1}º da fila.`, 'info');
+            }
+        }
+    }
+
+    function aplicarRipple(event) {
+        const alvo = event.target.closest('.btn, .btn-aceitar, .btn-editar-fila, .btn-remover-fila, .theme-fab');
+        if (!alvo || alvo.disabled) return;
+
+        const rect = alvo.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-effect';
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        alvo.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 560);
+    }
+
+    document.addEventListener('pointerdown', aplicarRipple, { passive: true });
+    document.addEventListener('DOMContentLoaded', () => {
+        const corpo = document.getElementById('corpoFila');
+        if (corpo) corpo.addEventListener('scroll', atualizarScrollShadow, { passive: true });
+        atualizarScrollShadow();
+    });
+
     function renderQuadras() {
         const c = document.getElementById('q-render');
         if (!c) return;
@@ -2739,6 +691,14 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
         const quadrasVisiveis = getQuadrasAtivas();
         c.innerHTML = quadrasVisiveis.map(q => {
+            const progresso = porcentagemProgressoQuadra(q);
+            const classeProgresso = classeProgressoQuadra(q);
+            const progressoHtml = q.ocupada ? `
+                <div class="quadra-progress" aria-hidden="true">
+                    <div class="quadra-progress-fill ${classeProgresso}" style="width:${progresso}%"></div>
+                </div>
+            ` : '';
+
             return `<div class="quadra-card ${q.ocupada ? 'ocupada' : ''}">
                         <div class="quadra-status"><span class="material-icons-outlined">${q.ocupada ? 'sports_tennis' : 'check_circle'}</span></div>
                         <div class="quadra-info">
@@ -2747,10 +707,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                             <div class="quadra-tempo"><span class="material-icons-outlined" style="font-size:14px">schedule</span>${q.ocupada && q.rodando ? `Término ${q.hSaida || '--:--'}` : q.ocupada ? 'Aguardando' : 'Livre para jogar'}</div>
                         </div>
                         <div class="quadra-timer ${q.tempoRestante < 60 && q.ocupada && !q.pausada ? 'warning' : ''}">${q.ocupada ? formatarTimer(q.tempoRestante || 0) : '00:00'}</div>
+                        ${progressoHtml}
                     </div>`;
         }).join('');
     }
-    
+
     function atualizarMeuStatus(minhaPosicao, meuItem) {
         const status = document.getElementById('meuStatus');
         if (!status) return;
@@ -2766,12 +727,14 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         status.style.display = 'block';
 
         if (minhaPosicao === 0) {
-            status.classList.add('status-proximo');
-            status.innerHTML = `🎾 Você está em #1 na fila<span class="status-sub">Aguarde ser chamado quando uma quadra liberar.</span>`;
-        } else {
-            status.style.display = 'none';
-            status.innerHTML = '';
+            status.classList.add('status-agora');
+            status.innerHTML = `🎾 Você é o próximo da fila<span class="status-sub">Fique por perto. Quando uma quadra liberar, a administração pode chamar sua inscrição.</span>`;
+            return;
         }
+
+        const faltam = minhaPosicao;
+        status.classList.add('status-proximo');
+        status.innerHTML = `Você está em #${minhaPosicao + 1} na fila<span class="status-sub">Faltam ${faltam} ${faltam === 1 ? 'inscrição' : 'inscrições'} antes de você.</span>`;
     }
 
     function renderFila() {
@@ -2779,76 +742,101 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         const corpo = document.getElementById('corpoFila');
         if (!countEl || !corpo) return;
 
+        const posicoesAntes = capturarPosicoesFila(corpo);
+        const idsAtuais = new Set((fila || []).map((j, idx) => idFilaRender(j, idx)));
+        prepararCloneDispatch(corpo, idsAtuais);
+
         countEl.innerText = fila.length;
-        corpo.innerHTML = "";
 
         if (carregandoFila || carregandoQuadras || tempoMinimoShimmer) {
             atualizarMeuStatus(-1, null);
             corpo.innerHTML = `
-                <div class="fila-item shimmer" style="height:58px"></div>
-                <div class="fila-item shimmer" style="height:58px"></div>
-                <div class="fila-item shimmer" style="height:58px"></div>
+                <div class="fila-item shimmer" style="height:68px"></div>
+                <div class="fila-item shimmer" style="height:68px"></div>
+                <div class="fila-item shimmer" style="height:68px"></div>
             `;
+            atualizarScrollShadow();
             return;
         }
 
         const minhaPosicao = fila.findIndex(j => meuUid && j.deviceId === meuUid);
-        atualizarMeuStatus(minhaPosicao, minhaPosicao >= 0 ? fila[minhaPosicao] : null);
+        const meuItem = minhaPosicao >= 0 ? fila[minhaPosicao] : null;
+        atualizarMeuStatus(minhaPosicao, meuItem);
+        notificarMudancaDaMinhaPosicao(minhaPosicao, meuItem);
 
         if (fila.length === 0) {
-            corpo.innerHTML = "<div class='vazio-state'>✨ Nenhum jogo na fila. Seja o primeiro!</div>";
+            corpo.innerHTML = `
+                <div class="empty-queue-card vazio-state">
+                    <div class="empty-queue-ball">🎾</div>
+                    <div class="empty-queue-title">A fila está vazia</div>
+                    <div class="empty-queue-subtitle">A quadra está livre. Que tal ser o primeiro a entrar na fila hoje?</div>
+                </div>
+            `;
+            atualizarScrollShadow();
             return;
         }
-        
+
         let ts = getQuadrasAtivas().map(q => getTempoQuadraParaPrevisao(q));
         let agora = Date.now();
-        
-        fila.forEach((j, idx) => {
+
+        const htmlFila = fila.map((j, idx) => {
             const ehMinha = meuUid && j.deviceId === meuUid;
             const topClass = idx === 0 ? 'fila-top1' : idx === 1 ? 'fila-top2' : '';
             const totalJogadores = (j.jogadores || []).filter(Boolean).length || ((j.nomes || '').split('•').map(n => n.trim()).filter(Boolean).length);
             const tipoLinhaClass = totalJogadores <= 2 ? 'tipo-simples' : 'tipo-dupla';
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
             const qlHTML = ehMinha ? formatarQLFila(j) : '';
-            
+            const filaId = idFilaRender(j, idx);
+
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
             const esperaSeg = qE.tempoSeg || 0;
             let dp = new Date(agora + (esperaSeg * 1000));
             qE.tempoSeg += (j.duracao || 45) * 60;
-            
-            const tipoTexto = tipoLinhaClass === 'tipo-dupla' ? 'Duplas' : 'Simples';
+
+            const tipoTexto = tipoLinhaClass === 'tipo-dupla' ? '👥 Duplas' : '👤 Simples';
             const chegada = j.chegada ? formatarChegada(j.chegada) : '--:--';
             const avisoPrevisao = qE.incerta ? `<span class="meta-separador">·</span><span class="previsao-incerta">⚠️ sujeita a alteração</span>` : '';
             const previsaoHtml = `<span class="quadra-tag">Q${qE.id}</span><span class="hora">${formatarHora(dp)}</span><span class="meta-separador">·</span><span class="tempo-relativo">${formatarTempoRelativo(esperaSeg)}</span>${avisoPrevisao}`;
 
-            corpo.innerHTML += `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}">
-                                    <div class="fila-topo-card">
-                                        <span class="fila-posicao">#${idx+1}</span>
-                                        <span class="tipo-jogo-badge ${tipoLinhaClass === 'tipo-dupla' ? 'dupla' : 'simples'}">${tipoTexto}</span>
-                                    </div>
+            return `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}" data-fila-id="${filaId}">
+                        <div class="fila-topo-card">
+                            <span class="fila-posicao"><span class="posicao-numero">#${idx+1}</span></span>
+                            <span class="fila-badges">
+                                ${idx === 0 ? '<span class="proximo-badge">Próximo</span>' : ''}
+                                ${ehMinha ? '<span class="proximo-badge">Você</span>' : ''}
+                                <span class="tipo-jogo-badge ${tipoLinhaClass === 'tipo-dupla' ? 'dupla' : 'simples'}">${tipoTexto}</span>
+                            </span>
+                        </div>
 
-                                    <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
+                        <div class="fila-nomes">${nomesHTML || 'N/A'}</div>
 
-                                    <div class="fila-meta-row linha-unica">
-                                        <div class="fila-previsao">
-                                            ${previsaoHtml}
-                                            <span class="meta-separador">·</span>
-                                            <span class="fila-chegada">🕐 ${chegada}</span>
-                                            ${ehMinha ? `<span class="meta-separador">·</span><span class="fila-ql">🎫 ${qlHTML}</span>` : ''}
-                                        </div>
-                                    </div>
+                        <div class="fila-meta-row linha-unica">
+                            <div class="fila-previsao">
+                                ${previsaoHtml}
+                                <span class="meta-separador">·</span>
+                                <span class="fila-chegada">🕐 ${chegada}</span>
+                                ${ehMinha ? `<span class="meta-separador">·</span><span class="fila-ql">🎫 ${qlHTML}</span>` : ''}
+                            </div>
+                        </div>
 
-                                    ${ehMinha ? `
-                                    <div class="fila-actions-user">
-                                        <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})" title="Editar" aria-label="Editar">✏️ Editar</button>
-                                        <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})" title="Remover" aria-label="Remover">✕ Remover</button>
-                                    </div>
-                                    ` : ''}
-                                </div>`;
+                        ${ehMinha ? `
+                        <div class="fila-actions-user">
+                            <button class="btn-editar-fila" onclick="editarMeuItem(${j.id})" title="Editar" aria-label="Editar">✏️ Editar</button>
+                            <button class="btn-remover-fila" onclick="removerMinhaInscricao(${j.id})" title="Remover" aria-label="Remover">✕ Remover</button>
+                        </div>
+                        ` : ''}
+                    </div>`;
+        }).join('');
+
+        corpo.innerHTML = htmlFila;
+
+        requestAnimationFrame(() => {
+            animarReordenacaoFila(corpo, posicoesAntes);
+            atualizarScrollShadow();
         });
     }
-    
+
 
     function abrirPopupWhatsapp(dadosInscricao) {
         inscricaoPendenteWhatsapp = dadosInscricao;
