@@ -3416,3 +3416,451 @@ body.dark .btn-aceitar {
     from { opacity: .25; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================================
+   TEMA OFICIAL - PREMIUM CLUB v1
+   Base neutra sofisticada + verde institucional discreto.
+   Aplicado por último para eliminar conflitos de paleta.
+   ========================================================= */
+:root {
+    --bg: #F5F4EF !important;
+    --card-bg: #FFFFFF !important;
+    --surface: #FFFFFF !important;
+    --surface-soft: #F0EFE8 !important;
+    --card-border: #DEDCD2 !important;
+    --border: #DEDCD2 !important;
+    --text: #1E211D !important;
+    --text-secondary: #73776F !important;
+    --primary: #1F6F43 !important;
+    --green: #1F6F43 !important;
+    --primary-soft: #E5F1E9 !important;
+    --primary-border: #BFD8C8 !important;
+    --red: #B94A48 !important;
+    --danger: #B94A48 !important;
+    --danger-soft: #F5E4E3 !important;
+    --warning: #B9852B !important;
+    --warning-soft: #F4EAD8 !important;
+    --pause: #5F665D !important;
+    --shadow: 0 8px 22px rgba(30,33,29,.075) !important;
+    --shadow-lg: 0 16px 36px rgba(30,33,29,.115) !important;
+}
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(31,111,67,.075), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(185,133,43,.055), transparent 36%),
+        linear-gradient(135deg, #FBFAF6 0%, #F5F4EF 52%, #ECEAE1 100%) !important;
+    color: var(--text) !important;
+}
+
+body.dark {
+    --bg: #080907 !important;
+    --card-bg: #121411 !important;
+    --surface: #121411 !important;
+    --surface-soft: #1A1D18 !important;
+    --card-border: #2A2E28 !important;
+    --border: #2A2E28 !important;
+    --text: #F3F4EF !important;
+    --text-secondary: #A6AAA0 !important;
+    --primary: #7CC896 !important;
+    --green: #7CC896 !important;
+    --primary-soft: #17251B !important;
+    --primary-border: #2E5A3B !important;
+    --red: #E16B67 !important;
+    --danger: #E16B67 !important;
+    --danger-soft: #301A19 !important;
+    --warning: #D6A24A !important;
+    --warning-soft: #2D2415 !important;
+    --pause: #A6AAA0 !important;
+    --shadow: 0 10px 28px rgba(0,0,0,.46) !important;
+    --shadow-lg: 0 18px 42px rgba(0,0,0,.58) !important;
+    background:
+        radial-gradient(circle at top right, rgba(124,200,150,.08), transparent 30%),
+        linear-gradient(135deg, #080907 0%, #0E100D 58%, #050605 100%) !important;
+    color: var(--text) !important;
+}
+
+.app-title,
+body.dark .app-title {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: var(--text) !important;
+    color: var(--text) !important;
+}
+.app-subtitle,
+.quadra-numero,
+.quadra-tempo,
+.fila-detalhes,
+.fila-chegada,
+.fila-ql,
+.tempo-relativo,
+.blue-meta,
+.admin-config-sub,
+.app-footer {
+    color: var(--text-secondary) !important;
+}
+
+.quadra-card,
+.blue-panel,
+.form-card,
+.fila-section,
+#lista-historico,
+.btn-historico,
+.modal,
+.popup-card,
+.admin-modal-card,
+.whatsapp-modal-card,
+.admin-menu-drawer,
+.admin-config-card,
+.admin-user-card,
+.theme-fab,
+.admin-menu-fab,
+.layout-loading-card,
+.meu-status-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow) !important;
+    color: var(--text) !important;
+}
+
+body.dark .quadra-card,
+body.dark .blue-panel,
+body.dark .form-card,
+body.dark .fila-section,
+body.dark #lista-historico,
+body.dark .btn-historico,
+body.dark .modal,
+body.dark .popup-card,
+body.dark .admin-modal-card,
+body.dark .whatsapp-modal-card,
+body.dark .admin-menu-drawer,
+body.dark .admin-config-card,
+body.dark .admin-user-card,
+body.dark .theme-fab,
+body.dark .admin-menu-fab,
+body.dark .layout-loading-card,
+body.dark .meu-status-card {
+    background: var(--card-bg) !important;
+    border-color: var(--card-border) !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.quadra-card::before,
+.blue-panel::before {
+    background: var(--primary) !important;
+    box-shadow: none !important;
+}
+.quadra-card.ocupada::before,
+.blue-panel.ocupada::before,
+.blue-panel.is-finished::before {
+    background: var(--danger) !important;
+    box-shadow: none !important;
+}
+
+.quadra-status,
+.quadra-status-icon,
+.blue-badge,
+.blue-badge.free,
+.fila-count,
+.tipo-jogo-badge,
+.fila-tipo-badge,
+.admin-login-icon,
+.app-logo {
+    background: var(--primary-soft) !important;
+    border: 1px solid var(--primary-border) !important;
+    color: var(--primary) !important;
+    box-shadow: none !important;
+}
+body.dark .quadra-status,
+body.dark .quadra-status-icon,
+body.dark .blue-badge,
+body.dark .blue-badge.free,
+body.dark .fila-count,
+body.dark .tipo-jogo-badge,
+body.dark .fila-tipo-badge,
+body.dark .admin-login-icon,
+body.dark .app-logo {
+    background: var(--primary-soft) !important;
+    border-color: var(--primary-border) !important;
+    color: var(--primary) !important;
+    box-shadow: none !important;
+}
+
+.quadra-card.ocupada .quadra-status,
+.quadra-card.ocupada .quadra-status-icon,
+.blue-panel.ocupada .blue-badge,
+.blue-panel.is-finished .blue-badge {
+    background: var(--danger-soft) !important;
+    border-color: rgba(185,74,72,.28) !important;
+    color: var(--danger) !important;
+}
+body.dark .quadra-card.ocupada .quadra-status,
+body.dark .quadra-card.ocupada .quadra-status-icon,
+body.dark .blue-panel.ocupada .blue-badge,
+body.dark .blue-panel.is-finished .blue-badge {
+    background: var(--danger-soft) !important;
+    border-color: rgba(225,107,103,.36) !important;
+    color: var(--danger) !important;
+}
+
+.fila-item,
+body.dark .fila-item {
+    background: color-mix(in srgb, var(--card-bg) 88%, var(--primary-soft) 12%) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: none !important;
+    color: var(--text) !important;
+}
+.fila-item.fila-top1,
+body.dark .fila-item.fila-top1 {
+    background: color-mix(in srgb, var(--card-bg) 78%, var(--primary-soft) 22%) !important;
+    border-color: var(--primary-border) !important;
+    border-left: 5px solid var(--primary) !important;
+    box-shadow: 0 10px 24px rgba(31,111,67,.085) !important;
+}
+body.dark .fila-item.fila-top1 {
+    box-shadow: 0 10px 26px rgba(0,0,0,.42) !important;
+}
+.fila-item.fila-top2,
+body.dark .fila-item.fila-top2,
+.fila-item.minha-inscricao,
+body.dark .fila-item.minha-inscricao {
+    background: color-mix(in srgb, var(--card-bg) 84%, var(--warning-soft) 16%) !important;
+    border-color: color-mix(in srgb, var(--card-border) 55%, var(--warning) 45%) !important;
+    border-left: 5px solid var(--warning) !important;
+}
+
+.fila-posicao,
+.fila-previsao .quadra-tag,
+.theme-fab,
+.admin-menu-fab,
+.regulamento-texto h3,
+.admin-config-title,
+.form-title,
+.fila-title,
+.blue-title,
+.blue-players,
+.quadra-jogadores,
+.fila-nomes {
+    color: var(--text) !important;
+}
+
+.quadra-timer,
+.blue-time,
+.fila-previsao,
+body.dark .quadra-timer,
+body.dark .blue-time,
+body.dark .fila-previsao {
+    background: var(--surface-soft) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+}
+.quadra-timer.warning,
+.blue-panel.is-ending .blue-time,
+body.dark .quadra-timer.warning,
+body.dark .blue-panel.is-ending .blue-time {
+    background: var(--warning-soft) !important;
+    border-color: color-mix(in srgb, var(--card-border) 40%, var(--warning) 60%) !important;
+    color: var(--warning) !important;
+}
+
+.quadra-progress-track,
+.progress-track,
+.tempo-progress-track {
+    background: color-mix(in srgb, var(--card-border) 76%, transparent) !important;
+}
+.quadra-progress-fill,
+.progress-fill,
+.tempo-progress-fill {
+    background: linear-gradient(90deg, var(--primary), color-mix(in srgb, var(--primary) 68%, #ffffff 32%)) !important;
+}
+.quadra-progress-fill.warning,
+.progress-fill.warning,
+.tempo-progress-fill.warning {
+    background: var(--warning) !important;
+}
+.quadra-progress-fill.danger,
+.progress-fill.danger,
+.tempo-progress-fill.danger {
+    background: var(--danger) !important;
+}
+
+input,
+select,
+textarea,
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background: var(--surface-soft) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+}
+input::placeholder,
+textarea::placeholder,
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: var(--text-secondary) !important;
+}
+input:focus,
+select:focus,
+textarea:focus,
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent) !important;
+}
+
+.btn,
+.btn-primary,
+.btn-inscrever,
+.btn-call,
+.btn-chamar,
+.blue-free-btn,
+.btn-aceitar.active,
+.admin-login-confirm,
+.whatsapp-modal-confirm,
+.admin-modal-confirm,
+body.dark .btn,
+body.dark .btn-primary,
+body.dark .btn-inscrever,
+body.dark .btn-call,
+body.dark .btn-chamar,
+body.dark .blue-free-btn,
+body.dark .btn-aceitar.active,
+body.dark .admin-login-confirm,
+body.dark .whatsapp-modal-confirm,
+body.dark .admin-modal-confirm {
+    background: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 18px rgba(31,111,67,.14) !important;
+}
+body.dark .btn,
+body.dark .btn-primary,
+body.dark .btn-inscrever,
+body.dark .btn-call,
+body.dark .btn-chamar,
+body.dark .blue-free-btn,
+body.dark .btn-aceitar.active,
+body.dark .admin-login-confirm,
+body.dark .whatsapp-modal-confirm,
+body.dark .admin-modal-confirm {
+    color: #071008 !important;
+    box-shadow: none !important;
+}
+
+.btn-secondary,
+.btn-pause,
+.btn-outline,
+.btn-config-toggle,
+.whatsapp-modal-cancel,
+.admin-modal-cancel,
+body.dark .btn-secondary,
+body.dark .btn-pause,
+body.dark .btn-outline,
+body.dark .btn-config-toggle,
+body.dark .whatsapp-modal-cancel,
+body.dark .admin-modal-cancel {
+    background: var(--surface-soft) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--text) !important;
+    box-shadow: none !important;
+}
+
+.btn-warning,
+.btn-edit,
+.btn-editar,
+.btn-editar-fila,
+body.dark .btn-warning,
+body.dark .btn-edit,
+body.dark .btn-editar,
+body.dark .btn-editar-fila {
+    background: var(--warning-soft) !important;
+    border: 1px solid color-mix(in srgb, var(--warning) 38%, var(--card-border) 62%) !important;
+    color: var(--warning) !important;
+    box-shadow: none !important;
+}
+
+.btn-danger,
+.btn-remover,
+.btn-remover-fila,
+.btn-sair-fila,
+.admin-modal-danger,
+body.dark .btn-danger,
+body.dark .btn-remover,
+body.dark .btn-remover-fila,
+body.dark .btn-sair-fila,
+body.dark .admin-modal-danger {
+    background: var(--danger-soft) !important;
+    border: 1px solid color-mix(in srgb, var(--danger) 40%, var(--card-border) 60%) !important;
+    color: var(--danger) !important;
+    box-shadow: none !important;
+}
+
+.btn-whatsapp,
+.fila-item.fila-top1 .btn-whatsapp,
+body.dark .btn-whatsapp,
+body.dark .fila-item.fila-top1 .btn-whatsapp {
+    background: #1F8F53 !important;
+    border: 1px solid #1F8F53 !important;
+    color: #FFFFFF !important;
+    box-shadow: none !important;
+}
+body.dark .btn-whatsapp,
+body.dark .fila-item.fila-top1 .btn-whatsapp {
+    background: #2FBD6C !important;
+    border-color: #2FBD6C !important;
+    color: #071008 !important;
+}
+
+.tipo-jogo-badge.simples,
+.tipo-jogo-badge.dupla,
+.fila-tipo-badge.simples,
+.fila-tipo-badge.dupla,
+body.dark .tipo-jogo-badge.simples,
+body.dark .tipo-jogo-badge.dupla,
+body.dark .fila-tipo-badge.simples,
+body.dark .fila-tipo-badge.dupla {
+    background: var(--surface-soft) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--primary) !important;
+}
+
+.snackbar,
+#snackbar,
+.app-snackbar,
+body.dark .snackbar,
+body.dark #snackbar,
+body.dark .app-snackbar {
+    background: color-mix(in srgb, var(--text) 92%, var(--primary) 8%) !important;
+    color: var(--card-bg) !important;
+    border: 1px solid color-mix(in srgb, var(--text) 20%, transparent) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.admin-badge {
+    background: var(--danger) !important;
+    color: #fff !important;
+    box-shadow: none !important;
+}
+
+/* Elementos decorativos não podem bloquear toque/scroll. */
+.fila-item::before,
+.fila-item::after,
+.quadra-card::after,
+.blue-panel::after,
+.scroll-shadow,
+.fila-scroll-shadow,
+.ripple-effect,
+.btn-ripple,
+.card-glow {
+    pointer-events: none !important;
+}
+#corpoFila,
+.fila-section,
+.fila-item {
+    touch-action: pan-y !important;
+}
