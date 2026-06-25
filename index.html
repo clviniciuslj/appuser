@@ -381,6 +381,10 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
     let ultimaMinhaPosicao = null;
     let ultimoPrimeiroFilaId = null;
     let snackbarTimer = null;
+    let filaLayoutInicializado = false;
+    let ultimaAssinaturaFilaLayout = '';
+    let ultimaPosicaoPorFilaId = new Map();
+    let ultimaAssinaturaQuadrasParaFila = '';
 
     setTimeout(() => {
         tempoMinimoShimmer = false;
@@ -445,6 +449,16 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             incerta: true,
             motivo: 'aguardando início'
         };
+    }
+
+    function assinaturaQuadrasParaFila() {
+        return getQuadrasAtivas().map(q => {
+            const estado = q?.ocupada ? 'ocupada' : 'livre';
+            const rodando = q?.rodando ? 'rodando' : 'parada';
+            const pausada = q?.pausada ? 'pausada' : 'ativa';
+            const duracao = q?.jogo?.duracao || q?.duracao || 45;
+            return `${q?.id || '-'}:${estado}:${rodando}:${pausada}:${duracao}`;
+        }).join('|');
     }
 
     function atualizarControleInscricoesOnline() {
@@ -568,6 +582,10 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
     function idFilaRender(jogo, idx) {
         return String(jogo?.id || jogo?.chegada || `idx-${idx}`);
+    }
+
+    function assinaturaFilaLayout() {
+        return (fila || []).map((j, idx) => idFilaRender(j, idx)).join('|');
     }
 
     function capturarPosicoesFila(corpo) {
@@ -742,9 +760,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
         const corpo = document.getElementById('corpoFila');
         if (!countEl || !corpo) return;
 
-        const posicoesAntes = capturarPosicoesFila(corpo);
+        const assinaturaAtualLayout = assinaturaFilaLayout();
+        const ordemFilaMudou = filaLayoutInicializado && assinaturaAtualLayout !== ultimaAssinaturaFilaLayout;
+        const posicoesAntes = ordemFilaMudou ? capturarPosicoesFila(corpo) : new Map();
         const idsAtuais = new Set((fila || []).map((j, idx) => idFilaRender(j, idx)));
-        prepararCloneDispatch(corpo, idsAtuais);
+        if (ordemFilaMudou) prepararCloneDispatch(corpo, idsAtuais);
 
         countEl.innerText = fila.length;
 
@@ -772,6 +792,9 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                     <div class="empty-queue-subtitle">A quadra está livre. Que tal ser o primeiro a entrar na fila hoje?</div>
                 </div>
             `;
+            ultimaAssinaturaFilaLayout = assinaturaAtualLayout;
+            ultimaPosicaoPorFilaId = new Map();
+            filaLayoutInicializado = true;
             atualizarScrollShadow();
             return;
         }
@@ -787,6 +810,8 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             const nomesHTML = formatarNomesFila(j.jogadores || [], j.nomes || '');
             const qlHTML = ehMinha ? formatarQLFila(j) : '';
             const filaId = idFilaRender(j, idx);
+            const posicaoAnterior = ultimaPosicaoPorFilaId.get(filaId);
+            const animarNumero = ordemFilaMudou && posicaoAnterior !== undefined && posicaoAnterior !== idx;
 
             ts.sort((a, b) => a.tempoSeg - b.tempoSeg);
             let qE = ts[0] || { id: '-', tempoSeg: 0 };
@@ -801,7 +826,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
             return `<div class="fila-item ${topClass} ${tipoLinhaClass} ${ehMinha ? 'minha-inscricao' : ''}" data-fila-id="${filaId}">
                         <div class="fila-topo-card">
-                            <span class="fila-posicao"><span class="posicao-numero">#${idx+1}</span></span>
+                            <span class="fila-posicao"><span class="posicao-numero ${animarNumero ? 'animar-posicao' : ''}">#${idx+1}</span></span>
                             <span class="fila-badges">
                                 ${idx === 0 ? '<span class="proximo-badge">Próximo</span>' : ''}
                                 ${ehMinha ? '<span class="proximo-badge">Você</span>' : ''}
@@ -831,8 +856,12 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
 
         corpo.innerHTML = htmlFila;
 
+        ultimaPosicaoPorFilaId = new Map((fila || []).map((j, idx) => [idFilaRender(j, idx), idx]));
+        ultimaAssinaturaFilaLayout = assinaturaAtualLayout;
+        filaLayoutInicializado = true;
+
         requestAnimationFrame(() => {
-            animarReordenacaoFila(corpo, posicoesAntes);
+            if (ordemFilaMudou) animarReordenacaoFila(corpo, posicoesAntes);
             atualizarScrollShadow();
         });
     }
@@ -1157,7 +1186,11 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
             quadras = normalizarQuadras(d);
         }
         renderQuadras();
-        renderFila();
+        const assinaturaQuadras = assinaturaQuadrasParaFila();
+        if (!ultimaAssinaturaQuadrasParaFila || assinaturaQuadras !== ultimaAssinaturaQuadrasParaFila) {
+            ultimaAssinaturaQuadrasParaFila = assinaturaQuadras;
+            renderFila();
+        }
     });
     
     setInterval(() => {
@@ -1169,7 +1202,7 @@ if (localStorage.getItem('regulamentoVersao') !== VERSAO_REGULAMENTO) {
                 if (q.tempoRestante !== r) { q.tempoRestante = r; m = true; }
             }
         });
-        if (m) { renderQuadras(); renderFila(); }
+        if (m) { renderQuadras(); }
     }, 1000);
 </script>
 
