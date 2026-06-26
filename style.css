@@ -56,9 +56,9 @@
   --shadow-overlay: 0 16px 48px rgba(15, 23, 42, 0.18);
 
   /* Geometry */
-  --radius: 8px;
-  --radius-sm: 6px;
-  --radius-lg: 12px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 20px;
   --radius-pill: 999px;
 
   /* Fonts */
@@ -142,11 +142,10 @@ body {
 
 .app-header {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 4px 24px;
+  text-align: center;
+  padding: 12px 0 24px;
   width: 100%;
+  min-height: 56px;
 }
 
 .app-logo {
@@ -158,8 +157,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: static;
-  transform: none;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .app-logo .material-icons-outlined {
@@ -168,31 +169,35 @@ body {
 }
 
 .app-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text-1);
-  letter-spacing: -0.2px;
-  text-align: left;
-  flex: 1;
-  margin-left: 10px;
+  letter-spacing: -0.3px;
+  text-align: center;
   background: none;
   -webkit-text-fill-color: var(--text-1);
 }
 
 .app-subtitle {
-  display: none;
+  display: block;
+  font-size: 11px;
+  color: var(--text-2);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 3px;
+  text-align: center;
 }
 
 .app-header::after {
   content: 'ao vivo';
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 11px;
   color: var(--text-2);
   font-weight: 500;
-  padding-left: 14px;
-  position: relative;
 }
 
 .app-header::before {
@@ -202,8 +207,9 @@ body {
   border-radius: 50%;
   background: var(--success);
   position: absolute;
-  right: 26px;
-  top: 16px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   box-shadow: 0 0 0 0 var(--success);
   animation: livePulse 1.8s infinite;
 }
