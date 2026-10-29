@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RealPing</string>
+    <string name="widget_description">Ping contínuo na tela inicial</string>
+</resources>
