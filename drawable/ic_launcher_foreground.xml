@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A linha do gráfico de latência com a "cabeça" acesa, como no app. Zona segura: 21..87. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M30,74 L80,74"
+        android:strokeWidth="2.5"
+        android:strokeColor="#33FFC93C"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M30,64 C37,64 39,52 46,52 C53,52 54,62 60,60 C66,58 67,44 76,42"
+        android:strokeWidth="6"
+        android:strokeColor="#FFC93C"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M76,33 a9,9 0 1,0 0.01,0 z"
+        android:fillColor="#40FFC93C" />
+    <path
+        android:pathData="M76,36.5 a5.5,5.5 0 1,0 0.01,0 z"
+        android:fillColor="#FFC93C" />
+</vector>

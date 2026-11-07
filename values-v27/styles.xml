@@ -1,0 +1,15 @@
+<resources>
+    <!-- Igual ao AppTheme.Light de values/styles.xml, mais a barra de navegação clara (API 27+). -->
+    <style name="AppTheme.Light" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">@font/barlow_regular</item>
+        <item name="android:colorAccent">#8F6400</item>
+        <item name="android:windowBackground">#EEF1F5</item>
+        <item name="android:colorBackground">#EEF1F5</item>
+        <item name="android:statusBarColor">#EEF1F5</item>
+        <item name="android:navigationBarColor">#EEF1F5</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:alertDialogTheme">@style/AppDialog.Light</item>
+    </style>
+</resources>
